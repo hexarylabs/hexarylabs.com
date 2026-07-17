@@ -61,21 +61,6 @@ export function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-6 py-10">
           <Logo className="text-white" />
 
-          <ul className="flex items-center gap-6">
-            {site.socials.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-body text-grey-300 transition-colors duration-300 hover:text-accent-hi"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-body text-grey-300">
             <a
               href={`mailto:${site.email}`}
