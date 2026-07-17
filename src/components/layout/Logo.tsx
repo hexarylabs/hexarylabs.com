@@ -29,7 +29,7 @@ export function Logo({ className }: { className?: string }) {
           strokeWidth="2"
         />
         <polygon
-          points="13,7.5 17.76,10.25 17.76,15.75 13,18.5 8.24,15.75 8.24,10.25"
+          points="16,10.5 20.76,13.25 20.76,18.75 16,21.5 11.24,18.75 11.24,13.25"
           className="fill-[#5B5BF0] transition-colors duration-300 ease-in-out group-hover:fill-accent-hi"
         />
       </svg>

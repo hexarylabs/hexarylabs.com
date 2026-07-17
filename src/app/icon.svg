@@ -3,8 +3,8 @@
     Hexary mark. Geometry is mirrored in src/components/layout/Logo.tsx —
     keep the two polygons in sync.
 
-    Pointy-top hexes, matching the lattice visuals. Outer R=13 centred (16,16);
-    inner R=5.5 offset (-3,-3) so it sits up-left of centre, not concentric.
+    Pointy-top hexes, matching the lattice visuals. Concentric on (16,16):
+    outer R=13, inner R=5.5.
 
     The ring flips light in dark browser UI — a #1F2937 outline is invisible
     against a dark tab strip. Rasterised icons take the light-mode default.
@@ -19,5 +19,5 @@
     fill="none"
     stroke-width="2"
   />
-  <polygon points="13,7.5 17.76,10.25 17.76,15.75 13,18.5 8.24,15.75 8.24,10.25" fill="#5B5BF0" />
+  <polygon points="16,10.5 20.76,13.25 20.76,18.75 16,21.5 11.24,18.75 11.24,13.25" fill="#5B5BF0" />
 </svg>
