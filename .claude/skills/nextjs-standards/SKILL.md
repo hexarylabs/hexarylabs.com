@@ -80,6 +80,7 @@ src/
 
 - Don't add a package for something a few lines of code, a native browser/CSS feature, or an already-installed dependency already solves.
 - Before adding any dependency, check `package.json` for something already installed that covers the need.
+- When a real need comes up, install the standard, well-maintained package for it rather than hand-rolling — call out the exact package and `npm install` command in your response so the user sees what's being added and why. Examples for this stack: `clsx` + `tailwind-merge` for conditional/merged className logic (once a component has more than one conditional class), `zod` for schema validation at Server Action/Route Handler boundaries (see `nextjs-security`).
 
 ## 10. Definition of done (run before calling anything complete)
 
