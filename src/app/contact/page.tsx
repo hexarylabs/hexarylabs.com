@@ -1,65 +1,50 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
-import { ContactForm } from "@/components/sections/ContactForm";
+import { Reveal } from "@/components/ui/Reveal";
+import { CalendlyEmbed } from "@/components/sections/CalendlyEmbed";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Tell us what you're building.",
+  description:
+    "Book a 30-minute product discovery call with Hexary Labs. Tell us what you're building and we'll map out how to get there.",
 };
+
+const CALENDLY_URL =
+  process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/hexary-labs/30min";
 
 export default function ContactPage() {
   return (
-    <>
-      <PageHero
-        eyebrow="Contact"
-        title={
-          <>
-            Tell us what you&rsquo;re
-            <span className="text-accent"> building</span>
-          </>
-        }
-        intro="A short note is enough to start. We'll reply with either a useful question or a time to talk."
-      />
+    <Section tone="light">
+      <Container>
+        <Reveal className="mx-auto max-w-[46rem] text-center">
+          <h1 className="text-[2.125rem] leading-[1.2] tracking-[0.02em] md:text-[3rem] lg:text-h1">
+            Let&rsquo;s Get Started.
+          </h1>
+          <p className="mx-auto mt-8 max-w-[52ch] text-body-lg text-grey-600">
+            Book a 30-minute product discovery call. Tell us what you&rsquo;re
+            building and we&rsquo;ll map out how to get there.
+          </p>
+        </Reveal>
 
-      <Section tone="light">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.25fr]">
-            <div className="flex flex-col gap-8">
-              <div>
-                <h2 className="font-display text-body-lg font-medium">Email</h2>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="mt-2 inline-block text-body-lg text-grey-600 underline-offset-4 transition-colors duration-300 hover:text-accent hover:underline"
-                >
-                  {site.email}
-                </a>
-              </div>
-              <div>
-                <h2 className="font-display text-body-lg font-medium">Elsewhere</h2>
-                <ul className="mt-2 flex flex-col gap-2">
-                  {site.socials.map((s) => (
-                    <li key={s.label}>
-                      <a
-                        href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-body-lg text-grey-600 transition-colors duration-300 hover:text-accent"
-                      >
-                        {s.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <ContactForm />
+        <Reveal delay={120} className="mx-auto mt-12 max-w-[56rem] lg:mt-16">
+          {/* TODO: replace with real Calendly link */}
+          <div className="overflow-hidden border-[0.8px] border-grey-200 bg-base p-2 sm:p-4">
+            <CalendlyEmbed url={CALENDLY_URL} />
           </div>
-        </Container>
-      </Section>
-    </>
+
+          <p className="mt-8 text-center text-body text-grey-600">
+            Prefer email? Reach us at{" "}
+            <a
+              href={`mailto:${site.email}`}
+              className="text-contrast-2 underline underline-offset-4 transition-colors duration-300 hover:text-accent"
+            >
+              {site.email}
+            </a>
+          </p>
+        </Reveal>
+      </Container>
+    </Section>
   );
 }
