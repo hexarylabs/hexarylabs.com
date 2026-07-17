@@ -1,26 +1,218 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Hexary Labs — design tokens
+   Structure measured from gojilabs.com; identity (accent, fonts) is Hexary's.
+   See docs/design-spec.md §5.
+   ========================================================================== */
+
+@theme {
+  /* --- Colour ------------------------------------------------------------ */
+  --color-base: #ffffff;
+  --color-base-2: #f7f7f7; /* alt section surface */
+  --color-contrast: #111111; /* body text */
+  --color-contrast-2: #000000; /* dark sections */
+  --color-surface-dark: #141414; /* cards on black */
+
+  --color-accent: #5b45f5;
+  --color-accent-hi: #8b7bff; /* accent on dark: 6.8:1 */
+
+  /* Grey ramp. Contrast rules — do not mix these up:
+     · grey-600 = body text on LIGHT   (5.6:1 on white, 5.3:1 on base-2) ✓
+     · grey-500 = muted text on DARK   (5.3:1 on black) ✓
+                  ✗ NEVER on light: only 3.7:1 on base-2, fails AA.
+     · grey-300 = body text on DARK    (12:1 on black) ✓
+     · grey-100/200 = hairline borders on light; grey-700 on dark. */
+  --color-grey-100: #edecec;
+  --color-grey-200: #e3e1e1;
+  --color-grey-300: #c7c4c4;
+  --color-grey-500: #827f7f;
+  --color-grey-600: #696767;
+  --color-grey-700: #514f4f;
+
+  --color-success: #4ba661;
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Display: line-height 1.2 throughout (measured from reference) */
+  --text-h1: 4rem; /* 64px */
+  --text-h1--line-height: 1.2;
+  --text-h1--letter-spacing: 0.02em;
+  --text-h2: 3rem; /* 48px */
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: 0.02em;
+  --text-h3: 2rem; /* 32px */
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: 0.01em;
+  --text-h4: 1.5rem; /* 24px */
+  --text-h4--line-height: 1.25;
+
+  /* Body: line-height 1.4 (measured) */
+  --text-body-lg: 1.125rem; /* 18px */
+  --text-body-lg--line-height: 1.4;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --text-small: 0.75rem; /* 12px */
+  --text-small--line-height: 1.5;
+
+  /* Fluid moments */
+  --text-stat: clamp(2.75rem, 1.6rem + 3.4vw, 5rem); /* 44 → 80 */
+  --text-stat--line-height: 1.2;
+  --text-stat--letter-spacing: -0.01em;
+  --text-mega: clamp(3.5rem, -0.9rem + 13.8vw, 15rem); /* 56 → 240 */
+  --text-mega--line-height: 0.95;
+  --text-mega--letter-spacing: -0.02em;
+
+  /* --- Spacing (reference scale, verbatim) ------------------------------- */
+  --spacing-hairline: 0.05rem; /* 0.8px */
+
+  /* --- Layout ------------------------------------------------------------ */
+  --container-content: 1200px;
+  --container-wide: 1400px;
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gradients + structural values that aren't Tailwind scales */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gradient-metal: linear-gradient(76deg, #8b8b89 0%, #dbdbd9 100%);
+  --gradient-rule-v: linear-gradient(
+    180deg,
+    rgba(75, 75, 75, 0) 0%,
+    #4b4b4b 49%,
+    rgba(75, 75, 75, 0) 100%
+  );
+  --gradient-rule-h: linear-gradient(
+    270deg,
+    rgba(75, 75, 75, 0) 0%,
+    #4b4b4b 49%,
+    rgba(75, 75, 75, 0) 100%
+  );
+  --header-h: 87px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-base);
+    color: var(--color-contrast);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  /* Visible focus everywhere. The reference ships `outline:none` in 3 places —
+     we don't. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  [data-tone="dark"] :focus-visible {
+    outline-color: var(--color-accent-hi);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Declared with `@utility` (not `@layer utilities`) so variants compose —
+   e.g. `lg:group-hover:text-metal` on the service rows. */
+
+/* Gradient-clipped text — stat numerals and the mega wordmark */
+@utility text-metal {
+  background-image: var(--gradient-metal);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Hairline rules that fade out at both ends (reference's divider style) */
+@utility rule-fade-v {
+  background-image: var(--gradient-rule-v);
+}
+@utility rule-fade-h {
+  background-image: var(--gradient-rule-h);
+}
+
+/* ==========================================================================
+   Motion — scroll reveal + marquee.
+   Everything collapses under prefers-reduced-motion.
+   ========================================================================== */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-root:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Reveal: starts hidden, .is-visible set by IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
