@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    Hexary mark. Geometry is mirrored in src/components/layout/Logo.tsx —
+    keep the two polygons in sync.
+
+    Pointy-top hexes, matching the lattice visuals. Outer R=13 centred (16,16);
+    inner R=5.5 offset (-3,-3) so it sits up-left of centre, not concentric.
+
+    The ring flips light in dark browser UI — a #1F2937 outline is invisible
+    against a dark tab strip. Rasterised icons take the light-mode default.
+  -->
+  <style>
+    .ring { stroke: #1F2937 }
+    @media (prefers-color-scheme: dark) { .ring { stroke: #E3E1E1 } }
+  </style>
+  <polygon
+    class="ring"
+    points="16,3 27.26,9.5 27.26,22.5 16,29 4.74,22.5 4.74,9.5"
+    fill="none"
+    stroke-width="2"
+  />
+  <polygon points="13,7.5 17.76,10.25 17.76,15.75 13,18.5 8.24,15.75 8.24,10.25" fill="#5B5BF0" />
+</svg>
