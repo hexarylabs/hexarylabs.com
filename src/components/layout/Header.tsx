@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
@@ -22,10 +22,21 @@ export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const closeTimer = useRef<number | null>(null);
 
-  // Navigating closes both menus. Adjusted during render rather than in an
-  // effect — React's documented pattern for resetting state on a prop change,
-  // and it avoids a cascading second render.
+  const openNow = (label: string | null) => {
+    if (closeTimer.current !== null) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+    setOpenMenu(label);
+  };
+
+  const closeSoon = () => {
+    if (closeTimer.current !== null) clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpenMenu(null), 150);
+  };
+
   const [prevPath, setPrevPath] = useState(pathname);
   if (prevPath !== pathname) {
     setPrevPath(pathname);
@@ -36,7 +47,10 @@ export function Header() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenMenu(null);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      if (closeTimer.current !== null) clearTimeout(closeTimer.current);
+    };
   }, []);
 
   const isActive = (href: string) =>
@@ -49,17 +63,18 @@ export function Header() {
           <Logo />
 
           {/* Desktop nav */}
-          <nav aria-label="Main" className="max-lg:hidden">
-            <ul className="flex items-center gap-8">
+          <nav aria-label="Main" className="h-full max-lg:hidden">
+            <ul className="flex h-full items-center gap-8">
               {nav.map((item) => (
                 <li
                   key={item.href}
-                  onMouseEnter={() => setOpenMenu(item.children ? item.label : null)}
-                  onMouseLeave={() => setOpenMenu(null)}
-                  onFocus={() => setOpenMenu(item.children ? item.label : null)}
+                  className="flex h-full items-center"
+                  onMouseEnter={() => openNow(item.children ? item.label : null)}
+                  onMouseLeave={closeSoon}
+                  onFocus={() => openNow(item.children ? item.label : null)}
                   onBlur={(e) => {
                     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-                      setOpenMenu(null);
+                      closeSoon();
                     }
                   }}
                 >

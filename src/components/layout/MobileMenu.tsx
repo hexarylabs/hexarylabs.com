@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { nav, headerCta } from "@/content/nav";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import { cn } from "@/lib/cn";
@@ -14,8 +15,15 @@ import { cn } from "@/lib/cn";
  * Adds what the reference lacks: focus trap, Esc to close, scroll lock.
  */
 export function MobileMenu({ onClose }: { onClose: () => void }) {
-  const [expanded, setExpanded] = useState<string | null>(null);
+  const pathname = usePathname();
   const panelRef = useRef<HTMLDivElement>(null);
+
+  const inSection = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
+
+  const [expanded, setExpanded] = useState<string | null>(
+    () => nav.find((i) => i.children && inSection(i.href))?.label ?? null,
+  );
 
   // Lock body scroll while open
   useEffect(() => {
@@ -62,15 +70,20 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
         <ul className="flex flex-col px-4">
           {nav.map((item) => {
             const open = expanded === item.label;
+            const active = item.children
+              ? inSection(item.href)
+              : pathname === item.href;
 
             return (
               <li key={item.href} className="border-b-[0.8px] border-grey-100">
                 <div className="flex items-center justify-between">
                   <Link
                     href={item.href}
+                    aria-current={pathname === item.href ? "page" : undefined}
                     className={cn(
-                      "flex-1 py-5 font-display text-body-lg font-medium transition-colors duration-300",
-                      open ? "text-accent" : "text-contrast-2",
+                      "flex-1 py-5 font-display text-body-lg transition-colors duration-300",
+                      active || open ? "text-accent" : "text-contrast-2",
+                      active ? "font-semibold" : "font-medium",
                     )}
                   >
                     {item.label}
@@ -102,7 +115,15 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className="block py-3 text-body-lg text-grey-600 transition-colors duration-300 hover:text-accent"
+                          aria-current={
+                            pathname === child.href ? "page" : undefined
+                          }
+                          className={cn(
+                            "block py-3 text-body-lg transition-colors duration-300 hover:text-accent",
+                            pathname === child.href
+                              ? "font-medium text-accent"
+                              : "text-grey-600",
+                          )}
                         >
                           {child.label}
                         </Link>
