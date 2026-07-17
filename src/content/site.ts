@@ -10,8 +10,9 @@ export const site = {
   description:
     "Hexary Labs designs and builds software products — from strategy and UX to shipped, scalable engineering.",
 
-  /* PLACEHOLDER — real domain required for metadata/OG/sitemap to resolve */
-  url: "https://hexarylabs.com",
+  /* PLACEHOLDER — real domain required for metadata/OG/sitemap to resolve.
+     Set NEXT_PUBLIC_SITE_URL in production; falls back to this for local dev. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://hexarylabs.com",
 
   /* PLACEHOLDER — real contact details required */
   email: "hello@hexarylabs.com",

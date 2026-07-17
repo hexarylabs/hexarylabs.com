@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hexary Labs
 
-## Getting Started
+Marketing site built with Next.js (App Router), TypeScript, and Tailwind CSS. See
+`docs/design-spec.md` for the design system and content decisions.
 
-First, run the development server:
+## Local setup
 
 ```bash
+npm install
+cp .env.example .env.local   # fill in real values, see below
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Node `>=20` is required (`.nvmrc` pins `22`, matching Vercel's default).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+See `.env.example` for the full list with descriptions. Summary:
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Required | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Before launch | Canonical origin for metadata, sitemap, and robots.txt |
+| `NEXT_PUBLIC_CALENDLY_URL` | Before launch | Scheduling link embedded on `/contact` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Both have working placeholder fallbacks in code, so the app runs without a `.env.local` in
+development.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploying to Vercel
 
-## Deploy on Vercel
+1. Import the repository into Vercel (framework preset: Next.js, no build config needed).
+2. Set `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_CALENDLY_URL` as Environment Variables in the
+   Vercel project settings, scoped to Production (and Preview if you want previews to use real
+   values).
+3. Deploy. `npm run build` / `next start` are wired as the standard scripts.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` — local dev server
+- `npm run build` — production build
+- `npm run start` — run the production build locally
+- `npm run lint` — ESLint
