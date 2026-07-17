@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
-import { CaseVisual } from "@/components/visuals/CaseVisual";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { work } from "@/content/work";
 
@@ -44,7 +44,14 @@ export default async function CaseStudyPage({
 
       <Section tone="light">
         <Container>
-          <CaseVisual seed={study.visualSeed} />
+          <Image
+            src={study.image}
+            alt={study.imageAlt}
+            width={1280}
+            height={1000}
+            sizes="(min-width: 1200px) 1200px, 100vw"
+            className="aspect-[1.28] w-full object-cover object-top"
+          />
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_1.25fr]">
             <h2 className="text-[1.3125rem] leading-[1.2] md:text-[1.625rem] lg:text-h3">
@@ -62,7 +69,6 @@ export default async function CaseStudyPage({
             </ul>
           </div>
 
-          {/* ⚠️ PLACEHOLDER: full narrative, imagery and verified results to come. */}
           <p className="mt-12 max-w-[60ch] text-body-lg text-grey-600">
             A full write-up of this engagement is in progress.
           </p>

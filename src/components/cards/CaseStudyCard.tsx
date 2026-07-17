@@ -1,30 +1,24 @@
 import Link from "next/link";
-import { CaseVisual } from "@/components/visuals/CaseVisual";
+import Image from "next/image";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import type { CaseStudy } from "@/content/work";
 
-/**
- * The reference's "premium" portfolio card, rebuilt:
- * split visual (1.28:1) + dark info panel, with a divided strip beneath.
- *
- * The whole card is the hover target and the inner CTA flips to accent —
- * exactly the reference's `.portfolio-card--premium:hover` behaviour (it has no
- * image zoom; neither do we).
- *
- * The strip renders verified `results` when present, otherwise descriptive
- * `scope`. We ship `scope` because inventing outcome metrics is not on.
- */
 export function CaseStudyCard({ study }: { study: CaseStudy }) {
   const strip =
     study.results?.map((r) => ({ lead: r.value, label: r.label })) ??
     study.scope.map((s) => ({ lead: null, label: s }));
 
   return (
-    // `relative` anchors the h3 link's ::before, making the whole card one
-    // click target while keeping exactly one link in the a11y tree.
     <article data-tone="dark" className="group relative bg-contrast-2 text-white">
       <div className="grid lg:grid-cols-[640fr_560fr]">
-        <CaseVisual seed={study.visualSeed} />
+        <Image
+          src={study.image}
+          alt={study.imageAlt}
+          width={1280}
+          height={1000}
+          sizes="(min-width: 1024px) 640px, 100vw"
+          className="aspect-[1.28] w-full border-[0.8px] border-grey-700 object-cover object-top"
+        />
 
         <div className="flex flex-col justify-center gap-6 p-8 lg:p-12">
           {study.client && (
@@ -48,7 +42,6 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
         </div>
       </div>
 
-      {/* Divided strip: results if verified, otherwise scope */}
       <ul className="grid border-t-[0.8px] border-grey-700 sm:grid-cols-3">
         {strip.slice(0, 3).map((item, i) => (
           <li
