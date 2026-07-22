@@ -2,17 +2,14 @@ import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { CalendlyEmbed } from "@/components/sections/CalendlyEmbed";
+import { ContactForm } from "@/components/sections/ContactForm";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a 30-minute product discovery call with Hexary Labs. Tell us what you're building and we'll map out how to get there.",
+    "Tell Hexary Labs what you're building. We'll get back to you within a business day.",
 };
-
-const CALENDLY_URL =
-  process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/hexary-labs/30min";
 
 export default function ContactPage() {
   return (
@@ -23,16 +20,13 @@ export default function ContactPage() {
             Let&rsquo;s Get Started.
           </h1>
           <p className="mx-auto mt-8 max-w-[52ch] text-body-lg text-grey-600">
-            Book a 30-minute product discovery call. Tell us what you&rsquo;re
-            building and we&rsquo;ll map out how to get there.
+            Tell us what you&rsquo;re building. We&rsquo;ll get back to you
+            within a business day.
           </p>
         </Reveal>
 
-        <Reveal delay={120} className="mx-auto mt-12 max-w-[56rem] lg:mt-16">
-          {/* TODO: replace with real Calendly link */}
-          <div className="overflow-hidden border-[0.8px] border-grey-200 bg-base p-2 sm:p-4">
-            <CalendlyEmbed url={CALENDLY_URL} />
-          </div>
+        <Reveal delay={120} className="mx-auto mt-12 max-w-[42rem] lg:mt-16">
+          <ContactForm />
 
           <p className="mt-8 text-center text-body text-grey-600">
             Prefer email? Reach us at{" "}
