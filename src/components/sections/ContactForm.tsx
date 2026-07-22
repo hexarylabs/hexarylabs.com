@@ -11,6 +11,15 @@ const fieldClass = cn(
   "focus:border-accent focus:outline-none",
 );
 
+function FieldError({ id, message }: { id: string; message?: string }) {
+  if (!message) return null;
+  return (
+    <p id={id} className="mt-2 text-small text-accent">
+      {message}
+    </p>
+  );
+}
+
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
@@ -32,6 +41,7 @@ const initialState: ContactFormState = { success: false };
 
 export function ContactForm() {
   const [state, formAction] = useActionState(submitContactForm, initialState);
+  const fieldErrors = state.fieldErrors ?? {};
 
   if (state.success) {
     return (
@@ -51,13 +61,31 @@ export function ContactForm() {
           <label htmlFor="name" className="mb-2 block text-small text-grey-600">
             Name
           </label>
-          <input id="name" name="name" type="text" required className={fieldClass} />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            aria-invalid={!!fieldErrors.name}
+            aria-describedby={fieldErrors.name ? "name-error" : undefined}
+            className={cn(fieldClass, fieldErrors.name && "border-accent")}
+          />
+          <FieldError id="name-error" message={fieldErrors.name} />
         </div>
         <div>
           <label htmlFor="email" className="mb-2 block text-small text-grey-600">
             Email
           </label>
-          <input id="email" name="email" type="email" required className={fieldClass} />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            aria-invalid={!!fieldErrors.email}
+            aria-describedby={fieldErrors.email ? "email-error" : undefined}
+            className={cn(fieldClass, fieldErrors.email && "border-accent")}
+          />
+          <FieldError id="email-error" message={fieldErrors.email} />
         </div>
       </div>
 
@@ -77,8 +105,11 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
-          className={cn(fieldClass, "resize-y")}
+          aria-invalid={!!fieldErrors.message}
+          aria-describedby={fieldErrors.message ? "message-error" : undefined}
+          className={cn(fieldClass, "resize-y", fieldErrors.message && "border-accent")}
         />
+        <FieldError id="message-error" message={fieldErrors.message} />
       </div>
 
       {state.error && (

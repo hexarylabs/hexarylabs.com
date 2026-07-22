@@ -1,30 +1,50 @@
 "use server";
 
+import { z } from "zod";
 import { Resend } from "resend";
 import { site } from "@/content/site";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required."),
+  email: z.string().trim().min(1, "Email is required.").email("Enter a valid email address."),
+  company: z.string().trim(),
+  message: z.string().trim().min(1, "Message is required."),
+});
 
 export type ContactFormState = {
   success: boolean;
   error?: string;
+  fieldErrors?: Partial<Record<"name" | "email" | "message", string>>;
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function fromFormData(formData: FormData) {
+  return {
+    name: String(formData.get("name") ?? ""),
+    email: String(formData.get("email") ?? ""),
+    company: String(formData.get("company") ?? ""),
+    message: String(formData.get("message") ?? ""),
+  };
+}
 
 export async function submitContactForm(
   _prevState: ContactFormState,
   formData: FormData,
 ): Promise<ContactFormState> {
-  const name = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim();
-  const company = String(formData.get("company") ?? "").trim();
-  const message = String(formData.get("message") ?? "").trim();
+  const parsed = contactSchema.safeParse(fromFormData(formData));
 
-  if (!name || !email || !message) {
-    return { success: false, error: "Name, email and message are required." };
+  if (!parsed.success) {
+    const fieldErrors = parsed.error.flatten().fieldErrors;
+    return {
+      success: false,
+      fieldErrors: {
+        name: fieldErrors.name?.[0],
+        email: fieldErrors.email?.[0],
+        message: fieldErrors.message?.[0],
+      },
+    };
   }
-  if (!EMAIL_RE.test(email)) {
-    return { success: false, error: "Enter a valid email address." };
-  }
+
+  const { name, email, company, message } = parsed.data;
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
