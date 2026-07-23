@@ -25,16 +25,3 @@ export const site = {
     { label: "X", href: "https://x.com" },
   ],
 } as const;
-
-/**
- * What Hexary does — supplied copy. NOT placeholder, and not ours to reword:
- * use verbatim, don't embellish. Split into paragraphs for layout only; the
- * sentences are untouched.
- */
-export const whatWeDo = {
-  lede: "Hexary Labs is a software engineering studio. We work as an embedded partner for companies that need custom platforms, system integrations, and AI features built to a high standard.",
-  body: [
-    "Our focus is backend-heavy work: connecting business systems, building reliable data pipelines, and shipping AI features into real products.",
-    "We are a small, senior team, so clients work directly with the people building their software.",
-  ],
-} as const;
