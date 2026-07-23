@@ -28,33 +28,37 @@ export default function PrivacyPage() {
             <section className="flex flex-col gap-3">
               <h2 className={heading}>Information We Collect</h2>
               <p className="text-body-lg text-grey-600">
-                <strong className="text-contrast">Information you provide directly.</strong>{" "}
-                When you reach out through our contact form, book a call, or email us, we
-                collect what you submit: your name, email address, company name, phone number
-                if provided, and the contents of your message.
+                Hexary Labs collects very little personal information through this Site. We do
+                not use analytics, tracking cookies, or advertising technologies. What we
+                collect is limited to what you choose to send us.
               </p>
               <p className="text-body-lg text-grey-600">
-                <strong className="text-contrast">Information collected automatically.</strong>{" "}
-                When you visit the Site, we automatically collect technical information such
-                as your IP address, browser and device type, pages viewed, time spent on the
-                Site, and the site that referred you here. We collect this through standard
-                analytics tools and cookies.
+                <strong className="text-contrast">Information you submit directly.</strong>{" "}
+                When you use the contact form on this Site, or email us directly, we collect
+                your name, email address, the contents of your message, and your company name
+                if you provide it through the form.
               </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h2 className={heading}>Server and Hosting Logs</h2>
               <p className="text-body-lg text-grey-600">
-                <strong className="text-contrast">Information from third parties.</strong> If
-                you reach us through a scheduling tool, a partner referral, or a professional
-                network like LinkedIn, we may receive limited information from that platform,
-                governed by that platform&rsquo;s own privacy practices.
+                Our hosting provider, Vercel, automatically logs technical information such as
+                visitor IP addresses at the infrastructure level, as is standard for web
+                hosting services, for purposes like security, rate-limiting, and abuse
+                prevention. This happens automatically as part of serving the Site; we do not
+                access these logs for tracking or analytics, and we do not combine them with
+                the information you submit to us.
               </p>
             </section>
 
             <section className="flex flex-col gap-3">
               <h2 className={heading}>How We Use Your Information</h2>
               <p className="text-body-lg text-grey-600">
-                We use the information we collect to respond to your inquiries and proposals,
-                schedule and prepare for calls, understand how visitors use the Site so we can
-                improve it, send occasional updates to people who&rsquo;ve asked to receive
-                them, and meet our legal and accounting obligations.
+                We use the information you submit to respond to your inquiry, including
+                arranging a follow-up call or email if appropriate, and to keep ordinary
+                records of business correspondence. We do not use it for advertising,
+                profiling, or any other purpose.
               </p>
               <p className="text-body-lg text-grey-600">
                 We do not sell your personal information, and we do not share it with third
@@ -65,33 +69,28 @@ export default function PrivacyPage() {
             <section className="flex flex-col gap-3">
               <h2 className={heading}>Cookies</h2>
               <p className="text-body-lg text-grey-600">
-                The Site uses cookies and similar technologies to support core functionality
-                and to understand how visitors use the Site, through standard web analytics.
-                You can disable cookies in your browser settings at any time; doing so may
-                affect how some parts of the Site display or function.
+                This Site does not set cookies, and it does not use analytics, advertising, or
+                other tracking technologies.
               </p>
             </section>
 
             <section className="flex flex-col gap-3">
               <h2 className={heading}>Third-Party Service Providers</h2>
               <p className="text-body-lg text-grey-600">
-                We rely on a small set of third-party providers to run the Site and our
-                business, including cloud hosting and infrastructure providers such as Vercel
-                and AWS, web analytics tools such as Google Analytics, and scheduling software
-                such as Calendly. Each of these providers processes data on our behalf under
-                its own security and privacy commitments, and only to the extent needed to
-                provide their service to us.
+                We use two third-party services to run this Site and respond to inquiries:
+                Vercel, which hosts the Site, and Resend, which delivers contact-form emails to
+                us. Both are based in the United States, so information you submit may be
+                processed there regardless of where you&rsquo;re located. Neither is used for
+                analytics, advertising, or tracking.
               </p>
             </section>
 
             <section className="flex flex-col gap-3">
               <h2 className={heading}>Data Retention</h2>
               <p className="text-body-lg text-grey-600">
-                We retain contact form submissions and inquiry records for up to 24 months
-                from your last contact with us, unless you ask us to delete them sooner or
-                we&rsquo;re required to keep them longer for legal or accounting reasons.
-                Technical analytics data is retained according to our analytics provider&rsquo;s
-                standard retention periods, typically 14 to 26 months.
+                We keep contact-form submissions and related correspondence for as long as
+                reasonably necessary to respond to your inquiry and to keep ordinary business
+                records, and we&rsquo;ll delete them sooner if you ask us to.
               </p>
             </section>
 
@@ -103,16 +102,6 @@ export default function PrivacyPage() {
                 or delete it, object to or restrict certain uses of it, or request a portable
                 copy of it. To exercise any of these rights, email us at hello@hexarylabs.com
                 and we&rsquo;ll respond within 30 days.
-              </p>
-            </section>
-
-            <section className="flex flex-col gap-3">
-              <h2 className={heading}>International Data Transfers</h2>
-              <p className="text-body-lg text-grey-600">
-                Because we work with clients and hosting providers across regions, your
-                information may be processed in countries other than your own. Where required,
-                we rely on our providers&rsquo; standard contractual protections to safeguard
-                information transferred internationally.
               </p>
             </section>
 
