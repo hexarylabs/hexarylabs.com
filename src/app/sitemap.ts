@@ -4,7 +4,15 @@ import { services } from "@/content/services";
 import { work } from "@/content/work";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/services", "/work", "/about", "/contact"];
+  const routes = [
+    "",
+    "/services",
+    "/integrations",
+    "/work",
+    "/how-we-work",
+    "/about",
+    "/contact",
+  ];
 
   return [
     ...routes.map((r) => ({

@@ -20,6 +20,7 @@ export function ProcessSection() {
               <span className="text-accent"> Work</span>
             </>
           }
+          action={{ label: "See the full process", href: "/how-we-work" }}
         />
 
         <ol className="grid gap-px border-[0.8px] border-grey-200 bg-grey-200 sm:grid-cols-2 lg:grid-cols-4">

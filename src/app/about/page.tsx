@@ -7,7 +7,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import {
   whyWeExist,
-  howWeWork,
   whosBehind,
   whereExpertiseRanges,
   whyChooseUs,
@@ -51,30 +50,8 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <Section tone="muted">
-        <Container>
-          <SectionHeader title={howWeWork.heading} intro={howWeWork.intro} />
-
-          <ol className="grid gap-px border-[0.8px] border-grey-200 bg-grey-200 sm:grid-cols-2">
-            {howWeWork.steps.map((step, i) => (
-              <li key={step.number} className="bg-base-2">
-                <Reveal delay={i * 60} className="h-full">
-                  <div className="flex h-full flex-col gap-4 p-8">
-                    <span className="font-display text-h4 font-medium text-accent">
-                      {step.number}
-                    </span>
-                    <h3 className="text-[1.3125rem] leading-[1.2]">{step.title}</h3>
-                    <p className="text-body text-grey-600">{step.body}</p>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </Section>
-
       {/* Who's behind the work */}
-      <Section tone="light">
+      <Section tone="muted">
         <Container>
           <SectionHeader title={whosBehind.heading} intro={whosBehind.intro} />
 
@@ -98,7 +75,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Where our expertise ranges */}
-      <Section tone="muted">
+      <Section tone="light">
         <Container>
           <SectionHeader
             title={whereExpertiseRanges.heading}

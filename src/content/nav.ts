@@ -34,6 +34,8 @@ export const footerNav = [
     heading: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "How We Work", href: "/how-we-work" },
+      { label: "Integrations", href: "/integrations" },
       { label: "Work", href: "/work" },
       { label: "Contact", href: "/contact" },
     ],

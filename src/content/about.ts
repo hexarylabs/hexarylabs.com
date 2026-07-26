@@ -9,35 +9,6 @@ export const whyWeExist = {
   ],
 };
 
-export type AboutProcessStep = { number: string; title: string; body: string };
-
-export const howWeWork = {
-  heading: "A process built to catch problems early, when they're still cheap",
-  intro: "Four steps, repeated on every engagement regardless of size.",
-  steps: [
-    {
-      number: "01",
-      title: "Frame the problem",
-      body: "Before anything gets designed or built, we agree in writing on what success looks like, what the real constraints are (budget, timeline, existing systems we have to work around), and just as importantly, what we're deliberately not building. Most scope creep starts here, in an assumption nobody wrote down.",
-    },
-    {
-      number: "02",
-      title: "Prove the risky part first",
-      body: "Every project has one thing most likely to sink it: an unproven integration, an assumption about user behavior, a performance question that only shows up at scale. We identify that piece and build it first, as a prototype or a spike, so the real risk gets resolved while it's still cheap to change course.",
-    },
-    {
-      number: "03",
-      title: "Build in the open",
-      body: "We work in short cycles and share working software every week, not a status update about working software. You see progress as it happens, which means feedback happens in days, not at the end of a six-week silence.",
-    },
-    {
-      number: "04",
-      title: "Hand over cleanly",
-      body: "Every engagement ends with tests, documentation, and a walkthrough with your team, not just a deploy and an invoice. Our goal is that you don't need us for the next six months unless you want to.",
-    },
-  ] as AboutProcessStep[],
-};
-
 export type TeamPrinciple = { title: string; body: string };
 
 export const whosBehind = {
