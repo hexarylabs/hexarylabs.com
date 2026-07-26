@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
+import { cn } from "@/lib/cn";
 import type { CaseStudy } from "@/content/work";
 
 export function CaseStudyCard({ study }: { study: CaseStudy }) {
@@ -17,7 +18,10 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
           width={1280}
           height={1000}
           sizes="(min-width: 1024px) 640px, 100vw"
-          className="aspect-[1.28] w-full border-[0.8px] border-grey-700 object-cover object-top"
+          className={cn(
+            "aspect-[1.28] w-full border-[0.8px] border-grey-700 object-cover",
+            study.imagePosition === "left" ? "object-left" : "object-top",
+          )}
         />
 
         <div className="flex flex-col justify-center gap-6 p-8 lg:p-12">

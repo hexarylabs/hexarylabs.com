@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { Schematic } from "./Schematic";
+import { EdenSchematic } from "./EdenSchematic";
 import type { DemoCase, GradientTone } from "@/content/demo/demo-cases";
 
 export const gradients: Record<GradientTone, string> = {
@@ -34,7 +35,12 @@ export function DemoCover({
         sizes={sizes}
         loading={eager ? "eager" : "lazy"}
         fetchPriority={eager ? "high" : undefined}
-        className={cn("w-full object-cover", aspect, className)}
+        className={cn(
+          "w-full object-cover",
+          cover.objectPosition === "left" ? "object-left" : "object-center",
+          aspect,
+          className,
+        )}
       />
     );
   }
@@ -48,7 +54,11 @@ export function DemoCover({
           className,
         )}
       >
-        <Schematic className="max-h-full" />
+        {cover.diagram === "eden" ? (
+          <EdenSchematic className="max-h-full" />
+        ) : (
+          <Schematic className="max-h-full" />
+        )}
       </div>
     );
   }

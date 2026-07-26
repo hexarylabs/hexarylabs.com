@@ -17,9 +17,9 @@ export type DensityVariant = "image-heavy" | "text-heavy" | "balanced";
 export type GradientTone = "violet" | "slate" | "sand";
 
 export type DemoCover =
-  | { kind: "photo"; src: string; alt: string }
+  | { kind: "photo"; src: string; alt: string; objectPosition?: "center" | "left" }
   | { kind: "gradient"; tone: GradientTone }
-  | { kind: "schematic" };
+  | { kind: "schematic"; diagram?: "halcyon" | "eden" };
 
 export type DemoMetric = { value: string; label: string };
 
@@ -50,6 +50,73 @@ export type DemoCase = {
 const UNSPLASH = "?auto=format&fit=crop&w=1600&q=80";
 
 export const demoCases: DemoCase[] = [
+  {
+    slug: "eden",
+    name: "Eden",
+    tagline:
+      "A studio for autonomous creative AI, where agents make art, video, and stories with people and with each other.",
+    variant: {
+      hero: "schematic",
+      body: "sidebar",
+      metrics: "inline",
+      density: "balanced",
+    },
+    variantLabel: "Schematic hero · Sidebar body · Inline metrics · Balanced",
+    cover: { kind: "schematic", diagram: "eden" },
+    metrics: [
+      {
+        value: "Live",
+        label: "Public product at app.eden.art — agents, custom model training, multi-modal generation",
+      },
+      {
+        value: "Open",
+        label: "Open-source foundation, a developer SDK, and a documented API at docs.eden.art",
+      },
+      { value: "Active", label: "Community across Discord, X, and Instagram" },
+    ],
+    challenge: {
+      heading: "Challenge",
+      body: [
+        "The generative AI space is dominated by single-shot prompt-and-response tools: type a prompt, get an image, close the tab. Eden set out to build something more ambitious: a platform where creators could build persistent, autonomous AI agents with their own personalities, their own custom-trained visual models, and the ability to collaborate with humans and with each other on multi-step creative work.",
+        "That meant solving problems the space doesn't have textbook answers for yet. Training custom visual models on user-provided samples at reasonable cost. Running a workflow ecosystem where community-contributed tools (ComfyUI pipelines) could be called autonomously by agents and earn their creators revenue when used. Giving agents context, tools, and identity that persist across sessions. And building all of it on an open-source foundation so the platform stays extensible.",
+      ],
+    },
+    approach: {
+      heading: "Approach",
+      body: [
+        "Eden is a research-shaped product: a lot of what we built wasn't yet standard practice in the industry when we built it. We approached it the way we approach any AI system that has to hold up in production: treat the model as software, not as magic. Build a testable, observable pipeline. Ship in small, working increments so the team can see what's working and what needs to be reshaped, not wait for a big-bang reveal at the end.",
+        "The model training pipeline was the highest-risk piece. We built it first, isolated on GCP, and proved it end-to-end (sample images in, custom model out, usable in the agent runtime) before wiring it into the platform proper.",
+      ],
+    },
+    solution: {
+      heading: "Solution",
+      body: [
+        "A creative studio in the browser. The core experience at app.eden.art is a Next.js application where creators build agents, train custom visual models, and generate multi-modal work (image, video, audio). We built the frontend and the Fastify (Node.js) backend that powers it.",
+        "An AI orchestration API. A FastAPI (Python) service handles the actual generation and agent execution: model calls, tool use, workflow orchestration. This is what turns \"run this agent\" into \"the agent uses these ComfyUI workflows in this order and returns this output.\"",
+        "A custom model training pipeline on GCP. Users can train their own visual models on their own sample images using our Flux LoRA training pipeline deployed on Google Cloud. This is what makes Eden feel personal: the agents are creating in a style trained on the creator's own work, not a generic model's default.",
+        "A workflow ecosystem for contributors. ComfyUI workflows contributed by the community become tools that any agent on the platform can use, and contributors earn revenue when their workflows get called. This is the piece that turns Eden from a product into a platform.",
+        "Autonomous agents. Named agents like Eve (Eden's flagship creative agent) can hold conversations, use the full workflow toolchain, and produce multi-step creative outputs, art, video, stories, without the user prompting at every step.",
+      ],
+    },
+    stack: [
+      "Next.js",
+      "Fastify (Node.js)",
+      "FastAPI (Python)",
+      "Google Cloud Platform",
+      "ComfyUI",
+      "Flux LoRA",
+      "Stable Diffusion pipelines",
+    ],
+    results: {
+      heading: "Results",
+      body: [
+        "Eden is live at app.eden.art with public agents, custom model training, and multi-modal generation available to creators today.",
+        "The platform runs on an open-source foundation, with an SDK developers can use to build on top of, and a documented API at docs.eden.art.",
+        "The ComfyUI workflow ecosystem lets community contributors earn revenue when their tools get used by agents on the platform.",
+        "Active community across Discord, X, and Instagram.",
+      ],
+    },
+  },
   {
     slug: "northwind-logistics",
     name: "Northwind Logistics",
