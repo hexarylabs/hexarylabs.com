@@ -3,6 +3,17 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+        search: "?auto=format&fit=crop&w=1600&q=80",
+      },
+    ],
+  },
+
   // No Content-Security-Policy here: the /contact page loads Calendly's
   // widget script + iframe, and a wrong CSP silently breaks that embed
   // instead of erroring loudly. Add one only after testing report-only
