@@ -442,8 +442,8 @@ export const servicesOverview = {
   },
   notSure: {
     heading: "Not sure which one fits?",
-    body: "Tell us where you're stuck on a short call and we'll tell you honestly what you actually need, even when that's less than what you asked about.",
-    cta: "Book a 20-Minute Call",
+    body: "Tell us where you're stuck and we'll tell you honestly what you actually need, even when that's less than what you asked about.",
+    cta: "Start a Project",
   },
   closing: {
     heading: "Tell us what you're building",

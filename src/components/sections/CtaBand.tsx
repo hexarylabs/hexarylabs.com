@@ -18,7 +18,7 @@ export function CtaBand() {
             Let&rsquo;s Talk
           </h2>
           <Button href="/contact" variant="accent" size="lg">
-            Book a Call
+            Start a Project
           </Button>
         </div>
       </Container>

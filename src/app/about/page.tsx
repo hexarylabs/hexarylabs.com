@@ -123,7 +123,7 @@ export default function AboutPage() {
               Let&rsquo;s talk about what you&rsquo;re building
             </h2>
             <Button href="/contact" variant="accent" size="lg">
-              Book a Call
+              Start a Project
             </Button>
           </div>
         </Container>

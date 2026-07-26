@@ -82,7 +82,7 @@ export function buildHomepageMarkdown(): string {
     "",
   );
 
-  lines.push("## Let's Talk", "", "[Book a Call](/contact)", "", "---", "");
+  lines.push("## Let's Talk", "", "[Start a Project](/contact)", "", "---", "");
 
   lines.push(
     "Pages: [Services](/services) · [Work](/work) · [About](/about) · [Contact](/contact) · [Privacy](/privacy) · [Terms](/terms)",
