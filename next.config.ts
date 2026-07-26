@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/",
+        headers: [{ key: "Link", value: '</sitemap.xml>; rel="sitemap"' }],
+      },
     ];
   },
 };
