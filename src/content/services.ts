@@ -74,6 +74,7 @@ export const services: Service[] = [
 
     whoItsFor: [
       "You have an idea, but no one outside your own team has validated it yet",
+      "You're deciding between multiple possible directions (a redesign, a new product, a pivot) and need to know which one is actually worth the investment",
       "Your last build went over budget because scope kept shifting mid-project",
       "You're raising, and investors want a credible technical plan, not just a pitch deck",
       "You've got a backlog with fifty items on it and no confident way to rank them",
@@ -88,6 +89,7 @@ export const services: Service[] = [
       "A competitive and market scan: what exists, what's actually working, for whom",
       "A technical feasibility pass on the one or two assumptions the whole plan rests on",
       "A prioritized roadmap with an explicit build, buy, or skip call on every major piece of scope",
+      "A recommended team shape and rough budget range for execution, so the plan comes with a realistic sense of what delivering it will actually take",
       "A written strategy document with phased effort estimates, built to hand to any engineering team, ours or someone else's",
     ],
     approach: [

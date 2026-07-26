@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { ClosingCta } from "@/components/sections/ClosingCta";
+import { cn } from "@/lib/cn";
 import {
   services,
   type Service,
@@ -58,10 +59,11 @@ function TwoColProse({ heading, body }: { heading: string; body: string }) {
   );
 }
 
-/** Numbered step cards — "Our approach". Same pattern as the About page's process grid. */
 function StepGrid({ steps }: { steps: ServiceStep[] }) {
+  const cols = steps.length === 3 ? "grid-cols-1 md:grid-cols-3" : "sm:grid-cols-2";
+
   return (
-    <ol className="grid gap-px border-[0.8px] border-grey-200 bg-grey-200 sm:grid-cols-2">
+    <ol className={cn("grid gap-px border-[0.8px] border-grey-200 bg-grey-200", cols)}>
       {steps.map((step, i) => (
         <li key={step.number} className="bg-base">
           <Reveal delay={i * 60} className="h-full">
