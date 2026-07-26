@@ -29,12 +29,19 @@ export default function ContactPage() {
           <ContactForm />
 
           <p className="mt-8 text-center text-body text-grey-600">
-            Prefer email? Reach us at{" "}
+            Prefer email or phone? Reach us at{" "}
             <a
               href={`mailto:${site.email}`}
               className="text-contrast-2 underline underline-offset-4 transition-colors duration-300 hover:text-accent"
             >
               {site.email}
+            </a>{" "}
+            or{" "}
+            <a
+              href={`tel:+${site.phone.replace(/\D/g, "")}`}
+              className="text-contrast-2 underline underline-offset-4 transition-colors duration-300 hover:text-accent"
+            >
+              {site.phone}
             </a>
           </p>
         </Reveal>

@@ -6,14 +6,6 @@ export const site = {
 
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://hexarylabs.com",
 
-  /* PLACEHOLDER — real contact details required */
   email: "hello@hexarylabs.com",
-  phone: "+1 (000) 000-0000",
-
-  /* PLACEHOLDER — real profiles required */
-  socials: [
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "GitHub", href: "https://github.com" },
-    { label: "X", href: "https://x.com" },
-  ],
+  phone: "+1 (407) 735-6142",
 } as const;

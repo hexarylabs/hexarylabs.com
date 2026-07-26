@@ -68,6 +68,12 @@ export function Footer() {
             >
               {site.email}
             </a>
+            <a
+              href={`tel:+${site.phone.replace(/\D/g, "")}`}
+              className="underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
+            >
+              {site.phone}
+            </a>
             <span>
               © {new Date().getFullYear()} {site.name}
             </span>
