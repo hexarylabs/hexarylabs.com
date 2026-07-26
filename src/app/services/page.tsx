@@ -1,45 +1,82 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/sections/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
-import { ServiceRow } from "@/components/cards/ServiceRow";
-import { CtaBand } from "@/components/sections/CtaBand";
-import { services } from "@/content/services";
+import { Button } from "@/components/ui/Button";
+import { ArrowIcon } from "@/components/ui/ArrowIcon";
+import { Reveal } from "@/components/ui/Reveal";
+import { ClosingCta } from "@/components/sections/ClosingCta";
+import { services, servicesOverview } from "@/content/services";
 
 export const metadata: Metadata = {
   title: "Services",
-  description:
-    "Product strategy, design, software engineering and AI engineering — delivered by one team.",
+  description: servicesOverview.hero.subhead,
 };
 
 export default function ServicesPage() {
+  const { hero, notSure, closing } = servicesOverview;
+
   return (
     <>
       <PageHero
-        eyebrow="Services"
-        title={
-          <>
-            What We
-            <span className="text-accent"> Do</span>
-          </>
-        }
-        intro="Four capabilities, one team. Most engagements use more than one — strategy that leads into design, design that leads into a shipped system."
+        eyebrow={hero.eyebrow}
+        title={hero.headline}
+        intro={hero.subhead}
+        cta={{ label: hero.cta, href: "/contact" }}
       />
+
+      {/* Small, sits right under the hero — not a full Section. */}
+      <div className="border-b-[0.8px] border-grey-100 bg-base">
+        <Container>
+          <div className="flex flex-col items-start gap-6 border-[0.8px] border-grey-200 bg-base-2 p-8 py-10 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-display text-h4 font-medium text-contrast-2">
+                {notSure.heading}
+              </h2>
+              <p className="mt-2 max-w-[540px] text-body text-grey-600">{notSure.body}</p>
+            </div>
+            <Button href="/contact" variant="secondary" className="shrink-0">
+              {notSure.cta}
+            </Button>
+          </div>
+        </Container>
+      </div>
 
       <Section tone="muted">
         <Container>
-          {/* Names the list for assistive tech and keeps the outline h1→h2→h3.
-              Visually redundant next to the page hero, so it's sr-only. */}
           <h2 className="sr-only">All services</h2>
-          <ul className="border-t-[0.8px] border-grey-200">
-            {services.map((service) => (
-              <ServiceRow key={service.slug} service={service} />
+          <div className="grid gap-6 sm:grid-cols-2">
+            {services.map((service, i) => (
+              <Reveal key={service.slug} delay={i * 60} className="h-full">
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="group flex h-full flex-col gap-6 border-[0.8px] border-grey-200 bg-base p-8 transition-colors duration-300 hover:border-accent"
+                >
+                  <h3 className="text-[1.3125rem] leading-[1.2] lg:text-h3">
+                    {service.title}
+                  </h3>
+                  <p className="text-body-lg text-grey-600">
+                    &ldquo;{service.teaserQuote}&rdquo;
+                  </p>
+                  <p className="mt-auto text-body text-grey-600">
+                    <span className="font-display font-medium text-contrast-2">
+                      Best for:
+                    </span>{" "}
+                    {service.teaserBestFor}
+                  </p>
+                  <span className="inline-flex items-center gap-3 font-display text-body font-medium text-contrast-2 transition-colors duration-300 group-hover:text-accent">
+                    Learn more
+                    <ArrowIcon className="size-3.5" />
+                  </span>
+                </Link>
+              </Reveal>
             ))}
-          </ul>
+          </div>
         </Container>
       </Section>
 
-      <CtaBand />
+      <ClosingCta heading={closing.heading} cta={{ label: closing.cta, href: "/contact" }} />
     </>
   );
 }
