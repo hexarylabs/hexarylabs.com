@@ -36,10 +36,11 @@ export async function generateMetadata({
 
 const contentHeading = "text-[1.3125rem] leading-[1.2] md:text-[1.625rem] lg:text-h3";
 
-/** Short, parallel bullets — "This is probably you if" / "What's included" / "What you walk away with". */
 function BulletGrid({ items }: { items: string[] }) {
+  const cols = items.length === 3 ? "grid-cols-1 md:grid-cols-3" : "sm:grid-cols-2";
+
   return (
-    <ul className="grid gap-px border-[0.8px] border-grey-200 bg-grey-200 sm:grid-cols-2">
+    <ul className={cn("grid gap-px border-[0.8px] border-grey-200 bg-grey-200", cols)}>
       {items.map((item) => (
         <li key={item} className="bg-base p-6 font-display text-body-lg text-contrast-2">
           {item}

@@ -170,6 +170,7 @@ export const services: Service[] = [
       "User research: interviews, usability testing on existing flows, or a competitive UX audit",
       "Wireframes and information architecture for new flows",
       "High-fidelity UI design",
+      "Accessibility and responsive behavior considered from the start, not patched in after launch",
       "A design system: reusable components, tokens, and documentation, so new screens stay consistent without a designer reviewing every one",
       "A clickable prototype, tested with real users before engineering starts building it",
     ],
@@ -246,6 +247,7 @@ export const services: Service[] = [
       "You've outgrown a no-code tool or an early MVP that was never meant to scale",
       "Two or more of your business systems don't talk to each other, and someone is manually reconciling the gap",
       "A previous engineering partner left you a system only they understood",
+      "You need an honest technical opinion on a system someone else built, before committing further budget to it",
       "You need to move faster without quietly cutting corners on quality",
     ],
     included: [
@@ -374,7 +376,8 @@ export const services: Service[] = [
       "An evaluation harness built before the feature, so \"is this good enough to ship\" has a real, tested answer",
       "Production deployment behind feature flags, with monitoring and a fallback path for when the model is wrong",
       "Integrations with leading AI providers such as OpenAI and Anthropic, and with the business platforms you already run on, from CRMs like Salesforce and HubSpot to internal tools and support systems",
-      "Intelligent document processing and chatbots, built on the same grounding and evaluation approach as everything else on this list, chosen and combined based on what your specific process actually needs, not applied as a default package",
+      "Intelligent document processing that turns unstructured files (PDFs, scanned forms, emails) into structured, usable data",
+      "Chatbots and conversational interfaces, built on the same grounding and evaluation approach as everything else here, not treated as a lesser afterthought feature",
     ],
     approach: [
       {
