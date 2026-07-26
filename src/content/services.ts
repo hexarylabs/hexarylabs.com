@@ -58,8 +58,7 @@ export const services: Service[] = [
   {
     slug: "product-strategy",
     title: "Product Strategy",
-    summary:
-      "The strongest products start with the sharpest plan. We help teams clarify the vision, validate demand early, and decide what to build before the expensive part starts.",
+    summary: "Know what to build before you spend a cent building it.",
 
     teaserQuote:
       "For when you need to know what to build before you spend a cent building it.",
@@ -142,8 +141,7 @@ export const services: Service[] = [
   {
     slug: "product-design",
     title: "Product Design",
-    summary:
-      "We turn capability into something people can actually use. Research, interface design and design systems that stay coherent as the product grows.",
+    summary: "Design that holds up once real users touch it.",
 
     teaserQuote:
       "For when the product works but doesn't yet look, feel, or convert like it should.",
@@ -229,8 +227,7 @@ export const services: Service[] = [
   {
     slug: "software-engineering",
     title: "Software Engineering",
-    summary:
-      "Web, mobile and platform engineering built to scale — with the tests, observability and CI that keep it shippable after we hand it over.",
+    summary: "Software that's still easy to change a year from now.",
 
     teaserQuote: "For building, scaling, or connecting the systems your business actually runs on.",
     teaserBestFor:
@@ -346,8 +343,7 @@ export const services: Service[] = [
   {
     slug: "ai-engineering",
     title: "AI Engineering",
-    summary:
-      "AI features that hold up in production — evaluated, grounded in your data, and shipped behind the same quality bar as the rest of your product.",
+    summary: "AI that works in production, not just in the demo.",
 
     teaserQuote: "For AI that survives contact with real users, not just a demo.",
     teaserBestFor:
