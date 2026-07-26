@@ -40,6 +40,17 @@ export default function ServicesPage() {
               {notSure.cta}
             </Button>
           </div>
+
+          <p className="pb-10 pt-6 text-body text-grey-600">
+            Looking for a specific platform integration?{" "}
+            <Link
+              href="/integrations"
+              className="group inline-flex items-center gap-2 text-contrast-2 underline underline-offset-4 transition-colors duration-300 hover:text-accent"
+            >
+              See the platforms we integrate with
+              <ArrowIcon className="size-3" />
+            </Link>
+          </p>
         </Container>
       </div>
 

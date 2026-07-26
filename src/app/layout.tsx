@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/content/site";
+import { truncateAtWord } from "@/lib/truncate";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -17,23 +18,25 @@ const inter = Inter({
   display: "swap",
 });
 
+const fullTitle = `${site.name} — ${site.tagline}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
+    default: truncateAtWord(fullTitle, 60),
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  description: truncateAtWord(site.description, 155),
   openGraph: {
     type: "website",
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
+    title: fullTitle,
     description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
+    title: fullTitle,
     description: site.description,
   },
   robots: { index: true, follow: true },
