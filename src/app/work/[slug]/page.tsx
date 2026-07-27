@@ -379,14 +379,14 @@ export default async function CaseStudyPage({
         <Section tone="light">
           <Container>
             <h2 className="sr-only">External links</h2>
-            <div className="flex flex-wrap gap-x-8 gap-y-4 border-t-[0.8px] border-grey-200 pt-8">
+            <div className="flex flex-col gap-4 border-t-[0.8px] border-grey-200 pt-8 sm:flex-row sm:flex-wrap sm:gap-x-8">
               {study.links.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-body text-grey-600 underline-offset-4 transition-colors duration-300 hover:text-accent hover:underline"
+                  className="inline-flex w-fit items-center gap-2 text-body text-grey-600 underline-offset-4 transition-colors duration-300 hover:text-accent hover:underline"
                 >
                   {link.label}
                   <ArrowIcon className="size-3" />
