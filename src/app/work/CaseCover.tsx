@@ -2,7 +2,7 @@ import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { Schematic } from "./Schematic";
 import { EdenSchematic } from "./EdenSchematic";
-import type { DemoCase, GradientTone } from "@/content/demo/demo-cases";
+import type { Cover, GradientTone } from "@/content/work";
 
 export const gradients: Record<GradientTone, string> = {
   violet: "bg-linear-to-br from-accent/25 via-base-2 to-accent/10",
@@ -10,21 +10,21 @@ export const gradients: Record<GradientTone, string> = {
   sand: "bg-linear-to-br from-grey-200 via-base-2 to-accent/10",
 };
 
-export function DemoCover({
-  demo,
+export function CaseCover({
+  cover,
+  title,
   aspect = "aspect-[1.6]",
   sizes = "100vw",
   eager = false,
   className,
 }: {
-  demo: DemoCase;
+  cover: Cover;
+  title: string;
   aspect?: string;
   sizes?: string;
   eager?: boolean;
   className?: string;
 }) {
-  const { cover, name } = demo;
-
   if (cover.kind === "photo") {
     return (
       <Image
@@ -37,7 +37,11 @@ export function DemoCover({
         fetchPriority={eager ? "high" : undefined}
         className={cn(
           "w-full object-cover",
-          cover.objectPosition === "left" ? "object-left" : "object-center",
+          cover.objectPosition === "left"
+            ? "object-left"
+            : cover.objectPosition === "center"
+              ? "object-center"
+              : "object-top",
           aspect,
           className,
         )}
@@ -73,7 +77,7 @@ export function DemoCover({
       )}
     >
       <p className="font-display text-[1.625rem] font-medium leading-[1.15] tracking-[0.01em] text-contrast-2 md:text-[2.25rem]">
-        {name}
+        {title}
       </p>
     </div>
   );

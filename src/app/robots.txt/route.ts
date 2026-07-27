@@ -6,7 +6,6 @@ Content-Signal: search=yes, ai-train=no, ai-input=yes
 Allow: /
 Disallow: /privacy
 Disallow: /terms
-Disallow: /work-preview
 
 Sitemap: ${site.url}/sitemap.xml
 `;

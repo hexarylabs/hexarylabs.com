@@ -1,27 +1,20 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
-import { cn } from "@/lib/cn";
+import { CaseCover } from "@/app/work/CaseCover";
 import type { CaseStudy } from "@/content/work";
 
 export function CaseStudyCard({ study }: { study: CaseStudy }) {
-  const strip =
-    study.results?.map((r) => ({ lead: r.value, label: r.label })) ??
-    study.scope.map((s) => ({ lead: null, label: s }));
+  const strip = (study.scope ?? []).map((s) => ({ lead: null as string | null, label: s }));
 
   return (
     <article data-tone="dark" className="group relative bg-contrast-2 text-white">
       <div className="grid lg:grid-cols-[640fr_560fr]">
-        <Image
-          src={study.image}
-          alt={study.imageAlt}
-          width={1280}
-          height={1000}
+        <CaseCover
+          cover={study.cover}
+          title={study.title}
+          aspect="aspect-[1.28]"
           sizes="(min-width: 1024px) 640px, 100vw"
-          className={cn(
-            "aspect-[1.28] w-full border-[0.8px] border-grey-700 object-cover",
-            study.imagePosition === "left" ? "object-left" : "object-top",
-          )}
+          className="border-[0.8px] border-grey-700"
         />
 
         <div className="flex flex-col justify-center gap-6 p-8 lg:p-12">
@@ -46,28 +39,22 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
         </div>
       </div>
 
-      <ul className="grid border-t-[0.8px] border-grey-700 sm:grid-cols-3">
-        {strip.slice(0, 3).map((item, i) => (
-          <li
-            key={item.label}
-            className={
-              i > 0
-                ? "border-grey-700 p-6 max-sm:border-t-[0.8px] sm:border-l-[0.8px]"
-                : "p-6"
-            }
-          >
-            {item.lead && (
-              <p className="flex items-center gap-2 font-display text-h4 font-medium text-white">
-                <ArrowIcon className="size-4 -rotate-45 text-success" />
-                {item.lead}
-              </p>
-            )}
-            <p className={item.lead ? "mt-1 text-body text-grey-500" : "text-body text-grey-300"}>
-              {item.label}
-            </p>
-          </li>
-        ))}
-      </ul>
+      {strip.length > 0 && (
+        <ul className="grid border-t-[0.8px] border-grey-700 sm:grid-cols-3">
+          {strip.slice(0, 3).map((item, i) => (
+            <li
+              key={item.label}
+              className={
+                i > 0
+                  ? "border-grey-700 p-6 max-sm:border-t-[0.8px] sm:border-l-[0.8px]"
+                  : "p-6"
+              }
+            >
+              <p className="text-body text-grey-300">{item.label}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </article>
   );
 }
