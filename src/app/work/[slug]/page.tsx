@@ -202,7 +202,7 @@ function CaseHero({ study }: { study: CaseStudy }) {
             aspect={
               hero === "schematic"
                 ? "aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
-                : "aspect-[2.1]"
+                : "h-auto"
             }
             sizes="(min-width: 1200px) 1200px, 100vw"
             eager
