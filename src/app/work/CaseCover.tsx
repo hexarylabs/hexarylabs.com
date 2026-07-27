@@ -2,6 +2,7 @@ import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { Schematic } from "./Schematic";
 import { EdenSchematic } from "./EdenSchematic";
+import { MedicalRecordsSchematic } from "./MedicalRecordsSchematic";
 import type { Cover, GradientTone } from "@/content/work";
 
 export const gradients: Record<GradientTone, string> = {
@@ -60,6 +61,8 @@ export function CaseCover({
       >
         {cover.diagram === "eden" ? (
           <EdenSchematic className="max-h-full" />
+        ) : cover.diagram === "medical-records" ? (
+          <MedicalRecordsSchematic className="max-h-full" />
         ) : (
           <Schematic className="max-h-full" />
         )}

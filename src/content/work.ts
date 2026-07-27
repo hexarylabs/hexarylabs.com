@@ -17,7 +17,7 @@ export type GradientTone = "violet" | "slate" | "sand";
 export type Cover =
   | { kind: "photo"; src: string; alt: string; objectPosition?: "top" | "center" | "left" }
   | { kind: "gradient"; tone: GradientTone }
-  | { kind: "schematic"; diagram?: "halcyon" | "eden" };
+  | { kind: "schematic"; diagram?: "halcyon" | "eden" | "medical-records" };
 
 export type Metric = { value: string; label: string };
 
@@ -217,6 +217,78 @@ export const work: CaseStudy[] = [
       { label: "Developer documentation", href: "https://www.keepcoming.app/docs" },
       { label: "Partners program", href: "https://www.keepcoming.app/partners" },
     ],
+  },
+  {
+    slug: "medical-records-platform",
+    client: "A US-based medical records retrieval company (anonymized)",
+    title: "Medical Records Integration & AI Platform",
+    summary:
+      "A PHI-safe integration platform connecting three case-management systems, with an AI backend that surfaces operational patterns from years of historical support tickets.",
+    scope: [
+      "Enterprise integration middleware",
+      "AI engineering",
+      "HIPAA-adjacent architecture",
+      "Legal & healthcare tech",
+      "Multi-system middleware",
+    ],
+    variant: {
+      hero: "schematic",
+      body: "sidebar",
+      metrics: "inline",
+      density: "balanced",
+    },
+    cover: { kind: "schematic", diagram: "medical-records" },
+    metrics: [
+      { value: "87%", label: "Test coverage across roughly 380 automated tests" },
+      { value: "Audited", label: "PHI-safe architecture reviewed by an external security firm, all findings remediated" },
+      { value: "3 → 1", label: "Case-management systems (Litify, Filevine, Zendesk) unified into one workflow" },
+      { value: "Suggest-only", label: "The AI backend never writes to a live ticket without human approval" },
+    ],
+    challenge: {
+      heading: "Challenge",
+      body: [
+        "The client operates in a specialized corner of healthcare and legal services: retrieving patient medical records at scale for law firms handling personal-injury and malpractice cases. Their operations ran across three separate case-management systems, Litify on Salesforce for legal operations, Filevine for case management, and Zendesk for support and customer communication, and none of them talked to each other. Staff manually reconciled record requests, statuses, and updates across all three, several times a day, per record.",
+        "Everything about the work is regulated. Patient data flowing through their systems includes Social Security numbers, dates of birth, medical records, and other protected health information. Any integration built for them had to hold up to HIPAA-adjacent standards: PHI redacted from stored payloads, excluded from queue serialization, hidden on model instances, and kept out of internal dashboards. Nothing in the design could depend on operators promising to look away.",
+        "Separately, the client had accumulated years of closed Zendesk tickets full of operational signal, slow providers, failing fax numbers, recurring complaint categories, that no one had time to mine manually. A previous prototype had tried and failed: it fabricated dozens of fake medical records and hallucinated vendor performance scorecards from tiny sample sets. Whatever replaced it had to be architecturally incapable of that class of failure.",
+      ],
+    },
+    approach: {
+      heading: "Approach",
+      body: [
+        "PHI-safe by design, not by review. Redaction is enforced structurally: patient data is stripped from payloads at ingest, excluded from queue serialization, and hidden from model instances so it can't accidentally appear in a log line or a debug print. The internal operator dashboard uses a column allowlist, so a field has to be explicitly permitted to render, meaning a new database column can't accidentally expose PHI on a screen someone forgot to lock down. This was audited by an external security firm; two critical findings were remediated, plus a round of general hardening.",
+        "The AI never sees Social Security numbers: they're redacted at the input boundary on every call before anything reaches the model, a code-level enforcement rather than a policy. And the AI backend was rebuilt from the failed prototype with the same rigor as the middleware: clear input boundaries, safety flags on any suggestion that might mutate production data, a human-in-the-loop gate on anything that reaches a real ticket, and a two-switch launch model, safe read-only tools first, generative outputs second, gated on a review UI being ready.",
+      ],
+    },
+    solution: {
+      heading: "Solution",
+      body: [
+        "A single connected platform in two parts. The integration middleware is a PHP 8.2 / Laravel 12 service connecting Litify (Salesforce), Filevine, and Zendesk into a coherent record-request workflow: records requested in one system propagate automatically to the others, with statuses reconciled and updates delivered without a human touching three tabs. It runs on PostgreSQL for durable storage, Redis-backed queues for asynchronous processing, and Docker for consistent deployment. Auth into Zendesk uses OAuth client_credentials, built ahead of Zendesk's own sunset of API token auth, with all field mappings and status enumerations verified against the client's production configuration.",
+        "The AI backend reads closed Zendesk tickets and surfaces operational patterns for the client's staff. It runs on AWS Bedrock (Claude), keeping model calls inside the client's own AWS account so PHI never leaves their infrastructure, AWS Textract for OCR on document attachments, and AWS Lambda for the compute layer, with Supabase (PostgreSQL) for structured storage of the mined patterns. Staff access is gated through Cloudflare Access with Microsoft Entra SSO. The AI runs in suggest-only mode: it surfaces observations and recommendations to human staff, but never writes to live tickets without explicit human approval, controlled by a config flag only the client's operations lead can change.",
+        "The middleware ships with 87% test coverage across roughly 380 tests, static analysis via Larastan, style enforcement via Pint, and Trivy security scanning in CI, with a minimum coverage threshold enforced on every pull request.",
+      ],
+    },
+    stack: [
+      "PHP 8.2",
+      "Laravel 12",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "AWS Bedrock",
+      "AWS Textract",
+      "AWS Lambda",
+      "Supabase",
+      "Cloudflare Access",
+      "Microsoft Entra SSO",
+      "Litify, Filevine & Zendesk APIs",
+    ],
+    results: {
+      heading: "Results",
+      body: [
+        "Integration platform deployed to the client's own AWS environment, connecting three previously-disconnected case management systems, and eliminating manual reconciliation across Litify, Filevine, and Zendesk from daily staff workflow.",
+        "The PHI-safe architecture passed an external security audit, with all findings remediated. The AI backend deployed with SSO gating, PHI redaction at the input boundary, and human-in-the-loop safety controls, with historical Zendesk ticket data mined for operational patterns (provider performance, communication failures, recurring complaint categories) available to staff through Zendesk sidebar tools.",
+        "Client details are anonymized to protect patient data and honor confidentiality.",
+      ],
+    },
   },
   {
     slug: "truecell",
