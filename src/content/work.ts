@@ -58,10 +58,9 @@ export const work: CaseStudy[] = [
   {
     slug: "eden",
     client: "Eden Labs",
-    title:
-      "A studio for autonomous creative AI, where agents make art, video, and stories with people and with each other.",
+    title: "Eden",
     summary:
-      "The generative AI space is dominated by single-shot prompt-and-response tools: type a prompt, get an image, close the tab. Eden set out to build something more ambitious.",
+      "A studio for autonomous creative AI, where agents make art, video, and stories with people and with each other.",
     scope: [
       "Web application (Next.js)",
       "Backend API (Fastify)",
@@ -142,15 +141,14 @@ export const work: CaseStudy[] = [
   {
     slug: "keepcoming",
     client: "In-house Hexary product",
-    title:
-      "A loyalty platform for cafes, restaurants, and independent shops, with real Apple Wallet and Google Wallet integration, a public developer API, and a partners program for third-party integrations.",
+    title: "KeepComing",
     summary:
-      "Digital loyalty cards for cafes, restaurants, and independent shops, live in Apple Wallet and Google Wallet with no app to install.",
+      "A loyalty platform for cafes, restaurants, and independent shops, with real Apple Wallet and Google Wallet integration, a public developer API, and a partners program for third-party integrations.",
     scope: [
       "Multi-tenant SaaS platform",
       "Apple Wallet & Google Wallet integration",
       "Real-time card updates",
-      "Bilingual EN/AR with RTL support",
+      "Birthday & reward automations",
       "Developer API & docs",
       "Partners program",
     ],
@@ -169,20 +167,19 @@ export const work: CaseStudy[] = [
     metrics: [
       { value: "Live", label: "Paid customers in production at www.keepcoming.app" },
       { value: "3 plans", label: "$19–$79/mo, with a 14-day trial that requires no credit card" },
-      { value: "EN / AR", label: "Fully bilingual interface with RTL support for the MENA market" },
+      { value: "Platform", label: "Public developer API and partners program for third-party integrations" },
     ],
     challenge: {
       heading: "Challenge",
       body: [
         "Small independent businesses, cafes, restaurants, salons, barbers, retail shops, run on regulars. The paper punch card is the oldest, most reliable retention tool in that world, and it's also the most fragile: cards get lost, forgotten, or thrown in a drawer. Every existing digital alternative asked customers to download yet another app, which is exactly the friction that kills adoption at the counter.",
-        "We wanted to build something a customer could opt into in under fifteen seconds, with no download, no account setup, and no card to lose, using infrastructure they already carry: Apple Wallet and Google Wallet. And we wanted to do it for a segment (independent shops, especially across the MENA region) that most SaaS loyalty tools ignore because average revenue per customer is too small for enterprise sales motions.",
+        "We wanted to build something a customer could opt into in under fifteen seconds, with no download, no account setup, and no card to lose, using infrastructure they already carry: Apple Wallet and Google Wallet. And we wanted to do it for a segment (independent shops) that most SaaS loyalty tools ignore because average revenue per customer is too small for enterprise sales motions.",
       ],
     },
     approach: {
       heading: "Approach",
       body: [
         "The two hardest technical pieces (real Apple Wallet and Google Wallet integration, and reliable real-time updates to cards already installed on customer phones) are exactly the pieces most SMB loyalty tools skip. We built those first, proved them end to end, and made them the foundation of the product rather than a nice-to-have.",
-        "Bilingual and RTL support was scoped in from day one, not bolted on later. In the MENA market that isn't an internationalization feature, it's a table-stakes requirement, and adding it after the fact would have required rebuilding the interface.",
         "Zero-download onboarding was a design constraint we refused to compromise. Every friction point in the signup path was measured against a single question: does a customer complete this in under fifteen seconds with no help from staff. Anything that didn't clear that bar got cut or redesigned.",
       ],
     },
@@ -190,7 +187,7 @@ export const work: CaseStudy[] = [
       heading: "Solution",
       body: [
         "KeepComing is a multi-tenant SaaS platform for digital loyalty programs. The core experience is deliberately simple: a shop signs up in minutes, sets a reward (say, a free coffee after five stars), and gets a QR code. Customers scan it, add the card to Apple Wallet or Google Wallet in one tap, and every visit updates the card on their phone in real time.",
-        "Under that surface is the harder work: real integrations with Apple PassKit and Google Wallet APIs, push updates to cards that already live on the customer's phone, multi-channel delivery (QR, link, WhatsApp, email), bilingual English and Arabic support with full RTL handling for the MENA market, and a multi-tenant architecture that keeps each shop's customers, staff accounts, and analytics fully isolated.",
+        "Under that surface is the harder work: real integrations with Apple PassKit and Google Wallet APIs, push updates to cards that already live on the customer's phone, multi-channel delivery (QR, link, WhatsApp, email), and a multi-tenant architecture that keeps each shop's customers, staff accounts, and analytics fully isolated.",
         "Additional capability: birthday and reward automations that fire on their own once the shop sets the rules, staff scan pages that work from any phone camera without extra hardware, and an analytics view for shop owners to see visits, top customers, and redemption patterns.",
         "KeepComing is also designed as an ecosystem, not a closed product. A public developer API (documented at www.keepcoming.app/docs) lets third parties integrate loyalty into their own tools: POS systems, e-commerce platforms, marketing stacks, whatever a shop already runs on. And a partners program at www.keepcoming.app/partners opens the door for agencies, resellers, and technology partners to bring KeepComing into their own client work. Building for external integration from day one meant designing clean, versioned APIs and treating our own frontend as one client among many, which is why KeepComing can grow horizontally, into other businesses' workflows, instead of only vertically, into more features.",
       ],
@@ -210,7 +207,6 @@ export const work: CaseStudy[] = [
       body: [
         "Live at www.keepcoming.app with paid customers in production.",
         "Real Apple Wallet and Google Wallet integration, working on both iPhone and Android with real-time card updates.",
-        "Bilingual English and Arabic interface with full RTL support, serving both markets from one platform.",
         "Public developer API and documentation, meaning third-party integrations are supported rather than blocked.",
         "Three-plan pricing model (Basic $19/mo, Pro $39/mo, Business $79/mo) with a 14-day trial that requires no credit card, a signal of confidence in the onboarding experience.",
       ],
@@ -225,49 +221,70 @@ export const work: CaseStudy[] = [
   {
     slug: "truecell",
     client: "TrueCell",
-    title: "An inventory OS for high-volume electronics resellers",
+    title: "TrueCell",
     summary:
-      "A command center for device resale: demand forecasting, marketplace sync across Amazon, eBay and Back Market, serial-level reconciliation, and a rules engine that decides where every unit goes without overselling it.",
+      "An inventory OS for high-volume electronics resellers: marketplace sync across Amazon, eBay, Back Market and more, demand forecasting, a rules engine that routes every unit without overselling it, and the accounting integrations to keep the books in agreement with the warehouse.",
     scope: [
-      "Inventory platform",
-      "Marketplace sync",
-      "Demand forecasting",
+      "Marketplace sync (Amazon, eBay, Back Market, Shopify)",
+      "Demand forecasting & dynamic pricing",
       "Rules & routing engine",
-      "Diagnostics & grading",
+      "AI-assisted risk detection",
+      "Logistics integrations",
       "Accounting & BI integrations",
     ],
     variant: {
       hero: "image-contained",
-      body: "narrative",
-      metrics: "inline",
+      body: "sectioned",
+      metrics: "grid",
       density: "balanced",
     },
-    cover: { kind: "photo", src: "/work/truecell.webp", alt: "The TrueCell inventory dashboard" },
-    metrics: [],
+    cover: { kind: "photo", src: "/work/truecell.webp", alt: "The TrueCell inventory dashboard, showing marketplace sync status and inventory metrics" },
+    metrics: [
+      { value: "99.7%", label: "Inventory accuracy reported across connected channels" },
+      { value: "14 min/day", label: "To reconcile inventory, down from hours of manual cross-checking" },
+      { value: "9+", label: "Marketplaces and sales channels kept in sync" },
+      { value: "GMV-based", label: "Pricing that scales with the reseller, not per-seat licensing" },
+    ],
     challenge: {
       heading: "Challenge",
       body: [
         "High-volume electronics resellers were tracking inventory, marketplace listings, and diagnostics across separate tools, with no single system deciding where a unit should go without the risk of overselling it across channels like Amazon, eBay, and Back Market.",
+        "Every workaround touched the books eventually: a unit sold twice, a listing that didn't reflect the warehouse, a reconciliation that only happened at month-end instead of continuously. The fix couldn't just be a nicer inventory spreadsheet, it had to be a system of record that marketplaces, logistics, and accounting all trusted equally.",
       ],
     },
     approach: {
       heading: "Approach",
       body: [
-        "As with every Hexary engagement, the riskiest technical assumption was identified and proven first, and the system was built in short, working increments rather than delivered as one big reveal at the end.",
+        "As with every Hexary engagement, the riskiest technical assumption was identified and proven first: could inventory state be reconciled across many marketplaces in near real time without double-selling a unit. That sync and rules engine was built and stress-tested before anything else, then the system was extended outward in short, working increments rather than delivered as one big reveal at the end.",
+        "Pricing was built to scale with the reseller's volume (GMV-based tiers) rather than per-seat, so the platform stays usable for a small pilot operation and a high-volume one without a re-negotiation at every growth stage.",
       ],
     },
     solution: {
       heading: "Solution",
       body: [
-        "The result is a command center for device resale: demand forecasting, marketplace sync across Amazon, eBay and Back Market, serial-level reconciliation, and a rules engine that decides where every unit goes without overselling it.",
-        "The platform also covers diagnostics and grading, along with accounting and BI integrations, so operational numbers and the books stay in agreement.",
+        "The result is a command center for device resale: demand forecasting, marketplace sync across Amazon, eBay, Back Market, Shopify and more, serial-level reconciliation, and a rules engine that decides where every unit goes without overselling it.",
+        "An AI-assisted layer flags anomalies and risk (a listing drifting from its warehouse state, a channel behaving unusually) before they become a chargeback or an oversold unit, and dynamic pricing keeps listings competitive across channels without someone manually repricing SKUs.",
+        "Logistics integrations connect the platform to shipping and fulfillment providers, so a sale doesn't just update a spreadsheet, it kicks off the actual fulfillment path. Accounting and BI integrations keep operational numbers and the books in agreement, instead of reconciled by hand once a month.",
       ],
     },
-    stack: [],
+    stack: [
+      "Amazon",
+      "eBay",
+      "Back Market",
+      "Shopify",
+      "QuickBooks",
+      "NetSuite",
+      "Snowflake",
+      "Shipping & 3PL integrations",
+    ],
     results: {
       heading: "Results",
-      body: ["A full outcomes write-up for this engagement is in progress."],
+      body: [
+        "The platform now reports 99.7% inventory accuracy across connected channels, with reconciliation down to about 14 minutes a day, replacing what used to be hours of manual cross-checking between marketplaces and the warehouse.",
+        "Nine or more marketplaces and sales channels stay in sync from a single system, with GMV-based pricing so the platform scales with the reseller instead of penalizing growth with per-seat costs.",
+      ],
     },
+    links: [{ label: "Live product", href: "https://truecell.net" }],
   },
   {
     slug: "kinein",
