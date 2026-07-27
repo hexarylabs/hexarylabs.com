@@ -39,7 +39,11 @@ export default function WorkPage() {
                   <CaseCover
                     cover={study.cover}
                     title={study.title}
-                    aspect="aspect-[1.9]"
+                    aspect={
+                      study.cover.kind === "schematic"
+                        ? "aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
+                        : "aspect-[1.9]"
+                    }
                     sizes="(min-width: 1024px) 620px, 100vw"
                   />
 

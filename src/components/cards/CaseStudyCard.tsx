@@ -12,7 +12,11 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
         <CaseCover
           cover={study.cover}
           title={study.title}
-          aspect="aspect-[1.28]"
+          aspect={
+            study.cover.kind === "schematic"
+              ? "aspect-[4/3] sm:aspect-[1.5] lg:aspect-[1.28]"
+              : "aspect-[1.28]"
+          }
           sizes="(min-width: 1024px) 640px, 100vw"
           className="border-[0.8px] border-grey-700"
         />

@@ -199,7 +199,11 @@ function CaseHero({ study }: { study: CaseStudy }) {
           <CaseCover
             cover={study.cover}
             title={study.title}
-            aspect={hero === "schematic" ? "aspect-[2.4]" : "aspect-[2.1]"}
+            aspect={
+              hero === "schematic"
+                ? "aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
+                : "aspect-[2.1]"
+            }
             sizes="(min-width: 1200px) 1200px, 100vw"
             eager
             className={hero === "schematic" ? undefined : "border-[0.8px] border-grey-200"}

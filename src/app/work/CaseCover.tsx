@@ -54,7 +54,7 @@ export function CaseCover({
     return (
       <div
         className={cn(
-          "flex w-full items-center justify-center overflow-hidden border-[0.8px] border-grey-200 bg-base-2 p-6",
+          "flex w-full items-center justify-center overflow-hidden border-[0.8px] border-grey-200 bg-base-2 p-6 sm:p-10 lg:p-12",
           aspect,
           className,
         )}

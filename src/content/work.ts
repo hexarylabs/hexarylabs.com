@@ -427,335 +427,64 @@ export const work: CaseStudy[] = [
   {
     slug: "b2b-access",
     client: "B2B Access",
-    title: "A wholesale marketplace connecting verified retailers with brands",
+    title: "B2B Access",
     summary:
-      "Replaces vendor relationships run over text chains and email threads: a vetted brand catalog, ordering with tracking, par-level restock alerts and full invoice history — with tiered pricing, MOQs and buyer analytics on the brand side.",
+      "The wholesale platform built for smoke shops, c-stores, and the brands they carry: a vetted brand catalog, ordering with tracking, par-level restock alerts and full invoice history — with tiered pricing, MOQs and buyer analytics on the brand side.",
     scope: [
-      "Marketplace platform",
+      "Two-sided B2B marketplace",
       "Retailer verification",
-      "Order management",
-      "Restock alerting",
-      "Brand analytics",
+      "Order management & tracking",
+      "Par-level restock alerting",
+      "Brand analytics & buyer insights",
       "Shopify & Zoho CRM sync",
     ],
     variant: {
       hero: "image-contained",
-      body: "narrative",
-      metrics: "inline",
+      body: "sectioned",
+      metrics: "grid",
       density: "balanced",
     },
     cover: {
       kind: "photo",
       src: "/work/b2b-access.webp",
-      alt: "The B2B Access wholesale marketplace",
-    },
-    metrics: [],
-    challenge: {
-      heading: "Challenge",
-      body: [
-        "Wholesale relationships between retailers and brands were often run over text chains and email threads, with no vetted catalog, no order tracking, and no systematic way to alert a retailer before they ran out of stock.",
-      ],
-    },
-    approach: {
-      heading: "Approach",
-      body: [
-        "This engagement followed our standard approach: identify the riskiest technical assumption early and prove it before building around it, then deliver in short, working increments rather than a single end-of-project reveal.",
-      ],
-    },
-    solution: {
-      heading: "Solution",
-      body: [
-        "The result is a wholesale marketplace connecting verified retailers with brands: a vetted brand catalog, ordering with tracking, par-level restock alerts, and full invoice history, with tiered pricing, MOQs, and buyer analytics on the brand side.",
-        "The platform also syncs with Shopify and Zoho CRM.",
-      ],
-    },
-    stack: [],
-    results: {
-      heading: "Results",
-      body: ["A full outcomes write-up for this engagement is in progress."],
-    },
-  },
-  {
-    slug: "northwind-logistics",
-    client: "Northwind Logistics",
-    title: "Four regional dispatch systems consolidated into one operational view",
-    summary: "Four regional dispatch systems consolidated into one operational view",
-    variant: {
-      hero: "image-contained",
-      body: "sectioned",
-      metrics: "grid",
-      density: "image-heavy",
-    },
-    cover: {
-      kind: "photo",
-      src: `https://images.unsplash.com/photo-1451187580459-43490279c0fa${UNSPLASH}`,
-      alt: "Abstract network of illuminated lines across a dark surface",
+      alt: "The B2B Access wholesale marketplace homepage, showing platform metrics and calls to action for shops and brands",
     },
     metrics: [
-      { value: "4 → 1", label: "Dispatch systems in use" },
-      { value: "38%", label: "Fewer missed pickup windows" },
-      { value: "6.5 hrs", label: "Weekly reconciliation time removed" },
-      { value: "99.95%", label: "Sync uptime across regions" },
+      { value: "2,400+", label: "Verified retail shops on the platform" },
+      { value: "80+", label: "Wholesale brands listed" },
+      { value: "$4.2M", label: "Wholesale orders processed" },
+      { value: "48h", label: "Average order fulfillment time" },
     ],
     challenge: {
       heading: "Challenge",
       body: [
-        "Four regional depots had each bought their own dispatch software over a decade, and none of them agreed on what a delivery was. A shipment crossing regions was re-entered by hand at every boundary, which meant the head-office view of the network was always somewhere between two hours and two days out of date.",
-        "Nobody could answer a basic question — where is this load right now — without phoning a depot. Planning was done on the assumption that the numbers were roughly right.",
+        "Wholesale relationships between smoke shops, c-stores, and the brands they carry were run over text chains, email threads, and phone calls with no paper trail. A shop's orders were scattered across a dozen different vendor contacts, with no single source of truth, no visibility into what was ordered three months ago or what price was negotiated, and no alert when a top-selling SKU was about to run out.",
+        "Brands had the mirror-image problem: reaching new retail accounts meant trade shows and cold outreach, slow and expensive with no guarantee of a return, and once an account existed, fulfilling and tracking its orders meant the same scattered communication the retailers were stuck with.",
       ],
     },
     approach: {
       heading: "Approach",
       body: [
-        "Rather than replace four working systems at once, the first phase built a single canonical model of a shipment and proved it could be reconciled against all four sources in real time. That spike ran for three weeks against live data before any interface was designed.",
-        "Once the model held, each depot was migrated one at a time, with the old system left running in parallel until the numbers matched for a full week.",
+        "The platform had to work for two different audiences with two different incentives at once: retailers who needed the marketplace to be free and frictionless to adopt, and brands who needed enough control (their own pricing, their own minimum order quantities, their own account relationships) to trust putting their wholesale business on a platform they didn't own. Getting that balance right, rather than the storefront mechanics themselves, was the riskiest part of the build, so it was the first thing validated.",
+        "Retailer verification was treated as a first-class flow rather than a formality, since a marketplace for a specialty category like this only works if both sides trust who they're transacting with.",
       ],
     },
     solution: {
       heading: "Solution",
       body: [
-        "A central coordination service ingests events from each depot system, resolves them against the canonical shipment model, and publishes a single stream that the planning tools and the customer-facing tracking page both read from.",
-        "Depot staff kept the interfaces they already knew. The change was underneath them, which is why adoption did not need a training programme.",
+        "The result is a two-sided wholesale marketplace connecting verified retailers with vetted brands. Shops browse a curated catalog at private wholesale pricing, place orders in seconds instead of over a phone call, and get every order, invoice, and delivery log in one place. Par-level restock alerts notify a shop before a top SKU runs out, rather than after it's already missed at the register.",
+        "On the brand side, sellers control their own pricing tiers and minimum order quantities, see sales analytics and buyer insights (which regions are ordering, which SKUs move fastest), and manage every order from a single dashboard synced with their existing inventory and CRM.",
+        "Verification and onboarding for both shops and brands typically completes in under 24 hours. Enterprise brand accounts get a white-label buyer portal, a custom subdomain, and API and webhook integrations, including native sync with Shopify and Zoho CRM.",
       ],
     },
-    stack: [
-      "Modern web stack",
-      "Managed cloud hosting",
-      "Event queue",
-      "Relational database",
-      "CI/CD pipeline",
-      "Observability tooling",
-    ],
+    stack: ["Shopify sync", "Zoho CRM sync", "REST API & webhooks", "White-label buyer portals"],
     results: {
       heading: "Results",
       body: [
-        "Network-wide shipment status went from a two-hour lag to under thirty seconds. Missed pickup windows fell by 38% in the first quarter, mostly because dispatchers could see contention between depots before it turned into a failed collection.",
-        "The weekly reconciliation meeting, which existed only to argue about whose numbers were correct, was cancelled.",
+        "The platform now runs 2,400+ verified retail shops and 80+ wholesale brands, with $4.2M in wholesale orders processed and an average order fulfillment time of 48 hours.",
+        "Shop access remains free, funded entirely by flat brand subscriptions rather than per-order fees or commissions, so retailers have no cost barrier to adoption and brands keep their full wholesale margin.",
       ],
     },
-  },
-  {
-    slug: "meridian-retail",
-    client: "Meridian Retail Group",
-    title: "Rebuilding order processing around what staff actually did",
-    summary: "Rebuilding order processing around what staff actually did",
-    variant: {
-      hero: "text-metric",
-      body: "narrative",
-      metrics: "hero",
-      density: "text-heavy",
-    },
-    cover: { kind: "gradient", tone: "violet" },
-    heroMetric: { value: "63%", label: "Reduction in order-processing time" },
-    metrics: [{ value: "63%", label: "Reduction in order-processing time" }],
-    challenge: {
-      heading: "Challenge",
-      body: [
-        "The order-processing tool had been built eight years earlier around a workflow the business no longer used. Staff had adapted by inventing their own path through it: a sequence of eleven steps, four of which existed only to satisfy a validation rule nobody could justify, and two of which involved a spreadsheet kept on someone's desktop.",
-        "Every proposal to replace it had started by documenting the official process, which is why every proposal had failed. The official process was not the one being followed.",
-      ],
-    },
-    approach: {
-      heading: "Approach",
-      body: [
-        "The first two weeks were spent watching people work. Not interviews about how the process was supposed to run, but sitting with the team as orders came in, recording where they hesitated, where they switched applications, and where they had built a workaround.",
-        "The spreadsheet turned out to be load-bearing. It held the exception logic for roughly one order in nine, and it had never appeared in any specification because the person maintaining it assumed it was a personal habit rather than part of the system.",
-        "That finding reshaped the build. Instead of designing the happy path and treating exceptions as edge cases, the exceptions became the primary design constraint.",
-      ],
-    },
-    solution: {
-      heading: "Solution",
-      body: [
-        "The replacement collapsed eleven steps to four, and made the exception path a first-class route through the interface rather than something staff had to leave the system to handle. The two validation rules that could be justified were kept; the other two were removed after tracing them back to a supplier relationship that had ended in 2019.",
-        "Rollout ran department by department over six weeks, with the old tool available in read-only mode throughout so nobody lost access to history mid-transition.",
-      ],
-    },
-    stack: [
-      "Modern web stack",
-      "Managed cloud hosting",
-      "Relational database",
-      "Background job runner",
-      "CI/CD pipeline",
-    ],
-    results: {
-      heading: "Results",
-      body: [
-        "Median order-processing time fell 63%, from just over nine minutes to three and a half. The larger effect was on the exception cases, which had previously taken as long as forty minutes and now resolve in under six.",
-        "Training time for a new starter dropped from two days to roughly ninety minutes, which mattered more than the headline number to a business that hires seasonally.",
-      ],
-    },
-    quote: {
-      text: "The system finally matches how the work actually happens, instead of how someone assumed it happened eight years ago.",
-      attribution: "Operations Lead, Meridian Retail Group",
-    },
-  },
-  {
-    slug: "halcyon-instruments",
-    client: "Halcyon Instruments",
-    title: "An integration layer between a warehouse system and a CRM",
-    summary: "An integration layer between a warehouse system and a CRM",
-    variant: {
-      hero: "schematic",
-      body: "sidebar",
-      metrics: "inline",
-      density: "balanced",
-    },
-    cover: { kind: "schematic" },
-    metrics: [
-      { value: "1.2M", label: "Records reconciled in migration" },
-      { value: "< 40s", label: "End-to-end sync latency" },
-      { value: "0", label: "Manual re-entry steps remaining" },
-    ],
-    challenge: {
-      heading: "Challenge",
-      body: [
-        "Stock lived in a warehouse management system installed in 2011. Customers lived in a CRM adopted in 2020. Neither knew the other existed, so the sales team quoted against stock figures that were, at best, a day old — and at worst, wrong in the direction that loses an order.",
-        "Roughly 1.2 million historical records had accumulated on both sides with no shared identifier between them.",
-      ],
-    },
-    approach: {
-      heading: "Approach",
-      body: [
-        "The risky part was not the integration, it was the identity problem: working out which warehouse record corresponded to which CRM record when neither system had ever agreed on a key. That was proven first, on a copy of production data, before any sync code was written.",
-        "Matching resolved cleanly for 94% of records. The remaining 6% were surfaced in a review queue rather than guessed at.",
-      ],
-    },
-    solution: {
-      heading: "Solution",
-      body: [
-        "A dedicated integration service sits between the two systems, holding the mapping and translating in both directions. Stock movements reach the CRM in under forty seconds; customer and pricing changes flow back the other way on the same path.",
-        "Reconciliation runs nightly against both sides and alerts on divergence, so a broken sync is a notification rather than a discovery.",
-      ],
-    },
-    stack: [
-      "Modern web stack",
-      "Integration service layer",
-      "Message queue",
-      "Managed cloud hosting",
-      "Observability tooling",
-    ],
-    results: {
-      heading: "Results",
-      body: [
-        "Quoting against stale stock stopped being a category of error. The sales team's manual re-entry step — previously around 25 minutes per day, per person — was removed entirely.",
-        "The review queue for unmatched records emptied within five weeks and now averages fewer than three entries a month.",
-      ],
-    },
-  },
-  {
-    slug: "brightwater-supply",
-    client: "Brightwater Supply Co.",
-    title: "A self-service portal for accounts that had only ever ordered by phone",
-    summary: "A self-service portal for accounts that had only ever ordered by phone",
-    variant: {
-      hero: "gradient",
-      body: "sectioned",
-      metrics: "grid",
-      density: "balanced",
-    },
-    cover: { kind: "gradient", tone: "sand" },
-    metrics: [
-      { value: "71%", label: "Of reorders now placed self-service" },
-      { value: "2.4x", label: "Increase in reorder frequency" },
-      { value: "11 min", label: "Average call time eliminated per order" },
-    ],
-    challenge: {
-      heading: "Challenge",
-      body: [
-        "Every reorder came through a phone call, and every phone call took around eleven minutes because the account manager had to look up previous orders, confirm current pricing, and check stock across three warehouses while the customer waited.",
-        "Customers who wanted to order outside business hours simply did not order.",
-      ],
-    },
-    approach: {
-      heading: "Approach",
-      body: [
-        "The assumption worth testing first was whether these customers would use a portal at all. Rather than build one and find out, a rough version went to eleven accounts covering the range from smallest to largest, with the phone line still open.",
-        "Nine of the eleven switched within a fortnight. The two that did not were the largest accounts, whose orders were complex enough to need a conversation — which became a design constraint rather than a failure.",
-      ],
-    },
-    solution: {
-      heading: "Solution",
-      body: [
-        "The portal handles the repeat order path: previous orders, account-specific pricing, live stock across all three warehouses, and a one-tap reorder. Complex or unusual orders route to an account manager instead of forcing customers through a flow that does not fit.",
-        "Account managers kept the same back-office tools, now reading from the same stock data the portal shows.",
-      ],
-    },
-    stack: [
-      "Modern web stack",
-      "Managed cloud hosting",
-      "Relational database",
-      "Payment provider integration",
-      "CI/CD pipeline",
-    ],
-    results: {
-      heading: "Results",
-      body: [
-        "71% of reorders moved to self-service within four months. Reorder frequency rose 2.4x — largely from customers placing smaller, more frequent orders outside business hours, which the phone process had made impractical.",
-        "Account managers did not lose work; the time moved from order-taking to the larger accounts that had always needed it.",
-      ],
-    },
-    quote: {
-      text: "The orders we used to lose were the ones nobody wanted to make a phone call for.",
-      attribution: "Owner, Brightwater Supply Co.",
-    },
-  },
-  {
-    slug: "ironvale-works",
-    client: "Ironvale Works",
-    title: "Replacing a decade of spreadsheets without stopping production",
-    summary: "Replacing a decade of spreadsheets without stopping production",
-    variant: {
-      hero: "image-fullbleed",
-      body: "narrative",
-      metrics: "inline",
-      density: "image-heavy",
-    },
-    cover: {
-      kind: "photo",
-      src: `https://images.unsplash.com/photo-1487958449943-2429e8be8625${UNSPLASH}`,
-      alt: "Angular glass and steel building photographed against a pale sky",
-    },
-    metrics: [
-      { value: "47", label: "Spreadsheets retired" },
-      { value: "0", label: "Hours of production stopped" },
-      { value: "3 days → 20 min", label: "Month-end close" },
-    ],
-    challenge: {
-      heading: "Challenge",
-      body: [
-        "Production scheduling, materials tracking, quality records and costing all ran on spreadsheets — 47 of them, linked to each other by formulas that referenced file paths on a shared drive. Three of those files could only be opened by one person, because they contained macros written by someone who had left in 2016.",
-        "Nobody was arguing that this was a good arrangement. The argument was that the factory could not stop for a migration, and every proposal so far had required it to.",
-      ],
-    },
-    approach: {
-      heading: "Approach",
-      body: [
-        "The constraint was absolute: production could not pause, and no week could end without a valid costing. So the work was sequenced to replace one spreadsheet at a time, starting with the ones nothing else depended on and moving inward toward the macro files.",
-        "Each replacement ran alongside its spreadsheet until both produced identical numbers for four consecutive weeks. Twice, they did not match, and both times the spreadsheet turned out to be wrong in ways that had been quietly affecting costing for years.",
-        "That pattern is worth naming: the migration's most valuable output was not the new system but the discovery of what the old one had been getting wrong.",
-      ],
-    },
-    solution: {
-      heading: "Solution",
-      body: [
-        "Scheduling, materials, quality and costing now share one data model, with the shop floor entering information once instead of into four places. The macro files were reverse-engineered, documented, and replaced last, once everything upstream was stable.",
-        "Month-end close went from three days of manual assembly to a report that runs in about twenty minutes.",
-      ],
-    },
-    stack: [
-      "Modern web stack",
-      "Managed cloud hosting",
-      "Relational database",
-      "Reporting layer",
-      "Background job runner",
-      "CI/CD pipeline",
-    ],
-    results: {
-      heading: "Results",
-      body: [
-        "All 47 spreadsheets were retired over fourteen months with no production stoppage. Month-end close dropped from three days to twenty minutes, and costing errors traced back to the old formulas were corrected across the product range.",
-        "The single-person dependency on the macro files no longer exists.",
-      ],
-    },
+    links: [{ label: "Live product", href: "https://b2baccess.us" }],
   },
 ];
