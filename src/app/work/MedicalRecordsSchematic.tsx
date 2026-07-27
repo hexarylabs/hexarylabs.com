@@ -45,7 +45,7 @@ export function MedicalRecordsSchematic({ className }: { className?: string }) {
           Salesforce
         </text>
 
-        <text x="130" y="195" textAnchor="middle">
+        <text x="130" y="205" textAnchor="middle">
           Filevine
         </text>
 
@@ -56,7 +56,7 @@ export function MedicalRecordsSchematic({ className }: { className?: string }) {
           support &amp; tickets
         </text>
 
-        <text x="680" y="360" textAnchor="middle" fontSize="15">
+        <text x="680" y="330" textAnchor="middle" fontSize="15">
           Staff tools
         </text>
       </g>
@@ -94,7 +94,7 @@ export function MedicalRecordsSchematic({ className }: { className?: string }) {
 
       <g className="stroke-grey-500" strokeWidth="1.6" markerEnd="url(#mr-arrow)">
         <polyline
-          points="220,315 540,315 540,115 576,115"
+          points="220,362 540,362 540,115 576,115"
           className="fill-none"
         />
         <line x1="680" y1="164" x2="680" y2="276" />
