@@ -78,7 +78,7 @@ function StackList({ stack }: { stack: string[] }) {
     <ul
       className={cn(
         "grid gap-px border-[0.8px] border-grey-200 bg-grey-200",
-        stack.length % 2 === 0 && "sm:grid-cols-2",
+        stack.length % 2 === 0 && "grid-cols-2",
       )}
     >
       {stack.map((s) => (
