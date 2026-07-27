@@ -327,7 +327,12 @@ function SidebarBody({ study }: { study: CaseStudy }) {
                 <p className="mb-4 mt-10 text-small uppercase tracking-widest text-grey-600">
                   Technology
                 </p>
-                <ul className="flex flex-col gap-px border-[0.8px] border-grey-200 bg-grey-200">
+                <ul
+                  className={cn(
+                    "gap-px border-[0.8px] border-grey-200 bg-grey-200 lg:flex lg:flex-col",
+                    study.stack.length % 2 === 0 ? "grid grid-cols-2" : "grid",
+                  )}
+                >
                   {study.stack.map((s) => (
                     <li
                       key={s}
