@@ -6,17 +6,13 @@
     Pointy-top hexes, matching the lattice visuals. Concentric on (16,16):
     outer R=13, inner R=5.5.
 
-    The ring flips light in dark browser UI — a #1F2937 outline is invisible
-    against a dark tab strip. Rasterised icons take the light-mode default.
+    Ring stays #1F2937 always, matching the logo's light-mode default —
+    same as the rasterised icons (apple-icon.png, icon-512.png).
   -->
-  <style>
-    .ring { stroke: #1F2937 }
-    @media (prefers-color-scheme: dark) { .ring { stroke: #E3E1E1 } }
-  </style>
   <polygon
-    class="ring"
     points="16,3 27.26,9.5 27.26,22.5 16,29 4.74,22.5 4.74,9.5"
     fill="none"
+    stroke="#1F2937"
     stroke-width="2"
   />
   <polygon points="16,10.5 20.76,13.25 20.76,18.75 16,21.5 11.24,18.75 11.24,13.25" fill="#5B5BF0" />
