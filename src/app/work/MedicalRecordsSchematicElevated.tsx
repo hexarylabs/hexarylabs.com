@@ -53,7 +53,7 @@ export function MedicalRecordsSchematicElevated({ className }: { className?: str
         y="292"
         textAnchor="middle"
         fontSize="12.5"
-        className="fill-white/70 font-sans"
+        className="fill-grey-300 font-sans"
       >
         Laravel · PHI-safe by design
       </text>
@@ -63,7 +63,7 @@ export function MedicalRecordsSchematicElevated({ className }: { className?: str
       <text x="780" y="120" textAnchor="middle" className="fill-white font-display" fontSize="19" fontWeight="500">
         AI Backend
       </text>
-      <text x="780" y="145" textAnchor="middle" fontSize="12.5" className="fill-grey-400 font-sans">
+      <text x="780" y="145" textAnchor="middle" fontSize="12.5" className="fill-grey-300 font-sans">
         Bedrock · Textract · suggest-only
       </text>
 
@@ -74,15 +74,15 @@ export function MedicalRecordsSchematicElevated({ className }: { className?: str
       </text>
 
       {/* Bidirectional sync connectors — source systems <-> middleware */}
-      <g className="stroke-grey-400" strokeWidth="1.6" fill="none">
+      <g className="stroke-grey-500" strokeWidth="1.6" fill="none">
         <polyline points="240,117 290,117 290,220 340,220" />
         <polyline points="240,252 340,252" />
-        <polyline points="240,387 290,387 290,286 340,286" />
+        <polyline points="240,365 300,365 300,286 340,286" />
       </g>
-      <g className="fill-grey-400">
+      <g className="fill-grey-500">
         <circle cx="240" cy="117" r="3.5" />
         <circle cx="240" cy="252" r="3.5" />
-        <circle cx="240" cy="387" r="3.5" />
+        <circle cx="240" cy="365" r="3.5" />
         <circle cx="340" cy="220" r="3.5" />
         <circle cx="340" cy="252" r="3.5" />
         <circle cx="340" cy="286" r="3.5" />
@@ -90,9 +90,10 @@ export function MedicalRecordsSchematicElevated({ className }: { className?: str
 
       {/* Directional flow — Zendesk -> AI backend -> Staff tools */}
       <g className="stroke-grey-500" strokeWidth="1.6" fill="none" markerEnd="url(#mre-arrow)">
-        <polyline points="240,368 620,368 620,125 656,125" />
+        <polyline points="240,406 620,406 620,125 656,125" />
         <line x1="780" y1="184" x2="780" y2="296" />
       </g>
+      <circle cx="240" cy="406" r="3.5" className="fill-grey-500" />
 
       <defs>
         <marker
