@@ -1,5 +1,5 @@
 export const WORK_INTRO =
-  "A sample of the systems we've designed and built, and the products we run ourselves. Each one started as a problem worth solving properly.";
+  "Six engagements that show what we build: AI-native products, SaaS running in production, PHI-safe enterprise platforms, and integration systems connecting the tools our clients already depend on. Different scales, different stacks, one team behind all of them.";
 
 export type HeroVariant =
   | "image-contained"
