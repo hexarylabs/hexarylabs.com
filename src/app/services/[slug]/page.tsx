@@ -14,12 +14,36 @@ import {
   type ComparisonRow,
   type ServiceFaq,
 } from "@/content/services";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 type Params = { slug: string };
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
+
+const SEO_META: Record<string, { title: string; description: string }> = {
+  "product-strategy": {
+    title: "Product Strategy",
+    description:
+      "Validated roadmaps and technical feasibility for founders and product leaders. Know what to build before you spend a cent building it.",
+  },
+  "product-design": {
+    title: "Product Design & UX",
+    description:
+      "Research, interface design, and design systems for software products. UX that holds up once real users touch it, not just in the demo.",
+  },
+  "software-engineering": {
+    title: "Custom Software Development",
+    description:
+      "Web, mobile, and backend systems built to scale. Node.js, TypeScript, Python, .NET, PHP, on AWS, Azure, or GCP. Chosen for your business, not our defaults.",
+  },
+  "ai-engineering": {
+    title: "AI Development Services",
+    description:
+      "AI agents, RAG systems, LLM integrations, and intelligent automation built to work in production. Evaluated, grounded in your data, monitored after launch.",
+  },
+};
 
 // Next 16: `params` is a Promise — synchronous access was removed.
 export async function generateMetadata({
@@ -31,7 +55,13 @@ export async function generateMetadata({
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
 
-  return { title: service.title, description: service.heroSubhead };
+  const seo = SEO_META[service.slug];
+
+  return {
+    title: seo?.title ?? service.title,
+    description: seo?.description ?? service.heroSubhead,
+    alternates: { canonical: `/services/${service.slug}` },
+  };
 }
 
 const contentHeading = "text-[1.3125rem] leading-[1.2] md:text-[1.625rem] lg:text-h3";
@@ -238,8 +268,37 @@ export default async function ServicePage({
 
   const blocks = buildBlocks(service);
 
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.heroSubhead,
+    provider: { "@type": "Organization", name: "Hexary Labs" },
+    areaServed: "Worldwide",
+  };
+
+  const faqJsonLd =
+    service.faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: service.faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answer },
+          })),
+        }
+      : null;
+
+  const breadcrumbJsonLd = breadcrumbList([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: service.title, path: `/services/${service.slug}` },
+  ]);
+
   return (
     <>
+      <JsonLd data={[serviceJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])]} />
       <PageHero
         eyebrow={service.heroEyebrow}
         title={service.heroHeadline}

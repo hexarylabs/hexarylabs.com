@@ -8,12 +8,26 @@ import { CtaBand } from "@/components/sections/CtaBand";
 import { CaseCover, gradients } from "../CaseCover";
 import { work } from "@/content/work";
 import type { CaseStudy, Metric, CaseSection } from "@/content/work";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 type Params = { slug: string };
 
 export function generateStaticParams() {
   return work.map((w) => ({ slug: w.slug }));
 }
+
+const SEO_DESCRIPTION: Record<string, string> = {
+  keepcoming:
+    "A loyalty platform for cafes, restaurants, and independent shops, with real Apple Wallet and Google Wallet integration and a public developer API.",
+  "medical-records-platform":
+    "A PHI-safe integration platform connecting three case-management systems, with an AI backend that surfaces operational patterns from historical support tickets.",
+  truecell:
+    "An inventory OS for high-volume electronics resellers: marketplace sync, demand forecasting, and a rules engine that prevents overselling units.",
+  kinein:
+    "A wholesale storefront for distributors and manufacturers where inventory, pricing, and orders sync both ways with Fishbowl, Acumatica, and more.",
+  "b2b-access":
+    "The wholesale platform built for smoke shops, c-stores, and the brands they carry: a vetted brand catalog, order tracking, and par-level restock alerts.",
+};
 
 export async function generateMetadata({
   params,
@@ -24,7 +38,11 @@ export async function generateMetadata({
   const study = work.find((w) => w.slug === slug);
   if (!study) return {};
 
-  return { title: study.title, description: study.summary };
+  return {
+    title: study.title,
+    description: SEO_DESCRIPTION[study.slug] ?? study.summary,
+    alternates: { canonical: `/work/${study.slug}` },
+  };
 }
 
 const headingClass =
@@ -376,8 +394,23 @@ export default async function CaseStudyPage({
 
   const { body } = study.variant;
 
+  const creativeWorkJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: study.title,
+    description: study.summary,
+    creator: { "@type": "Organization", name: "Hexary Labs" },
+  };
+
+  const breadcrumbJsonLd = breadcrumbList([
+    { name: "Home", path: "/" },
+    { name: "Work", path: "/work" },
+    { name: study.title, path: `/work/${study.slug}` },
+  ]);
+
   return (
     <>
+      <JsonLd data={[creativeWorkJsonLd, breadcrumbJsonLd]} />
       <CaseHero study={study} />
 
       {body === "sectioned" && <SectionedBody study={study} />}

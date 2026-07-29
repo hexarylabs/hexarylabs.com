@@ -8,17 +8,26 @@ import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import { Reveal } from "@/components/ui/Reveal";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { services, servicesOverview } from "@/content/services";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: servicesOverview.hero.subhead,
+  description:
+    "Strategy, design, engineering, and AI. Four ways we help teams build software worth investing in, with the same team from first conversation to shipped system.",
+  alternates: { canonical: "/services" },
 };
+
+const breadcrumbJsonLd = breadcrumbList([
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+]);
 
 export default function ServicesPage() {
   const { hero, notSure, closing } = servicesOverview;
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <PageHero
         eyebrow={hero.eyebrow}
         title={hero.headline}

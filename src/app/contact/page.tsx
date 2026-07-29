@@ -4,16 +4,24 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { site } from "@/content/site";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
     "Tell Hexary Labs what you're building. We'll get back to you within a business day.",
+  alternates: { canonical: "/contact" },
 };
+
+const breadcrumbJsonLd = breadcrumbList([
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+]);
 
 export default function ContactPage() {
   return (
     <Section tone="light">
+      <JsonLd data={breadcrumbJsonLd} />
       <Container>
         <Reveal className="mx-auto max-w-[46rem] text-center">
           <h1 className="text-[2.125rem] leading-[1.2] tracking-[0.02em] md:text-[3rem] lg:text-h1">

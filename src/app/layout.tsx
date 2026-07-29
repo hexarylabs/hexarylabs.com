@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/content/site";
 import { truncateAtWord } from "@/lib/truncate";
+import { JsonLd } from "@/lib/jsonld";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -20,13 +21,17 @@ const inter = Inter({
 
 const fullTitle = `${site.name} — ${site.tagline}`;
 
+const homeDescription =
+  "We build SaaS platforms, AI-powered products, business systems, and integrations for founders and enterprises. One senior team from strategy through production.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: truncateAtWord(fullTitle, 60),
     template: `%s | ${site.name}`,
   },
-  description: truncateAtWord(site.description, 155),
+  description: homeDescription,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: site.url,
@@ -46,6 +51,28 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/icon-512.png`,
+  description: site.description,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: site.phone,
+    contactType: "sales",
+    email: site.email,
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.name,
+  url: site.url,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -56,6 +83,7 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
         <a
           href="#main"
           className="sr-only rounded-none focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[200] focus:bg-contrast-2 focus:px-4 focus:py-3 focus:text-body focus:text-white"

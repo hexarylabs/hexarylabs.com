@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 export const metadata: Metadata = {
   title: "Privacy",
   robots: { index: false, follow: true },
+  alternates: { canonical: "/privacy" },
 };
 
 const heading = "text-[1.3125rem] leading-[1.2] md:text-[1.625rem] lg:text-h3";

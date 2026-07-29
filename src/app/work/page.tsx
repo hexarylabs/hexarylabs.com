@@ -10,17 +10,20 @@ import { CaseCover } from "./CaseCover";
 import { MedicalRecordsSchematicElevated } from "./MedicalRecordsSchematicElevated";
 import { work, WORK_INTRO } from "@/content/work";
 import type { Cover } from "@/content/work";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
-  title: "Work",
-  description: "Selected engagements and in-house products from Hexary Labs.",
+  title: "Case Studies",
+  description:
+    "Selected engagements and in-house products, from an AI-native creative studio to PHI-safe enterprise platforms and production SaaS.",
+  alternates: { canonical: "/work" },
 };
 
-/**
- * Standardized client-attribution tags for this index page only — the
- * underlying `study.client` field keeps its original per-study wording since
- * the detail hero and homepage teaser card both read it unchanged.
- */
+const breadcrumbJsonLd = breadcrumbList([
+  { name: "Home", path: "/" },
+  { name: "Work", path: "/work" },
+]);
+
 const CLIENT_TAGS: Record<string, string> = {
   eden: "Client · Eden Labs",
   keepcoming: "In-house product",
@@ -30,12 +33,6 @@ const CLIENT_TAGS: Record<string, string> = {
   "b2b-access": "Client · B2B Access",
 };
 
-/**
- * Index-only cover overrides — swap in a real image for Eden and an elevated
- * schematic for Medical Records so the lead cards carry the same visual
- * weight as the photo-based cards below them. Neither `content/work.ts` nor
- * the detail-page hero is touched, so both keep their original renderings.
- */
 const resolveIndexCover = (study: (typeof work)[number]): Cover =>
   study.slug === "eden"
     ? {
@@ -48,6 +45,7 @@ const resolveIndexCover = (study: (typeof work)[number]): Cover =>
 export default function WorkPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <PageHero
         eyebrow="Work"
         title={

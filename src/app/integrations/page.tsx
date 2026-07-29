@@ -14,15 +14,24 @@ import {
   approach,
   closing,
 } from "@/content/integrations";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
-  title: "Integrations",
-  description: hero.intro,
+  title: "Integrations & API Development",
+  description:
+    "We connect the tools your business already runs on, from Amazon and Shopify to Fishbowl, QuickBooks, and Zoho CRM. Real integrations, no duct tape.",
+  alternates: { canonical: "/integrations" },
 };
+
+const breadcrumbJsonLd = breadcrumbList([
+  { name: "Home", path: "/" },
+  { name: "Integrations", path: "/integrations" },
+]);
 
 export default function IntegrationsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <PageHero
         eyebrow={hero.eyebrow}
         title={hero.headline}

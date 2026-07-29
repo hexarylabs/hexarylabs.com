@@ -12,15 +12,24 @@ import {
   whatWeAsk,
   closing,
 } from "@/content/how-we-work";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "How We Work",
-  description: hero.intro,
+  description:
+    "Our engagement process: frame the problem, prove the risky part, build in the open, hand over cleanly. What each step actually looks like week to week.",
+  alternates: { canonical: "/how-we-work" },
 };
+
+const breadcrumbJsonLd = breadcrumbList([
+  { name: "Home", path: "/" },
+  { name: "How We Work", path: "/how-we-work" },
+]);
 
 export default function HowWeWorkPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <PageHero
         eyebrow={hero.eyebrow}
         title={hero.headline}

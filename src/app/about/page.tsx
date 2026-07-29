@@ -11,18 +11,26 @@ import {
   whereExpertiseRanges,
   whyChooseUs,
 } from "@/content/about";
+import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Hexary Labs is a software development studio — engineers, designers and product specialists who take products from a rough idea to a system your own team can run without us.",
+    "A small, senior technology partner. Engineers, designers, and product specialists building software worth investing in, from strategy through production.",
+  alternates: { canonical: "/about" },
 };
+
+const breadcrumbJsonLd = breadcrumbList([
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+]);
 
 const contentHeading = "text-[1.3125rem] leading-[1.2] md:text-[1.625rem] lg:text-h3";
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <PageHero
         eyebrow="About"
         title={
