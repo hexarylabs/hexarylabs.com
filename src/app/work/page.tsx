@@ -11,6 +11,7 @@ import { MedicalRecordsSchematicElevated } from "./MedicalRecordsSchematicElevat
 import { work, WORK_INTRO } from "@/content/work";
 import type { Cover } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
+import { REVEAL_STAGGER_MS, CARD_HOVER_ZOOM, cardHoverZoomStyle } from "@/lib/motion";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -55,6 +56,7 @@ export default function WorkPage() {
           </>
         }
         intro={WORK_INTRO}
+        staggerReveal
       />
 
       <Section tone="light">
@@ -67,11 +69,21 @@ export default function WorkPage() {
               const isElevatedSchematic = study.slug === "medical-records-platform";
 
               return (
-                <Reveal key={study.slug} delay={i * 60} className="h-full">
+                <Reveal
+                  key={study.slug}
+                  variant="fade-up"
+                  delay={i * REVEAL_STAGGER_MS}
+                  className="h-full"
+                >
                   <article className="group relative flex h-full flex-col border-[0.8px] border-grey-200 bg-base">
                     {isElevatedSchematic ? (
                       <div className="flex w-full items-center justify-center overflow-hidden border-b-[0.8px] border-grey-200 bg-base-2 p-6 aspect-[4/3] sm:aspect-[1.6] sm:p-10 lg:aspect-[1.9] lg:p-12">
-                        <MedicalRecordsSchematicElevated className="max-h-full" />
+                        <div
+                          className="card-hover-zoom max-h-full"
+                          style={cardHoverZoomStyle(CARD_HOVER_ZOOM.schematic)}
+                        >
+                          <MedicalRecordsSchematicElevated className="max-h-full" />
+                        </div>
                       </div>
                     ) : (
                       <CaseCover
@@ -83,6 +95,7 @@ export default function WorkPage() {
                             : "aspect-[1.9]"
                         }
                         sizes="(min-width: 1024px) 620px, 100vw"
+                        hoverZoom
                       />
                     )}
 
@@ -115,12 +128,14 @@ export default function WorkPage() {
         </Container>
       </Section>
 
-      <ClosingCta
-        heading="Building something in this shape?"
-        body="From AI platforms to enterprise integrations to production SaaS, this is the range we work across. If any of the work above looks like what you're trying to build, we should talk."
-        cta={{ label: "Start a Project", href: "/contact" }}
-        secondaryCta={{ label: "See How We Work", href: "/how-we-work" }}
-      />
+      <Reveal variant="fade-up">
+        <ClosingCta
+          heading="Building something in this shape?"
+          body="From AI platforms to enterprise integrations to production SaaS, this is the range we work across. If any of the work above looks like what you're trying to build, we should talk."
+          cta={{ label: "Start a Project", href: "/contact" }}
+          secondaryCta={{ label: "See How We Work", href: "/how-we-work" }}
+        />
+      </Reveal>
     </>
   );
 }

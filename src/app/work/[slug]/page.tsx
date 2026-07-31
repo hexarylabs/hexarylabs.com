@@ -3,12 +3,15 @@ import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
+import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { CaseCover, gradients } from "../CaseCover";
+import { WorkImagesGrid } from "../WorkImagesGrid";
 import { work } from "@/content/work";
 import type { CaseStudy, Metric, CaseSection } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
+import { heroStaggerStyle as heroStyle } from "@/lib/motion";
 
 type Params = { slug: string };
 
@@ -87,6 +90,9 @@ function Prose({ section }: { section: CaseSection }) {
           {p}
         </p>
       ))}
+      {section.images && section.images.length > 0 && (
+        <WorkImagesGrid images={section.images} />
+      )}
     </div>
   );
 }
@@ -131,13 +137,22 @@ function PullQuote({ study, className }: { study: CaseStudy; className?: string 
 function HeroText({ study }: { study: CaseStudy }) {
   return (
     <>
-      <p className="text-small uppercase tracking-widest text-grey-600">
+      <p
+        className="hero-stagger-item text-small uppercase tracking-widest text-grey-600"
+        style={heroStyle(0)}
+      >
         {study.client}
       </p>
-      <h1 className="mt-6 max-w-[20ch] text-[2.125rem] leading-[1.2] tracking-[0.02em] md:text-[3rem] lg:text-h1">
+      <h1
+        className="hero-stagger-item mt-6 max-w-[20ch] text-[2.125rem] leading-[1.2] tracking-[0.02em] md:text-[3rem] lg:text-h1"
+        style={heroStyle(1)}
+      >
         {study.title}
       </h1>
-      <p className="mt-6 max-w-[60ch] text-body-lg text-grey-600">
+      <p
+        className="hero-stagger-item mt-6 max-w-[60ch] text-body-lg text-grey-600"
+        style={heroStyle(2)}
+      >
         {study.summary}
       </p>
     </>
@@ -150,7 +165,9 @@ function CaseHero({ study }: { study: CaseStudy }) {
   if (hero === "image-fullbleed") {
     return (
       <>
-        <CaseCover cover={study.cover} title={study.title} aspect="aspect-[2.4]" sizes="100vw" eager />
+        <div className="hero-stagger-item" style={heroStyle(3)}>
+          <CaseCover cover={study.cover} title={study.title} aspect="aspect-[2.4]" sizes="100vw" eager />
+        </div>
         <section className="border-b-[0.8px] border-grey-100 bg-base pb-14 pt-12 lg:pb-20 lg:pt-16">
           <Container>
             <HeroText study={study} />
@@ -169,7 +186,10 @@ function CaseHero({ study }: { study: CaseStudy }) {
               <HeroText study={study} />
             </div>
             {study.heroMetric && (
-              <div className="border-t-[0.8px] border-grey-200 pt-8 lg:border-l-[0.8px] lg:border-t-0 lg:pl-10 lg:pt-0">
+              <div
+                className="hero-stagger-item border-t-[0.8px] border-grey-200 pt-8 lg:border-l-[0.8px] lg:border-t-0 lg:pl-10 lg:pt-0"
+                style={heroStyle(3)}
+              >
                 <p className="font-display text-stat font-medium leading-[1.1] text-accent">
                   {study.heroMetric.value}
                 </p>
@@ -195,13 +215,22 @@ function CaseHero({ study }: { study: CaseStudy }) {
         )}
       >
         <Container>
-          <p className="text-small uppercase tracking-widest text-grey-600">
+          <p
+            className="hero-stagger-item text-small uppercase tracking-widest text-grey-600"
+            style={heroStyle(0)}
+          >
             {study.client}
           </p>
-          <h1 className="mt-6 max-w-[16ch] font-display text-[2.125rem] font-medium leading-[1.15] tracking-[0.01em] text-contrast-2 md:text-[3rem] lg:text-h1">
+          <h1
+            className="hero-stagger-item mt-6 max-w-[16ch] font-display text-[2.125rem] font-medium leading-[1.15] tracking-[0.01em] text-contrast-2 md:text-[3rem] lg:text-h1"
+            style={heroStyle(1)}
+          >
             {study.title}
           </h1>
-          <p className="mt-6 max-w-[55ch] text-body-lg text-grey-600">
+          <p
+            className="hero-stagger-item mt-6 max-w-[55ch] text-body-lg text-grey-600"
+            style={heroStyle(2)}
+          >
             {study.summary}
           </p>
         </Container>
@@ -213,7 +242,7 @@ function CaseHero({ study }: { study: CaseStudy }) {
     <section className="border-b-[0.8px] border-grey-100 bg-base pb-14 pt-12 lg:pb-20 lg:pt-18">
       <Container>
         <HeroText study={study} />
-        <div className="mt-12">
+        <div className="hero-stagger-item mt-12" style={heroStyle(3)}>
           <CaseCover
             cover={study.cover}
             title={study.title}
@@ -248,7 +277,7 @@ function SectionedBody({ study }: { study: CaseStudy }) {
       {blocks.map((block, i) => (
         <Section key={block.heading} tone={i % 2 === 0 ? "light" : "muted"}>
           <Container>
-            <div className="grid gap-8 lg:grid-cols-[1fr_1.8fr] lg:gap-16">
+            <Reveal variant="fade-up" className="grid gap-8 lg:grid-cols-[1fr_1.8fr] lg:gap-16">
               <div className="lg:sticky lg:top-28 lg:self-start">
                 <h2 className={headingClass}>{block.heading}</h2>
               </div>
@@ -263,7 +292,57 @@ function SectionedBody({ study }: { study: CaseStudy }) {
                   </div>
                 )}
               </div>
-            </div>
+            </Reveal>
+          </Container>
+        </Section>
+      ))}
+
+      {study.quote && (
+        <Section tone="light">
+          <Container>
+            <PullQuote study={study} />
+          </Container>
+        </Section>
+      )}
+    </>
+  );
+}
+
+function TwoColumnBody({ study }: { study: CaseStudy }) {
+  const blocks = [study.challenge, study.approach, study.solution, study.results];
+
+  return (
+    <>
+      {study.variant.metrics === "grid" && (
+        <section data-tone="dark" className="bg-contrast-2 py-10 lg:py-14">
+          <Container>
+            <MetricGrid metrics={study.metrics} />
+          </Container>
+        </section>
+      )}
+
+      {blocks.map((block, i) => (
+        <Section key={block.heading} tone={i % 2 === 0 ? "light" : "muted"}>
+          <Container>
+            <Reveal
+              variant="fade-up"
+              className="grid gap-8 md:grid-cols-[0.697fr_1fr] md:gap-10 lg:gap-16"
+            >
+              <div>
+                <h2 className={headingClass}>{block.heading}</h2>
+              </div>
+              <div>
+                <Prose section={block} />
+                {block.heading === "Solution" && study.stack.length > 0 && (
+                  <div className="mt-10">
+                    <p className="mb-4 text-small uppercase tracking-widest text-grey-600">
+                      Technology
+                    </p>
+                    <StackList stack={study.stack} />
+                  </div>
+                )}
+              </div>
+            </Reveal>
           </Container>
         </Section>
       ))}
@@ -288,7 +367,11 @@ function NarrativeBody({ study }: { study: CaseStudy }) {
       <Container>
         <div className="mx-auto max-w-[68ch]">
           {blocks.map((block, i) => (
-            <div key={block.heading} className={i > 0 ? "mt-14" : undefined}>
+            <Reveal
+              key={block.heading}
+              variant="fade-up"
+              className={i > 0 ? "mt-14" : undefined}
+            >
               <h2 className={headingClass}>{block.heading}</h2>
               <div className="mt-6">
                 <Prose section={block} />
@@ -308,7 +391,7 @@ function NarrativeBody({ study }: { study: CaseStudy }) {
               {block.heading === "Approach" && (
                 <PullQuote study={study} className="mt-12" />
               )}
-            </div>
+            </Reveal>
           ))}
         </div>
       </Container>
@@ -366,13 +449,17 @@ function SidebarBody({ study }: { study: CaseStudy }) {
 
           <div>
             {blocks.map((block, i) => (
-              <div key={block.heading} className={i > 0 ? "mt-14" : undefined}>
+              <Reveal
+                key={block.heading}
+                variant="fade-up"
+                className={i > 0 ? "mt-14" : undefined}
+              >
                 <h2 className={headingClass}>{block.heading}</h2>
                 <div className="mt-6">
                   <Prose section={block} />
                 </div>
                 {inline && study.metrics[i] && <InlineMetric metric={study.metrics[i]} />}
-              </div>
+              </Reveal>
             ))}
 
             <PullQuote study={study} className="mt-14" />
@@ -416,6 +503,7 @@ export default async function CaseStudyPage({
       {body === "sectioned" && <SectionedBody study={study} />}
       {body === "narrative" && <NarrativeBody study={study} />}
       {body === "sidebar" && <SidebarBody study={study} />}
+      {body === "two-column" && <TwoColumnBody study={study} />}
 
       {study.links && (
         <Section tone="light">
@@ -439,7 +527,9 @@ export default async function CaseStudyPage({
         </Section>
       )}
 
-      <CtaBand />
+      <Reveal variant="fade-up">
+        <CtaBand />
+      </Reveal>
     </>
   );
 }

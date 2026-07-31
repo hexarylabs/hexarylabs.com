@@ -8,9 +8,11 @@ export type HeroVariant =
   | "gradient"
   | "image-fullbleed";
 
-export type BodyVariant = "sectioned" | "narrative" | "sidebar";
+export type BodyVariant = "sectioned" | "narrative" | "sidebar" | "two-column";
 export type MetricVariant = "grid" | "hero" | "inline";
 export type DensityVariant = "image-heavy" | "text-heavy" | "balanced";
+export type WorkImageSize = "small" | "rectangle" | "full";
+export type WorkImage = { src: string; alt: string; size: WorkImageSize };
 
 export type GradientTone = "violet" | "slate" | "sand";
 
@@ -21,17 +23,17 @@ export type Cover =
 
 export type Metric = { value: string; label: string };
 
-export type CaseSection = { heading: string; body: string[] };
+export type CaseSection = {
+  heading: string;
+  body: string[];
+  images?: WorkImage[];
+};
 
 export type CaseStudy = {
   slug: string;
-  /** Short name/company — shown as the eyebrow on cards and the detail hero. */
   client: string;
-  /** Punchy one-line headline. */
   title: string;
-  /** Supporting blurb — homepage card body, detail hero subhead. */
   summary: string;
-  /** Capability tags for the homepage teaser card's bottom strip. Not needed by entries that never surface there. */
   scope?: string[];
   variant: {
     hero: HeroVariant;
@@ -48,7 +50,6 @@ export type CaseStudy = {
   stack: string[];
   results: CaseSection;
   quote?: { text: string; attribution: string };
-  /** Optional external links, e.g. live product, docs, GitHub — rendered as a link row before the closing CTA. */
   links?: { label: string; href: string }[];
 };
 
@@ -306,7 +307,7 @@ export const work: CaseStudy[] = [
     ],
     variant: {
       hero: "image-contained",
-      body: "sectioned",
+      body: "two-column",
       metrics: "grid",
       density: "balanced",
     },
@@ -374,7 +375,7 @@ export const work: CaseStudy[] = [
     ],
     variant: {
       hero: "image-contained",
-      body: "sectioned",
+      body: "two-column",
       metrics: "grid",
       density: "balanced",
     },
@@ -440,7 +441,7 @@ export const work: CaseStudy[] = [
     ],
     variant: {
       hero: "image-contained",
-      body: "sectioned",
+      body: "two-column",
       metrics: "grid",
       density: "balanced",
     },
