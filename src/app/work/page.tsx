@@ -7,9 +7,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { CaseCover } from "./CaseCover";
+import { EdenAnimatedHero } from "./EdenAnimatedHero";
 import { MedicalRecordsSchematicElevated } from "./MedicalRecordsSchematicElevated";
 import { work, WORK_INTRO } from "@/content/work";
-import type { Cover } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 import { REVEAL_STAGGER_MS, CARD_HOVER_ZOOM, cardHoverZoomStyle } from "@/lib/motion";
 
@@ -34,15 +34,6 @@ const CLIENT_TAGS: Record<string, string> = {
   "b2b-access": "Client · B2B Access",
 };
 
-const resolveIndexCover = (study: (typeof work)[number]): Cover =>
-  study.slug === "eden"
-    ? {
-        kind: "photo",
-        src: "/work/eden-og.webp",
-        alt: "Eden — Garden of Artificial Delights, the studio's own marketing key art",
-      }
-    : study.cover;
-
 export default function WorkPage() {
   return (
     <>
@@ -65,7 +56,6 @@ export default function WorkPage() {
 
           <div className="grid gap-8 lg:grid-cols-2">
             {work.map((study, i) => {
-              const cover = resolveIndexCover(study);
               const isElevatedSchematic = study.slug === "medical-records-platform";
 
               return (
@@ -76,7 +66,13 @@ export default function WorkPage() {
                   className="h-full"
                 >
                   <article className="group relative flex h-full flex-col border-[0.8px] border-grey-200 bg-base">
-                    {isElevatedSchematic ? (
+                    {study.slug === "eden" ? (
+                      <EdenAnimatedHero
+                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
+                        sizes="(min-width: 1024px) 620px, 100vw"
+                        className="border-b-[0.8px] border-grey-200"
+                      />
+                    ) : isElevatedSchematic ? (
                       <div className="flex w-full items-center justify-center overflow-hidden border-b-[0.8px] border-grey-200 bg-base-2 p-6 aspect-[4/3] sm:aspect-[1.6] sm:p-10 lg:aspect-[1.9] lg:p-12">
                         <div
                           className="card-hover-zoom max-h-full"
@@ -87,10 +83,10 @@ export default function WorkPage() {
                       </div>
                     ) : (
                       <CaseCover
-                        cover={cover}
+                        cover={study.cover}
                         title={study.title}
                         aspect={
-                          cover.kind === "schematic"
+                          study.cover.kind === "schematic"
                             ? "aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
                             : "aspect-[1.9]"
                         }

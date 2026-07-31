@@ -7,6 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { CaseCover, gradients } from "../CaseCover";
+import { EdenAnimatedHero } from "../EdenAnimatedHero";
 import { WorkImagesGrid } from "../WorkImagesGrid";
 import { work } from "@/content/work";
 import type { CaseStudy, Metric, CaseSection } from "@/content/work";
@@ -243,18 +244,27 @@ function CaseHero({ study }: { study: CaseStudy }) {
       <Container>
         <HeroText study={study} />
         <div className="hero-stagger-item mt-12" style={heroStyle(3)}>
-          <CaseCover
-            cover={study.cover}
-            title={study.title}
-            aspect={
-              hero === "schematic"
-                ? "aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
-                : "h-auto"
-            }
-            sizes="(min-width: 1200px) 1200px, 100vw"
-            eager
-            className={hero === "schematic" ? undefined : "border-[0.8px] border-grey-200"}
-          />
+          {study.slug === "eden" ? (
+            <EdenAnimatedHero
+              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
+              sizes="(min-width: 1200px) 1200px, 100vw"
+              eager
+              className="border-[0.8px] border-grey-200"
+            />
+          ) : (
+            <CaseCover
+              cover={study.cover}
+              title={study.title}
+              aspect={
+                hero === "schematic"
+                  ? "aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
+                  : "h-auto"
+              }
+              sizes="(min-width: 1200px) 1200px, 100vw"
+              eager
+              className={hero === "schematic" ? undefined : "border-[0.8px] border-grey-200"}
+            />
+          )}
         </div>
       </Container>
     </section>
