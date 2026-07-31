@@ -7,6 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { CaseCover, gradients } from "../CaseCover";
+import { CaseDiagramFigure } from "../CaseDiagramFigure";
 import { WorkImagesGrid } from "../WorkImagesGrid";
 import { work } from "@/content/work";
 import type { CaseStudy, Metric, CaseSection } from "@/content/work";
@@ -90,6 +91,7 @@ function Prose({ section }: { section: CaseSection }) {
           {p}
         </p>
       ))}
+      {section.diagram && <CaseDiagramFigure diagram={section.diagram} />}
       {section.images && section.images.length > 0 && (
         <WorkImagesGrid images={section.images} />
       )}

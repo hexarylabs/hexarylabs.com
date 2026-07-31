@@ -21,12 +21,19 @@ export type Cover =
   | { kind: "gradient"; tone: GradientTone }
   | { kind: "schematic"; diagram?: "halcyon" | "eden" | "medical-records" };
 
+export type CaseDiagram =
+  | "truecell-sync"
+  | "kinein-sync"
+  | "b2b-access-flow"
+  | "keepcoming-wallet";
+
 export type Metric = { value: string; label: string };
 
 export type CaseSection = {
   heading: string;
   body: string[];
   images?: WorkImage[];
+  diagram?: CaseDiagram;
 };
 
 export type CaseStudy = {
@@ -192,6 +199,7 @@ export const work: CaseStudy[] = [
         "Additional capability: birthday and reward automations that fire on their own once the shop sets the rules, staff scan pages that work from any phone camera without extra hardware, and an analytics view for shop owners to see visits, top customers, and redemption patterns.",
         "KeepComing is also designed as an ecosystem, not a closed product. A public developer API (documented at www.keepcoming.app/docs) lets third parties integrate loyalty into their own tools: POS systems, e-commerce platforms, marketing stacks, whatever a shop already runs on. And a partners program at www.keepcoming.app/partners opens the door for agencies, resellers, and technology partners to bring KeepComing into their own client work. Building for external integration from day one meant designing clean, versioned APIs and treating our own frontend as one client among many, which is why KeepComing can grow horizontally, into other businesses' workflows, instead of only vertically, into more features.",
       ],
+      diagram: "keepcoming-wallet",
     },
     stack: [
       "Next.js",
@@ -321,7 +329,7 @@ export const work: CaseStudy[] = [
     challenge: {
       heading: "Challenge",
       body: [
-        "High-volume electronics resellers were tracking inventory, marketplace listings, and diagnostics across separate tools, with no single system deciding where a unit should go without the risk of overselling it across channels like Amazon, eBay, and Back Market.",
+        "High-volume electronics resellers were tracking inventory, marketplace listings, and diagnostics across separate tools, and no single system decided where each unit should go without risking overselling it across Amazon, eBay, and Back Market.",
         "Every workaround touched the books eventually: a unit sold twice, a listing that didn't reflect the warehouse, a reconciliation that only happened at month-end instead of continuously. The fix couldn't just be a nicer inventory spreadsheet, it had to be a system of record that marketplaces, logistics, and accounting all trusted equally.",
       ],
     },
@@ -339,6 +347,7 @@ export const work: CaseStudy[] = [
         "An AI-assisted layer flags anomalies and risk (a listing drifting from its warehouse state, a channel behaving unusually) before they become a chargeback or an oversold unit, and dynamic pricing keeps listings competitive across channels without someone manually repricing SKUs.",
         "Logistics integrations connect the platform to shipping and fulfillment providers, so a sale doesn't just update a spreadsheet, it kicks off the actual fulfillment path. Accounting and BI integrations keep operational numbers and the books in agreement, instead of reconciled by hand once a month.",
       ],
+      diagram: "truecell-sync",
     },
     stack: [
       "Amazon",
@@ -390,7 +399,7 @@ export const work: CaseStudy[] = [
       heading: "Challenge",
       body: [
         "Distributors, wholesalers, and manufacturers running B2B storefronts often keep their commerce platform and their accounting system out of sync: orders, inventory, and customer-specific pricing re-keyed by hand between the two, or handed off to middleware that adds its own point of failure.",
-        "That disconnect is exactly what pushes people toward a system like this in the first place. It's a familiar story in the distribution world: run a manufacturing or wholesale business long enough, cycle through a few storefront rebuilds that all left the accounting system as an afterthought, and end up needing a platform built around the books rather than bolted onto them.",
+        "It's a familiar story in the distribution world: run a manufacturing or wholesale business long enough, cycle through a few storefront rebuilds that all left the accounting system as an afterthought, and end up needing a platform built around the books rather than bolted onto them.",
       ],
     },
     approach: {
@@ -407,6 +416,7 @@ export const work: CaseStudy[] = [
         "A sales rep portal lets reps place orders on a customer's behalf using that customer's own pricing, payment terms, and product catalog. A customer self-service portal gives buyers order history, invoices, and reorder tools, including saved order templates and one-click reordering from past purchases.",
         "An admin dashboard surfaces order trends, customer activity, and sync health at a glance, including task-level detail on exactly what synced and when, so a sync issue is a notification rather than a discovery made days later.",
       ],
+      diagram: "kinein-sync",
     },
     stack: [
       "Fishbowl",
@@ -466,7 +476,7 @@ export const work: CaseStudy[] = [
     approach: {
       heading: "Approach",
       body: [
-        "The platform had to work for two different audiences with two different incentives at once: retailers who needed the marketplace to be free and frictionless to adopt, and brands who needed enough control (their own pricing, their own minimum order quantities, their own account relationships) to trust putting their wholesale business on a platform they didn't own. Getting that balance right, rather than the storefront mechanics themselves, was the riskiest part of the build, so it was the first thing validated.",
+        "The platform had to work for two different audiences with two different incentives at once: retailers who needed the marketplace to be free and frictionless to adopt, and brands who needed enough control (their own pricing, their own minimum order quantities, their own account relationships) to trust putting their wholesale business on a platform they didn't own. That balance, not the storefront mechanics, was the riskiest part of the build, so it was validated first.",
         "Retailer verification was treated as a first-class flow rather than a formality, since a marketplace for a specialty category like this only works if both sides trust who they're transacting with.",
       ],
     },
@@ -477,6 +487,7 @@ export const work: CaseStudy[] = [
         "On the brand side, sellers control their own pricing tiers and minimum order quantities, see sales analytics and buyer insights (which regions are ordering, which SKUs move fastest), and manage every order from a single dashboard synced with their existing inventory and CRM.",
         "Verification and onboarding for both shops and brands typically completes in under 24 hours. Enterprise brand accounts get a white-label buyer portal, a custom subdomain, and API and webhook integrations, including native sync with Shopify and Zoho CRM.",
       ],
+      diagram: "b2b-access-flow",
     },
     stack: ["Shopify sync", "Zoho CRM sync", "REST API & webhooks", "White-label buyer portals"],
     results: {
