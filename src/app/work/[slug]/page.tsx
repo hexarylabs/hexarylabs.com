@@ -241,19 +241,34 @@ function CaseHero({ study }: { study: CaseStudy }) {
     );
   }
 
+  if (study.slug === "eden") {
+    return (
+      <>
+        <section className="bg-base pb-12 pt-12 lg:pb-16 lg:pt-18">
+          <Container>
+            <HeroText study={study} />
+          </Container>
+        </section>
+        <div
+          className="hero-stagger-item border-y-[0.8px] border-grey-100"
+          style={heroStyle(3)}
+        >
+          <EdenAnimatedHero
+            aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
+            sizes="100vw"
+            eager
+          />
+        </div>
+      </>
+    );
+  }
+
   return (
     <section className="border-b-[0.8px] border-grey-100 bg-base pb-14 pt-12 lg:pb-20 lg:pt-18">
       <Container>
         <HeroText study={study} />
         <div className="hero-stagger-item mt-12" style={heroStyle(3)}>
-          {study.slug === "eden" ? (
-            <EdenAnimatedHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
-              sizes="(min-width: 1200px) 1200px, 100vw"
-              eager
-              className="border-[0.8px] border-grey-200"
-            />
-          ) : study.slug === "keepcoming" ? (
+          {study.slug === "keepcoming" ? (
             <KeepComingAnimatedHero
               aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[1.9]"
               sizes="(min-width: 1200px) 1200px, 100vw"

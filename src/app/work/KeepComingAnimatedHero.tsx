@@ -5,68 +5,72 @@ import { cn } from "@/lib/cn";
 import { heroLoopBaseCss, pctOf, useHeroLoop } from "@/lib/heroLoop";
 import { KeepComingWalletScene } from "./KeepComingWalletScene";
 
-const IMAGE_HOLD_MS = 2500;
-const DISSOLVE_MS = 800;
-const SCENE_BEAT_MS = 400;
-const SCAN_MS = 700;
+const IMAGE_IDLE_MS = 1200;
+const DISSOLVE_MS = 500;
+const SCENE_BEAT_MS = 250;
+const SCAN_MS = 550;
 const SCAN_TRAVEL_PX = 175;
-const UPDATE_LAG_MS = 150;
-const STAMP_POP_MS = 550;
-const RING_MS = 650;
-const PLUS_RISE_MS = 900;
-const COUNT_SWAP_MS = 180;
-const UPDATED_HOLD_MS = 2000;
+const UPDATE_LAG_MS = 120;
+const STAMP_POP_MS = 450;
+const RING_MS = 550;
+const PLUS_RISE_MS = 700;
+const COUNT_SWAP_MS = 150;
+const UPDATED_HOLD_MS = 1100;
 
-const SCENE_IN_MS = IMAGE_HOLD_MS + DISSOLVE_MS;
-const SCAN_START_MS = SCENE_IN_MS + SCENE_BEAT_MS;
+const SCAN_START_MS = DISSOLVE_MS + SCENE_BEAT_MS;
 const SCAN_END_MS = SCAN_START_MS + SCAN_MS;
 const STAMP_AT_MS = SCAN_END_MS + UPDATE_LAG_MS;
 const HOLD_START_MS = STAMP_AT_MS + STAMP_POP_MS;
 const HOLD_END_MS = HOLD_START_MS + UPDATED_HOLD_MS;
-const LOOP_MS = HOLD_END_MS + DISSOLVE_MS;
+const CYCLE_MS = HOLD_END_MS + DISSOLVE_MS;
 
-const pct = pctOf(LOOP_MS);
+const pct = pctOf(CYCLE_MS);
 
 const css = `
-${heroLoopBaseCss("kc", LOOP_MS)}
-.kc-loop .kc-img { animation-name: kc-img-loop; }
-.kc-loop .kc-scene { animation-name: kc-scene-loop; }
-.kc-loop .kc-scan { animation-name: kc-scan-sweep; animation-timing-function: linear; }
-.kc-loop .kc-stamp { animation-name: kc-stamp-pop; }
-.kc-loop .kc-ring { animation-name: kc-ring-pulse; }
-.kc-loop .kc-plus { animation-name: kc-plus-rise; }
-.kc-loop .kc-count-old { animation-name: kc-count-out; }
-.kc-loop .kc-count-new { animation-name: kc-count-in; }
+${heroLoopBaseCss("kc", CYCLE_MS)}
+.kc-loop.is-running .kc-img { animation-name: kc-img-loop; }
+.kc-loop.is-running .kc-scene { animation-name: kc-scene-loop; }
+.kc-loop.is-running .kc-scan { animation-name: kc-scan-sweep; animation-timing-function: linear; }
+.kc-loop.is-running .kc-stamp { animation-name: kc-stamp-pop; }
+.kc-loop.is-running .kc-ring { animation-name: kc-ring-pulse; }
+.kc-loop.is-running .kc-plus { animation-name: kc-plus-rise; }
+.kc-loop.is-running .kc-count-old { animation-name: kc-count-out; }
+.kc-loop.is-running .kc-count-new { animation-name: kc-count-in; }
+.kc-loop:not(.is-running) .kc-scan,
+.kc-loop:not(.is-running) .kc-stamp,
+.kc-loop:not(.is-running) .kc-ring,
+.kc-loop:not(.is-running) .kc-plus,
+.kc-loop:not(.is-running) .kc-count-new { opacity: 0; }
 @keyframes kc-img-loop {
-  0%, ${pct(IMAGE_HOLD_MS)} { opacity: 1; }
-  ${pct(SCENE_IN_MS)}, ${pct(HOLD_END_MS)} { opacity: 0; }
+  0% { opacity: 1; }
+  ${pct(DISSOLVE_MS)}, ${pct(HOLD_END_MS)} { opacity: 0; }
   100% { opacity: 1; }
 }
 @keyframes kc-scene-loop {
-  0%, ${pct(IMAGE_HOLD_MS)} { opacity: 0; }
-  ${pct(SCENE_IN_MS)}, ${pct(HOLD_END_MS)} { opacity: 1; }
+  0% { opacity: 0; }
+  ${pct(DISSOLVE_MS)}, ${pct(HOLD_END_MS)} { opacity: 1; }
   100% { opacity: 0; }
 }
 @keyframes kc-scan-sweep {
   0%, ${pct(SCAN_START_MS)} { opacity: 0; transform: translateY(0); }
-  ${pct(SCAN_START_MS + 100)} { opacity: 1; }
+  ${pct(SCAN_START_MS + 80)} { opacity: 1; }
   ${pct(SCAN_END_MS)} { opacity: 1; transform: translateY(${SCAN_TRAVEL_PX}px); }
-  ${pct(SCAN_END_MS + 120)}, 100% { opacity: 0; transform: translateY(${SCAN_TRAVEL_PX}px); }
+  ${pct(SCAN_END_MS + 100)}, 100% { opacity: 0; transform: translateY(${SCAN_TRAVEL_PX}px); }
 }
 @keyframes kc-stamp-pop {
   0%, ${pct(STAMP_AT_MS)} { opacity: 0; transform: scale(0.3); }
-  ${pct(STAMP_AT_MS + 200)} { opacity: 1; transform: scale(1.22); }
+  ${pct(STAMP_AT_MS + 170)} { opacity: 1; transform: scale(1.22); }
   ${pct(STAMP_AT_MS + STAMP_POP_MS)}, 100% { opacity: 1; transform: scale(1); }
 }
 @keyframes kc-ring-pulse {
   0%, ${pct(STAMP_AT_MS)} { opacity: 0; transform: scale(0.5); }
-  ${pct(STAMP_AT_MS + 120)} { opacity: 0.55; transform: scale(0.9); }
+  ${pct(STAMP_AT_MS + 100)} { opacity: 0.55; transform: scale(0.9); }
   ${pct(STAMP_AT_MS + RING_MS)}, 100% { opacity: 0; transform: scale(1.7); }
 }
 @keyframes kc-plus-rise {
-  0%, ${pct(STAMP_AT_MS + 80)} { opacity: 0; transform: translateY(0); }
-  ${pct(STAMP_AT_MS + 240)} { opacity: 1; }
-  ${pct(STAMP_AT_MS + 80 + PLUS_RISE_MS)}, 100% { opacity: 0; transform: translateY(-30px); }
+  0%, ${pct(STAMP_AT_MS + 60)} { opacity: 0; transform: translateY(0); }
+  ${pct(STAMP_AT_MS + 200)} { opacity: 1; }
+  ${pct(STAMP_AT_MS + 60 + PLUS_RISE_MS)}, 100% { opacity: 0; transform: translateY(-30px); }
 }
 @keyframes kc-count-out {
   0%, ${pct(STAMP_AT_MS)} { opacity: 1; }
@@ -96,15 +100,21 @@ export function KeepComingAnimatedHero({
   eager = false,
   className,
 }: KeepComingAnimatedHeroProps) {
-  const { ref, playing } = useHeroLoop();
+  const { ref, inView, running, onMouseEnter, onAnimationEnd } = useHeroLoop(
+    IMAGE_IDLE_MS,
+    "kc-img-loop",
+  );
 
   return (
     <div
       ref={ref}
+      onMouseEnter={onMouseEnter}
+      onAnimationEnd={onAnimationEnd}
       className={cn(
         "kc-loop relative overflow-hidden bg-[#FBF6EE]",
         aspect,
-        playing && "is-playing",
+        inView && "is-playing",
+        running && "is-running",
         className,
       )}
     >

@@ -11,24 +11,26 @@ import {
   MR_LAST_SLOT,
 } from "./MedicalRecordsSchematicElevated";
 
-const BLANK_MS = 1200;
-const DRAW_STAGGER_MS = 320;
-const DRAW_MS = 600;
-const FILL_IN_MS = 150;
-const TXT_LAG_MS = 220;
-const TXT_FADE_MS = 350;
-const TIP_LAG_MS = 240;
-const TIP_FADE_MS = 300;
-const DRAWN_HOLD_MS = 2500;
-const FADE_OUT_MS = 800;
+const BLANK_IDLE_MS = 800;
+const DRAW_DELAY_MS = 100;
+const DRAW_STAGGER_MS = 180;
+const DRAW_MS = 450;
+const FILL_IN_MS = 120;
+const TXT_LAG_MS = 140;
+const TXT_FADE_MS = 250;
+const TIP_LAG_MS = 150;
+const TIP_FADE_MS = 220;
+const DRAWN_HOLD_MS = 1200;
+const FADE_OUT_MS = 500;
 
-const DRAW_END_MS = BLANK_MS + MR_LAST_SLOT * DRAW_STAGGER_MS + DRAW_MS + FILL_IN_MS;
+const DRAW_END_MS =
+  DRAW_DELAY_MS + MR_LAST_SLOT * DRAW_STAGGER_MS + DRAW_MS + FILL_IN_MS;
 const HOLD_END_MS = DRAW_END_MS + DRAWN_HOLD_MS;
-const LOOP_MS = HOLD_END_MS + FADE_OUT_MS;
+const CYCLE_MS = HOLD_END_MS + FADE_OUT_MS;
 
-const pct = pctOf(LOOP_MS);
+const pct = pctOf(CYCLE_MS);
 
-const slotStart = (slot: number) => BLANK_MS + slot * DRAW_STAGGER_MS;
+const slotStart = (slot: number) => DRAW_DELAY_MS + slot * DRAW_STAGGER_MS;
 
 const boxKeyframes = (slot: number) => `
 @keyframes mr-box-${slot} {
@@ -51,14 +53,16 @@ const fadeKeyframes = (name: string, startMs: number, fadeMs: number) => `
 }`;
 
 const css = `
-${heroLoopBaseCss("mr", LOOP_MS)}
-.mr-loop .mr-canvas { animation-name: mr-canvas-loop; }
-${MR_BOX_SLOTS.map((s) => `.mr-loop .mr-box-${s} { animation-name: mr-box-${s}; }`).join("\n")}
+${heroLoopBaseCss("mr", CYCLE_MS)}
+.mr-loop.is-running .mr-canvas { animation-name: mr-canvas-loop; }
+.mr-loop:not(.is-running) .mr-canvas { opacity: 0; }
+${MR_BOX_SLOTS.map((s) => `.mr-loop.is-running .mr-box-${s} { animation-name: mr-box-${s}; }`).join("\n")}
 ${MR_WIRE_SLOTS.map(
-  (s) => `.mr-loop .mr-wire-${s} { animation-name: mr-wire-${s}; animation-timing-function: linear; }`,
+  (s) =>
+    `.mr-loop.is-running .mr-wire-${s} { animation-name: mr-wire-${s}; animation-timing-function: linear; }`,
 ).join("\n")}
-${MR_TXT_SLOTS.map((s) => `.mr-loop .mr-txt-${s} { animation-name: mr-txt-${s}; }`).join("\n")}
-${MR_TIP_SLOTS.map((s) => `.mr-loop .mr-tip-${s} { animation-name: mr-tip-${s}; }`).join("\n")}
+${MR_TXT_SLOTS.map((s) => `.mr-loop.is-running .mr-txt-${s} { animation-name: mr-txt-${s}; }`).join("\n")}
+${MR_TIP_SLOTS.map((s) => `.mr-loop.is-running .mr-tip-${s} { animation-name: mr-tip-${s}; }`).join("\n")}
 @keyframes mr-canvas-loop {
   0%, ${pct(HOLD_END_MS)} { opacity: 1; }
   100% { opacity: 0; }
@@ -73,7 +77,7 @@ ${MR_TIP_SLOTS.map((s) =>
 ).join("")}
 @media (prefers-reduced-motion: reduce) {
   .mr-loop .mr-el { animation: none; }
-  .mr-loop .mr-canvas { animation: none; opacity: 1; }
+  .mr-loop .mr-canvas, .mr-loop:not(.is-running) .mr-canvas { animation: none; opacity: 1; }
 }
 `;
 
@@ -86,15 +90,21 @@ export function MedicalRecordsAnimatedHero({
   aspect = "aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]",
   className,
 }: MedicalRecordsAnimatedHeroProps) {
-  const { ref, playing } = useHeroLoop();
+  const { ref, inView, running, onMouseEnter, onAnimationEnd } = useHeroLoop(
+    BLANK_IDLE_MS,
+    "mr-canvas-loop",
+  );
 
   return (
     <div
       ref={ref}
+      onMouseEnter={onMouseEnter}
+      onAnimationEnd={onAnimationEnd}
       className={cn(
         "mr-loop relative overflow-hidden bg-base-2",
         aspect,
-        playing && "is-playing",
+        inView && "is-playing",
+        running && "is-running",
         className,
       )}
     >

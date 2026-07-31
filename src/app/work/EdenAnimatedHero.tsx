@@ -9,25 +9,24 @@ import {
   EDEN_WIRE_SLOTS,
 } from "./EdenSchematicElevated";
 
-const IMAGE_HOLD_MS = 2500;
-const DISSOLVE_MS = 800;
+const IMAGE_IDLE_MS = 1200;
+const DISSOLVE_MS = 500;
 const BUILD_OVERLAP = 0.6;
-const BUILD_STAGGER_MS = 320;
-const ELEMENT_IN_MS = 450;
+const BUILD_STAGGER_MS = 180;
+const ELEMENT_IN_MS = 350;
 const ARROWHEAD_LAG = 0.8;
-const DIAGRAM_HOLD_MS = 2000;
+const DIAGRAM_HOLD_MS = 1000;
 
-const BUILD_START_MS = IMAGE_HOLD_MS + DISSOLVE_MS * BUILD_OVERLAP;
-const DISSOLVE_IN_END_MS = IMAGE_HOLD_MS + DISSOLVE_MS;
+const BUILD_START_MS = DISSOLVE_MS * BUILD_OVERLAP;
 const LAST_SLOT = Math.max(
   ...EDEN_NODE_SLOTS,
   ...EDEN_WIRE_SLOTS.map((s) => s + ARROWHEAD_LAG),
 );
 const BUILD_END_MS = BUILD_START_MS + LAST_SLOT * BUILD_STAGGER_MS + ELEMENT_IN_MS;
 const HOLD_END_MS = BUILD_END_MS + DIAGRAM_HOLD_MS;
-const LOOP_MS = HOLD_END_MS + DISSOLVE_MS;
+const CYCLE_MS = HOLD_END_MS + DISSOLVE_MS;
 
-const pct = pctOf(LOOP_MS);
+const pct = pctOf(CYCLE_MS);
 
 const slotStart = (slot: number) => BUILD_START_MS + slot * BUILD_STAGGER_MS;
 
@@ -44,25 +43,25 @@ const drawKeyframes = (slot: number) => `
 }`;
 
 const css = `
-${heroLoopBaseCss("eden", LOOP_MS)}
-.eden-loop .eden-img { animation-name: eden-img-loop; }
-.eden-loop .eden-diagram { animation-name: eden-diagram-loop; }
+${heroLoopBaseCss("eden", CYCLE_MS)}
+.eden-loop.is-running .eden-img { animation-name: eden-img-loop; }
+.eden-loop.is-running .eden-diagram { animation-name: eden-diagram-loop; }
 ${EDEN_NODE_SLOTS.map(
-  (s) => `.eden-loop .eden-node-${s} { animation-name: eden-in-${s}; }`,
+  (s) => `.eden-loop.is-running .eden-node-${s} { animation-name: eden-in-${s}; }`,
 ).join("\n")}
 ${EDEN_WIRE_SLOTS.map(
   (s) =>
-    `.eden-loop .eden-wire-${s} { animation-name: eden-draw-${s}; animation-timing-function: linear; }
-.eden-loop .eden-tip-${s} { animation-name: eden-tip-${s}; }`,
+    `.eden-loop.is-running .eden-wire-${s} { animation-name: eden-draw-${s}; animation-timing-function: linear; }
+.eden-loop.is-running .eden-tip-${s} { animation-name: eden-tip-${s}; }`,
 ).join("\n")}
 @keyframes eden-img-loop {
-  0%, ${pct(IMAGE_HOLD_MS)} { opacity: 1; }
-  ${pct(DISSOLVE_IN_END_MS)}, ${pct(HOLD_END_MS)} { opacity: 0; }
+  0% { opacity: 1; }
+  ${pct(DISSOLVE_MS)}, ${pct(HOLD_END_MS)} { opacity: 0; }
   100% { opacity: 1; }
 }
 @keyframes eden-diagram-loop {
-  0%, ${pct(IMAGE_HOLD_MS)} { opacity: 0; }
-  ${pct(DISSOLVE_IN_END_MS)}, ${pct(HOLD_END_MS)} { opacity: 1; }
+  0% { opacity: 0; }
+  ${pct(DISSOLVE_MS)}, ${pct(HOLD_END_MS)} { opacity: 1; }
   100% { opacity: 0; }
 }
 ${EDEN_NODE_SLOTS.map((s) => fadeInKeyframes(`eden-in-${s}`, s)).join("")}
@@ -88,15 +87,21 @@ export function EdenAnimatedHero({
   eager = false,
   className,
 }: EdenAnimatedHeroProps) {
-  const { ref, playing } = useHeroLoop();
+  const { ref, inView, running, onMouseEnter, onAnimationEnd } = useHeroLoop(
+    IMAGE_IDLE_MS,
+    "eden-img-loop",
+  );
 
   return (
     <div
       ref={ref}
+      onMouseEnter={onMouseEnter}
+      onAnimationEnd={onAnimationEnd}
       className={cn(
         "eden-loop relative overflow-hidden bg-base-2",
         aspect,
-        playing && "is-playing",
+        inView && "is-playing",
+        running && "is-running",
         className,
       )}
     >

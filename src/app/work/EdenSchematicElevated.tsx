@@ -1,14 +1,14 @@
 import { cn } from "@/lib/cn";
 
-export const EDEN_NODE_SLOTS = [0, 2, 4, 6, 8];
-export const EDEN_WIRE_SLOTS = [1, 3, 5, 7];
+export const EDEN_NODE_SLOTS = [0, 2, 4, 6, 8, 10, 12, 14];
+export const EDEN_WIRE_SLOTS = [1, 3, 5, 7, 9, 11, 13];
 
 export function EdenSchematicElevated({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 960 520"
+      viewBox="0 0 960 600"
       role="img"
-      aria-label="Schematic diagram: the Eden platform — a Next.js frontend calls a Fastify API, which calls a FastAPI AI orchestration layer; the orchestration layer drives a custom model training pipeline on GCP and a ComfyUI community workflow ecosystem."
+      aria-label="Schematic diagram: the Eden platform — a Next.js frontend calls a Fastify API, which calls a FastAPI AI orchestration layer. The orchestration layer runs the named autonomous agents Eve and Solienne and dispatches training jobs to GCP pipelines (flux-trainer and sd-lora-trainer). The agents call ComfyUI workflows as tools, and those workflows execute on Modal serverless GPUs."
       className={cn("h-auto w-full", className)}
     >
       <text
@@ -24,14 +24,14 @@ export function EdenSchematicElevated({ className }: { className?: string }) {
       <g className="eden-el eden-node-0">
         <rect
           x="40"
-          y="80"
-          width="240"
-          height="120"
+          y="70"
+          width="230"
+          height="110"
           className="fill-base stroke-grey-300"
           strokeWidth="1.6"
         />
         <g
-          transform="translate(64, 104)"
+          transform="translate(64, 90)"
           className="stroke-grey-500"
           fill="none"
           strokeWidth="1.6"
@@ -39,47 +39,47 @@ export function EdenSchematicElevated({ className }: { className?: string }) {
           <rect width="26" height="20" />
           <line x1="0" y1="6" x2="26" y2="6" />
         </g>
-        <g transform="translate(64, 104)" className="fill-grey-500">
+        <g transform="translate(64, 90)" className="fill-grey-500">
           <circle cx="3.2" cy="3" r="0.9" />
           <circle cx="6.6" cy="3" r="0.9" />
         </g>
         <text
           x="64"
-          y="166"
+          y="142"
           className="fill-contrast font-display"
           fontSize="16"
           fontWeight="500"
         >
           Next.js Frontend
         </text>
-        <text x="64" y="186" className="fill-grey-600 font-sans" fontSize="12">
+        <text x="64" y="162" className="fill-grey-600 font-sans" fontSize="12">
           app.eden.art
         </text>
       </g>
 
       <line
-        x1="284"
-        y1="140"
-        x2="349"
-        y2="140"
+        x1="274"
+        y1="125"
+        x2="320"
+        y2="125"
         pathLength={1}
         className="eden-el eden-wire-1 stroke-grey-500"
         fill="none"
         strokeWidth="1.6"
       />
-      <path d="M 348 134 L 357 140 L 348 146 Z" className="eden-el eden-tip-1 fill-grey-500" />
+      <path d="M 319 119 L 328 125 L 319 131 Z" className="eden-el eden-tip-1 fill-grey-500" />
 
       <g className="eden-el eden-node-2">
         <rect
-          x="360"
-          y="80"
-          width="240"
-          height="120"
+          x="330"
+          y="70"
+          width="230"
+          height="110"
           className="fill-base stroke-grey-300"
           strokeWidth="1.6"
         />
         <g
-          transform="translate(384, 104)"
+          transform="translate(354, 90)"
           className="stroke-grey-500"
           fill="none"
           strokeWidth="1.6"
@@ -87,85 +87,178 @@ export function EdenSchematicElevated({ className }: { className?: string }) {
           <rect width="26" height="8.5" />
           <rect y="11.5" width="26" height="8.5" />
         </g>
-        <g transform="translate(384, 104)" className="fill-grey-500">
+        <g transform="translate(354, 90)" className="fill-grey-500">
           <circle cx="4" cy="4.25" r="1.2" />
           <circle cx="4" cy="15.75" r="1.2" />
         </g>
         <text
-          x="384"
-          y="166"
+          x="354"
+          y="142"
           className="fill-contrast font-display"
           fontSize="16"
           fontWeight="500"
         >
           Fastify API
         </text>
-        <text x="384" y="186" className="fill-grey-600 font-sans" fontSize="12">
+        <text x="354" y="162" className="fill-grey-600 font-sans" fontSize="12">
           Node.js backend
         </text>
       </g>
 
       <line
-        x1="604"
-        y1="140"
-        x2="669"
-        y2="140"
+        x1="564"
+        y1="125"
+        x2="610"
+        y2="125"
         pathLength={1}
         className="eden-el eden-wire-3 stroke-grey-500"
         fill="none"
         strokeWidth="1.6"
       />
-      <path d="M 668 134 L 677 140 L 668 146 Z" className="eden-el eden-tip-3 fill-grey-500" />
+      <path d="M 609 119 L 618 125 L 609 131 Z" className="eden-el eden-tip-3 fill-grey-500" />
 
       <g className="eden-el eden-node-4">
         <rect
-          x="688"
-          y="88"
-          width="240"
-          height="120"
+          x="628"
+          y="78"
+          width="300"
+          height="110"
           className="fill-none stroke-grey-200"
           strokeWidth="1.6"
         />
-        <rect x="680" y="80" width="240" height="120" className="fill-accent" />
+        <rect x="620" y="70" width="300" height="110" className="fill-accent" />
         <path
-          d="M 717 104 L 719.6 114.4 L 730 117 L 719.6 119.6 L 717 130 L 714.4 119.6 L 704 117 L 714.4 114.4 Z"
+          d="M 657 90 L 659.6 100.4 L 670 103 L 659.6 105.6 L 657 116 L 654.4 105.6 L 644 103 L 654.4 100.4 Z"
           className="fill-white"
         />
         <text
-          x="704"
-          y="166"
+          x="644"
+          y="142"
           className="fill-white font-display"
           fontSize="19"
           fontWeight="500"
         >
           AI Orchestration
         </text>
-        <text x="704" y="186" className="fill-grey-300 font-sans" fontSize="12.5">
+        <text x="644" y="162" className="fill-grey-300 font-sans" fontSize="12.5">
           FastAPI · model calls · tool use
         </text>
       </g>
 
-      <polyline
-        points="760,204 760,277 505,277 505,339"
+      <line
+        x1="690"
+        y1="184"
+        x2="690"
+        y2="240"
         pathLength={1}
         className="eden-el eden-wire-5 stroke-grey-500"
         fill="none"
         strokeWidth="1.6"
       />
-      <path d="M 499 338 L 511 338 L 505 348 Z" className="eden-el eden-tip-5 fill-grey-500" />
+      <path d="M 684 239 L 696 239 L 690 248 Z" className="eden-el eden-tip-5 fill-grey-500" />
 
       <g className="eden-el eden-node-6">
         <rect
-          x="388"
-          y="358"
-          width="250"
+          x="620"
+          y="250"
+          width="140"
+          height="100"
+          className="fill-base stroke-grey-300"
+          strokeWidth="1.6"
+        />
+        <g
+          transform="translate(640, 266)"
+          className="stroke-grey-500"
+          fill="none"
+          strokeWidth="1.6"
+        >
+          <circle cx="9" cy="5" r="4" />
+          <path d="M 1 19 a 8 8 0 0 1 16 0" />
+        </g>
+        <text
+          x="640"
+          y="312"
+          className="fill-contrast font-display"
+          fontSize="16"
+          fontWeight="500"
+        >
+          Eve
+        </text>
+        <text x="640" y="330" className="fill-grey-600 font-sans" fontSize="11">
+          flagship agent
+        </text>
+      </g>
+
+      <line
+        x1="850"
+        y1="184"
+        x2="850"
+        y2="240"
+        pathLength={1}
+        className="eden-el eden-wire-7 stroke-grey-500"
+        fill="none"
+        strokeWidth="1.6"
+      />
+      <path d="M 844 239 L 856 239 L 850 248 Z" className="eden-el eden-tip-7 fill-grey-500" />
+
+      <g className="eden-el eden-node-8">
+        <rect
+          x="780"
+          y="250"
+          width="140"
+          height="100"
+          className="fill-base stroke-grey-300"
+          strokeWidth="1.6"
+        />
+        <g
+          transform="translate(800, 266)"
+          className="stroke-grey-500"
+          fill="none"
+          strokeWidth="1.6"
+        >
+          <circle cx="9" cy="5" r="4" />
+          <path d="M 1 19 a 8 8 0 0 1 16 0" />
+        </g>
+        <text
+          x="800"
+          y="312"
+          className="fill-contrast font-display"
+          fontSize="16"
+          fontWeight="500"
+        >
+          Solienne
+        </text>
+        <text x="800" y="330" className="fill-grey-600 font-sans" fontSize="11">
+          immersive viewer
+        </text>
+      </g>
+
+      <polyline
+        points="650,184 650,220 185,220 185,430"
+        pathLength={1}
+        className="eden-el eden-wire-9 stroke-grey-500"
+        fill="none"
+        strokeWidth="1.6"
+      />
+      <g className="eden-el eden-tip-9">
+        <path d="M 179 429 L 191 429 L 185 438 Z" className="fill-grey-500" />
+        <text x="300" y="212" className="fill-grey-600 font-sans" fontSize="11">
+          training jobs
+        </text>
+      </g>
+
+      <g className="eden-el eden-node-10">
+        <rect
+          x="48"
+          y="448"
+          width="290"
           height="120"
           className="fill-none stroke-grey-200"
           strokeWidth="1.6"
         />
-        <rect x="380" y="350" width="250" height="120" className="fill-contrast-2" />
+        <rect x="40" y="440" width="290" height="120" className="fill-contrast-2" />
         <g
-          transform="translate(404, 374)"
+          transform="translate(64, 462)"
           className="stroke-white"
           fill="none"
           strokeWidth="1.6"
@@ -174,42 +267,54 @@ export function EdenSchematicElevated({ className }: { className?: string }) {
           <polyline points="17,2 24,2 24,9" />
         </g>
         <text
-          x="404"
-          y="436"
+          x="64"
+          y="522"
           className="fill-white font-display"
           fontSize="19"
           fontWeight="500"
         >
-          Training Pipeline
+          Training Pipelines
         </text>
-        <text x="404" y="456" className="fill-grey-300 font-sans" fontSize="12.5">
-          GCP · Flux LoRA custom models
+        <text x="64" y="542" className="fill-grey-300 font-sans" fontSize="12.5">
+          GCP · flux-trainer · sd-lora-trainer
         </text>
       </g>
 
-      <line
-        x1="840"
-        y1="204"
-        x2="840"
-        y2="339"
-        pathLength={1}
-        className="eden-el eden-wire-7 stroke-grey-500"
-        fill="none"
-        strokeWidth="1.6"
-      />
-      <path d="M 834 338 L 846 338 L 840 348 Z" className="eden-el eden-tip-7 fill-grey-500" />
+      <g className="eden-el eden-wire-11">
+        <polyline
+          points="690,354 690,395 520,395 520,430"
+          pathLength={1}
+          className="stroke-grey-500"
+          fill="none"
+          strokeWidth="1.6"
+        />
+        <polyline
+          points="850,354 850,410 590,410 590,430"
+          pathLength={1}
+          className="stroke-grey-500"
+          fill="none"
+          strokeWidth="1.6"
+        />
+      </g>
+      <g className="eden-el eden-tip-11">
+        <path d="M 514 429 L 526 429 L 520 438 Z" className="fill-grey-500" />
+        <path d="M 584 429 L 596 429 L 590 438 Z" className="fill-grey-500" />
+        <text x="700" y="390" className="fill-grey-600 font-sans" fontSize="11">
+          tool calls
+        </text>
+      </g>
 
-      <g className="eden-el eden-node-8">
+      <g className="eden-el eden-node-12">
         <rect
-          x="680"
-          y="350"
+          x="400"
+          y="440"
           width="240"
           height="120"
           className="fill-base stroke-grey-300"
           strokeWidth="1.6"
         />
         <g
-          transform="translate(704, 374)"
+          transform="translate(424, 462)"
           className="stroke-grey-500"
           fill="none"
           strokeWidth="1.6"
@@ -221,16 +326,67 @@ export function EdenSchematicElevated({ className }: { className?: string }) {
           <line x1="6.3" y1="17.1" x2="19.3" y2="12" />
         </g>
         <text
-          x="704"
-          y="436"
+          x="424"
+          y="522"
           className="fill-contrast font-display"
           fontSize="16"
           fontWeight="500"
         >
-          ComfyUI Ecosystem
+          ComfyUI Workflows
         </text>
-        <text x="704" y="456" className="fill-grey-600 font-sans" fontSize="12">
-          community tools · revenue share
+        <text x="424" y="542" className="fill-grey-600 font-sans" fontSize="12">
+          custom nodes · community tools
+        </text>
+      </g>
+
+      <line
+        x1="644"
+        y1="500"
+        x2="690"
+        y2="500"
+        pathLength={1}
+        className="eden-el eden-wire-13 stroke-grey-500"
+        fill="none"
+        strokeWidth="1.6"
+      />
+      <path d="M 689 494 L 698 500 L 689 506 Z" className="eden-el eden-tip-13 fill-grey-500" />
+
+      <g className="eden-el eden-node-14">
+        <rect
+          x="708"
+          y="448"
+          width="220"
+          height="120"
+          className="fill-none stroke-grey-200"
+          strokeWidth="1.6"
+        />
+        <rect x="700" y="440" width="220" height="120" className="fill-contrast-2" />
+        <g
+          transform="translate(724, 462)"
+          className="stroke-white"
+          fill="none"
+          strokeWidth="1.6"
+        >
+          <rect x="0" y="3" width="24" height="14" />
+          <rect x="7" y="8" width="10" height="4" />
+          <line x1="5" y1="0" x2="5" y2="3" />
+          <line x1="12" y1="0" x2="12" y2="3" />
+          <line x1="19" y1="0" x2="19" y2="3" />
+          <line x1="5" y1="17" x2="5" y2="20" />
+          <line x1="12" y1="17" x2="12" y2="20" />
+          <line x1="19" y1="17" x2="19" y2="20" />
+        </g>
+        <text
+          x="724"
+          y="522"
+          className="fill-white font-display"
+          fontSize="19"
+          fontWeight="500"
+        >
+          Modal
+        </text>
+        <text x="724" y="542" className="fill-grey-300 font-sans" fontSize="12.5">
+          serverless GPU inference
         </text>
       </g>
     </svg>
