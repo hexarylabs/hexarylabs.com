@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { cn } from "@/lib/cn";
-import { useInView } from "@/lib/useInView";
+import { heroLoopBaseCss, pctOf, useHeroLoop } from "@/lib/heroLoop";
 import {
   EdenSchematicElevated,
   EDEN_NODE_SLOTS,
@@ -16,7 +16,6 @@ const BUILD_STAGGER_MS = 320;
 const ELEMENT_IN_MS = 450;
 const ARROWHEAD_LAG = 0.8;
 const DIAGRAM_HOLD_MS = 2000;
-const EASE = "cubic-bezier(0, 0, 0.2, 1)";
 
 const BUILD_START_MS = IMAGE_HOLD_MS + DISSOLVE_MS * BUILD_OVERLAP;
 const DISSOLVE_IN_END_MS = IMAGE_HOLD_MS + DISSOLVE_MS;
@@ -28,7 +27,7 @@ const BUILD_END_MS = BUILD_START_MS + LAST_SLOT * BUILD_STAGGER_MS + ELEMENT_IN_
 const HOLD_END_MS = BUILD_END_MS + DIAGRAM_HOLD_MS;
 const LOOP_MS = HOLD_END_MS + DISSOLVE_MS;
 
-const pct = (ms: number) => `${((ms / LOOP_MS) * 100).toFixed(3)}%`;
+const pct = pctOf(LOOP_MS);
 
 const slotStart = (slot: number) => BUILD_START_MS + slot * BUILD_STAGGER_MS;
 
@@ -45,15 +44,7 @@ const drawKeyframes = (slot: number) => `
 }`;
 
 const css = `
-.eden-loop .eden-el {
-  animation-duration: ${LOOP_MS}ms;
-  animation-timing-function: ${EASE};
-  animation-iteration-count: infinite;
-  animation-fill-mode: both;
-  animation-play-state: var(--eden-play, paused);
-}
-.eden-loop.is-playing { --eden-play: running; }
-.eden-loop svg .eden-el { transform-box: fill-box; transform-origin: center; }
+${heroLoopBaseCss("eden", LOOP_MS)}
 .eden-loop .eden-img { animation-name: eden-img-loop; }
 .eden-loop .eden-diagram { animation-name: eden-diagram-loop; }
 ${EDEN_NODE_SLOTS.map(
@@ -97,7 +88,7 @@ export function EdenAnimatedHero({
   eager = false,
   className,
 }: EdenAnimatedHeroProps) {
-  const { ref, inView } = useInView<HTMLDivElement>(0.25, { once: false });
+  const { ref, playing } = useHeroLoop();
 
   return (
     <div
@@ -105,7 +96,7 @@ export function EdenAnimatedHero({
       className={cn(
         "eden-loop relative overflow-hidden bg-base-2",
         aspect,
-        inView && "is-playing",
+        playing && "is-playing",
         className,
       )}
     >

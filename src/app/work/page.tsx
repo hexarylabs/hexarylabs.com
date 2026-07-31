@@ -8,10 +8,11 @@ import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { CaseCover } from "./CaseCover";
 import { EdenAnimatedHero } from "./EdenAnimatedHero";
-import { MedicalRecordsSchematicElevated } from "./MedicalRecordsSchematicElevated";
+import { KeepComingAnimatedHero } from "./KeepComingAnimatedHero";
+import { MedicalRecordsAnimatedHero } from "./MedicalRecordsAnimatedHero";
 import { work, WORK_INTRO } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
-import { REVEAL_STAGGER_MS, CARD_HOVER_ZOOM, cardHoverZoomStyle } from "@/lib/motion";
+import { REVEAL_STAGGER_MS } from "@/lib/motion";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -56,8 +57,6 @@ export default function WorkPage() {
 
           <div className="grid gap-8 lg:grid-cols-2">
             {work.map((study, i) => {
-              const isElevatedSchematic = study.slug === "medical-records-platform";
-
               return (
                 <Reveal
                   key={study.slug}
@@ -72,15 +71,17 @@ export default function WorkPage() {
                         sizes="(min-width: 1024px) 620px, 100vw"
                         className="border-b-[0.8px] border-grey-200"
                       />
-                    ) : isElevatedSchematic ? (
-                      <div className="flex w-full items-center justify-center overflow-hidden border-b-[0.8px] border-grey-200 bg-base-2 p-6 aspect-[4/3] sm:aspect-[1.6] sm:p-10 lg:aspect-[1.9] lg:p-12">
-                        <div
-                          className="card-hover-zoom max-h-full"
-                          style={cardHoverZoomStyle(CARD_HOVER_ZOOM.schematic)}
-                        >
-                          <MedicalRecordsSchematicElevated className="max-h-full" />
-                        </div>
-                      </div>
+                    ) : study.slug === "keepcoming" ? (
+                      <KeepComingAnimatedHero
+                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
+                        sizes="(min-width: 1024px) 620px, 100vw"
+                        className="border-b-[0.8px] border-grey-200"
+                      />
+                    ) : study.slug === "medical-records-platform" ? (
+                      <MedicalRecordsAnimatedHero
+                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
+                        className="border-b-[0.8px] border-grey-200"
+                      />
                     ) : (
                       <CaseCover
                         cover={study.cover}
