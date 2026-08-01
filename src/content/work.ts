@@ -1,5 +1,5 @@
 export const WORK_INTRO =
-  "Six engagements that show what we build: AI-native products, SaaS running in production, PHI-safe enterprise platforms, and integration systems connecting the tools our clients already depend on. Different scales, different stacks, one team behind all of them.";
+  "Seven engagements that show what we build: AI-native products, SaaS running in production, PHI-safe enterprise platforms, and the integration and automation work that connects the tools our clients already depend on. Different scales, different stacks, one team behind all of them.";
 
 export type HeroVariant =
   | "image-contained"
@@ -19,7 +19,10 @@ export type GradientTone = "violet" | "slate" | "sand";
 export type Cover =
   | { kind: "photo"; src: string; alt: string; objectPosition?: "top" | "center" | "left" }
   | { kind: "gradient"; tone: GradientTone }
-  | { kind: "schematic"; diagram?: "halcyon" | "eden" | "medical-records" };
+  | {
+      kind: "schematic";
+      diagram?: "halcyon" | "eden" | "medical-records" | "social-lead-capture";
+    };
 
 export type Metric = { value: string; label: string };
 
@@ -288,6 +291,80 @@ export const work: CaseStudy[] = [
         "Integration platform deployed to the client's own AWS environment, connecting three previously-disconnected case management systems, and eliminating manual reconciliation across Litify, Filevine, and Zendesk from daily staff workflow.",
         "The PHI-safe architecture passed an external security audit, with all findings remediated. The AI backend deployed with SSO gating, PHI redaction at the input boundary, and human-in-the-loop safety controls, with historical Zendesk ticket data mined for operational patterns (provider performance, communication failures, recurring complaint categories) available to staff through Zendesk sidebar tools.",
         "Client details are anonymized to protect patient data and honor confidentiality.",
+      ],
+    },
+  },
+  {
+    slug: "social-lead-capture-automation",
+    client: "Anonymized client",
+    title: "Social Lead Capture Automation",
+    summary:
+      "A keyword-triggered Instagram DM funnel that turns comments into subscribers, rebuilt end to end for reliability.",
+    scope: [
+      "Marketing automation",
+      "No-code integration",
+      "Workflow automation",
+      "Keyword-triggered lead flows",
+      "Webhook rebuild & diagnostics",
+      "Failure monitoring",
+    ],
+    variant: {
+      hero: "schematic",
+      body: "sectioned",
+      metrics: "grid",
+      density: "text-heavy",
+    },
+    cover: { kind: "schematic", diagram: "social-lead-capture" },
+    metrics: [
+      {
+        value: "4 of 4",
+        label: "Keyword-triggered flows live end to end, up from three that weren't delivering",
+      },
+      {
+        value: "Real time",
+        label: "From the initial comment through to a correctly delivered subscriber",
+      },
+      {
+        value: "Root cause",
+        label: "Webhook trigger fault resolved at the source, not patched at the app connection",
+      },
+      {
+        value: "Monitored",
+        label: "Failure alerts on every automation, so a break surfaces instead of losing leads",
+      },
+    ],
+    challenge: {
+      heading: "Challenge",
+      body: [
+        "The client runs lead capture directly through social comments: someone replies to a post with one of several keyword triggers, an automated DM flow collects their email address, and that email is meant to land in the right email-marketing group for follow-up. On paper, a pipeline like this should run itself once it's built.",
+        "In practice, only three of the four required flows had ever been built, and the ones that did exist weren't reliably getting new subscriber data through to the email platform at all. Every test came back with stale, cached results instead of live data, even after the most obvious remedy, reconnecting the app authorization between the automation tools, had already been tried. Leads were being collected at the front of the funnel and quietly lost before the end of it.",
+      ],
+    },
+    approach: {
+      heading: "Approach",
+      body: [
+        "Reconnecting an app authorization is a two-minute change that looks like a fix and often isn't. We diagnosed the actual failure point first, the webhook trigger itself, rather than assuming the obvious cause was the real one. That distinction is what separates a lasting fix from one that quietly breaks again a week later.",
+        "Before considering the work done, we ran a live end-to-end test across all four flows individually, rather than checking a single happy path and calling the pipeline healthy.",
+      ],
+    },
+    solution: {
+      heading: "Solution",
+      body: [
+        "We built the pipeline end to end rather than patching around the symptom. The real fault sat past the app connection, in the automation's own webhook configuration: the outbound trigger wasn't correctly wired to fire live events, so it was silently falling back to cached results instead of actually delivering new leads.",
+        "We rebuilt that webhook so new subscriber events post live, republished every automation against the corrected configuration, and rebuilt the field mapping across all four flows so each one delivers to its correct destination group.",
+        "The fourth flow, which had never existed, was built from scratch to match the working structure of the other three, so all four lead segments now run on the same proven pattern.",
+        "Failure monitoring was added across all four automations, so any future break gets flagged immediately instead of silently losing leads.",
+      ],
+    },
+    stack: ["ManyChat", "Zapier", "MailerLite", "Webhook configuration & diagnostics"],
+    results: {
+      heading: "Results",
+      body: [
+        "All four lead-capture automations, previously three with one flow missing entirely, now run end to end, from the initial comment through to a correctly delivered subscriber, in real time.",
+        "The webhook fault that was silently discarding new leads is resolved at the root, not patched around.",
+        "Failure alerts now flag any future break in the pipeline immediately, rather than it going unnoticed while leads go missing.",
+        "The rebuilt structure means adding another flow in the future follows an established, working pattern rather than starting from an unreliable base.",
+        "Client details are anonymized at the client's request, and this engagement has no public-facing asset to link to.",
       ],
     },
   },

@@ -27,6 +27,8 @@ const SEO_DESCRIPTION: Record<string, string> = {
     "A loyalty platform for cafes, restaurants, and independent shops, with real Apple Wallet and Google Wallet integration and a public developer API.",
   "medical-records-platform":
     "A PHI-safe integration platform connecting three case-management systems, with an AI backend that surfaces operational patterns from historical support tickets.",
+  "social-lead-capture-automation":
+    "A keyword-triggered social DM funnel rebuilt end to end: four lead-capture flows delivering subscribers in real time, with failure monitoring across the pipeline.",
   truecell:
     "An inventory OS for high-volume electronics resellers: marketplace sync, demand forecasting, and a rules engine that prevents overselling units.",
   kinein:

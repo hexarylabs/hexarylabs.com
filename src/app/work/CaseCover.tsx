@@ -3,6 +3,7 @@ import { cn } from "@/lib/cn";
 import { Schematic } from "./Schematic";
 import { EdenSchematic } from "./EdenSchematic";
 import { MedicalRecordsSchematic } from "./MedicalRecordsSchematic";
+import { SocialLeadCaptureSchematic } from "./SocialLeadCaptureSchematic";
 import type { Cover, GradientTone } from "@/content/work";
 import { CARD_HOVER_ZOOM, cardHoverZoomStyle } from "@/lib/motion";
 
@@ -75,6 +76,8 @@ export function CaseCover({
         <EdenSchematic className="max-h-full" />
       ) : cover.diagram === "medical-records" ? (
         <MedicalRecordsSchematic className="max-h-full" />
+      ) : cover.diagram === "social-lead-capture" ? (
+        <SocialLeadCaptureSchematic className="max-h-full" />
       ) : (
         <Schematic className="max-h-full" />
       );

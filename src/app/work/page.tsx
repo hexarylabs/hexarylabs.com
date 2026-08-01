@@ -30,6 +30,7 @@ const CLIENT_TAGS: Record<string, string> = {
   eden: "Client · Eden Labs",
   keepcoming: "In-house product",
   "medical-records-platform": "Client · Anonymized",
+  "social-lead-capture-automation": "Client · Anonymized",
   truecell: "Client · TrueCell",
   kinein: "Client · Kinein",
   "b2b-access": "Client · B2B Access",
