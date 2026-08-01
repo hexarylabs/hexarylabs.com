@@ -12,6 +12,7 @@ import { KeepComingAnimatedHero } from "./KeepComingAnimatedHero";
 import { MedicalRecordsAnimatedHero } from "./MedicalRecordsAnimatedHero";
 import { SocialLeadCaptureAnimatedHero } from "./SocialLeadCaptureAnimatedHero";
 import { KineinStoryHero } from "./KineinStoryHero";
+import { B2BAccessUnlockHero } from "./B2BAccessUnlockHero";
 import { work, WORK_INTRO } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 import { REVEAL_STAGGER_MS } from "@/lib/motion";
@@ -130,6 +131,11 @@ export default function WorkPage() {
                       />
                     ) : study.slug === "kinein" ? (
                       <KineinStoryHero
+                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
+                        className="border-b-[0.8px] border-grey-200"
+                      />
+                    ) : study.slug === "b2b-access" ? (
+                      <B2BAccessUnlockHero
                         aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
                         className="border-b-[0.8px] border-grey-200"
                       />

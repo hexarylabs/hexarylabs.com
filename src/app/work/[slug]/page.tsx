@@ -12,6 +12,7 @@ import { KeepComingAnimatedHero } from "../KeepComingAnimatedHero";
 import { MedicalRecordsAnimatedHero } from "../MedicalRecordsAnimatedHero";
 import { SocialLeadCaptureAnimatedHero } from "../SocialLeadCaptureAnimatedHero";
 import { KineinStoryHero } from "../KineinStoryHero";
+import { B2BAccessUnlockHero } from "../B2BAccessUnlockHero";
 import { WorkImagesGrid } from "../WorkImagesGrid";
 import { work } from "@/content/work";
 import type { CaseStudy, Metric, CaseSection } from "@/content/work";
@@ -276,6 +277,11 @@ function CaseHero({ study }: { study: CaseStudy }) {
             />
           ) : study.slug === "kinein" ? (
             <KineinStoryHero
+              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
+              className="border-[0.8px] border-grey-200"
+            />
+          ) : study.slug === "b2b-access" ? (
+            <B2BAccessUnlockHero
               aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
               className="border-[0.8px] border-grey-200"
             />
