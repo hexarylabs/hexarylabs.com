@@ -8,12 +8,7 @@ import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { CaseCover } from "./CaseCover";
 import { EdenAnimatedHero } from "./EdenAnimatedHero";
-import { KeepComingAnimatedHero } from "./KeepComingAnimatedHero";
-import { MedicalRecordsAnimatedHero } from "./MedicalRecordsAnimatedHero";
-import { SocialLeadCaptureAnimatedHero } from "./SocialLeadCaptureAnimatedHero";
-import { KineinStoryHero } from "./KineinStoryHero";
-import { B2BAccessUnlockHero } from "./B2BAccessUnlockHero";
-import { TrueCellSyncHero } from "./TrueCellSyncHero";
+import { AnimatedCaseHero, hasAnimatedHero } from "./animatedHeroes";
 import { work, WORK_INTRO } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 import { REVEAL_STAGGER_MS } from "@/lib/motion";
@@ -105,8 +100,7 @@ export default function WorkPage() {
               </Reveal>
             )}
 
-            {gridWork.map((study, i) => {
-              return (
+            {gridWork.map((study, i) => (
                 <Reveal
                   key={study.slug}
                   variant="fade-up"
@@ -114,35 +108,11 @@ export default function WorkPage() {
                   className="h-full"
                 >
                   <article className="group relative flex h-full flex-col border-[0.8px] border-grey-200 bg-base">
-                    {study.slug === "keepcoming" ? (
-                      <KeepComingAnimatedHero
+                    {hasAnimatedHero(study.slug) ? (
+                      <AnimatedCaseHero
+                        slug={study.slug}
                         aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
                         sizes="(min-width: 1024px) 620px, 100vw"
-                        className="border-b-[0.8px] border-grey-200"
-                      />
-                    ) : study.slug === "medical-records-platform" ? (
-                      <MedicalRecordsAnimatedHero
-                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
-                        className="border-b-[0.8px] border-grey-200"
-                      />
-                    ) : study.slug === "social-lead-capture-automation" ? (
-                      <SocialLeadCaptureAnimatedHero
-                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
-                        className="border-b-[0.8px] border-grey-200"
-                      />
-                    ) : study.slug === "kinein" ? (
-                      <KineinStoryHero
-                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
-                        className="border-b-[0.8px] border-grey-200"
-                      />
-                    ) : study.slug === "b2b-access" ? (
-                      <B2BAccessUnlockHero
-                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
-                        className="border-b-[0.8px] border-grey-200"
-                      />
-                    ) : study.slug === "truecell" ? (
-                      <TrueCellSyncHero
-                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
                         className="border-b-[0.8px] border-grey-200"
                       />
                     ) : (
@@ -182,8 +152,7 @@ export default function WorkPage() {
                     </div>
                   </article>
                 </Reveal>
-              );
-            })}
+            ))}
           </div>
         </Container>
       </Section>

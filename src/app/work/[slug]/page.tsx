@@ -7,13 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { CaseCover, gradients } from "../CaseCover";
-import { EdenAnimatedHero } from "../EdenAnimatedHero";
-import { KeepComingAnimatedHero } from "../KeepComingAnimatedHero";
-import { MedicalRecordsAnimatedHero } from "../MedicalRecordsAnimatedHero";
-import { SocialLeadCaptureAnimatedHero } from "../SocialLeadCaptureAnimatedHero";
-import { KineinStoryHero } from "../KineinStoryHero";
-import { B2BAccessUnlockHero } from "../B2BAccessUnlockHero";
-import { TrueCellSyncHero } from "../TrueCellSyncHero";
+import { AnimatedCaseHero, hasAnimatedHero } from "../animatedHeroes";
 import { WorkImagesGrid } from "../WorkImagesGrid";
 import { work } from "@/content/work";
 import type { CaseStudy, Metric, CaseSection } from "@/content/work";
@@ -252,43 +246,11 @@ function CaseHero({ study }: { study: CaseStudy }) {
       <Container>
         <HeroText study={study} />
         <div className="hero-stagger-item mt-12" style={heroStyle(3)}>
-          {study.slug === "eden" ? (
-            <EdenAnimatedHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
+          {hasAnimatedHero(study.slug) ? (
+            <AnimatedCaseHero
+              slug={study.slug}
               sizes="(min-width: 1200px) 1200px, 100vw"
               eager
-              className="border-[0.8px] border-grey-200"
-            />
-          ) : study.slug === "keepcoming" ? (
-            <KeepComingAnimatedHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[1.9]"
-              sizes="(min-width: 1200px) 1200px, 100vw"
-              eager
-              className="border-[0.8px] border-grey-200"
-            />
-          ) : study.slug === "medical-records-platform" ? (
-            <MedicalRecordsAnimatedHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
-              className="border-[0.8px] border-grey-200"
-            />
-          ) : study.slug === "social-lead-capture-automation" ? (
-            <SocialLeadCaptureAnimatedHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
-              className="border-[0.8px] border-grey-200"
-            />
-          ) : study.slug === "kinein" ? (
-            <KineinStoryHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
-              className="border-[0.8px] border-grey-200"
-            />
-          ) : study.slug === "b2b-access" ? (
-            <B2BAccessUnlockHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
-              className="border-[0.8px] border-grey-200"
-            />
-          ) : study.slug === "truecell" ? (
-            <TrueCellSyncHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
               className="border-[0.8px] border-grey-200"
             />
           ) : (

@@ -170,7 +170,7 @@ ${S3_LOG_AT.map(
 `;
 
 const sceneClass =
-  "kin-el absolute inset-0 flex items-center justify-center p-4 sm:p-8 lg:p-10";
+  "kin-el absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6";
 
 interface KineinStoryHeroProps {
   aspect?: string;

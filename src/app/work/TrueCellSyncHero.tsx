@@ -143,7 +143,7 @@ export function TrueCellSyncHero({ aspect = "aspect-[4/3] sm:aspect-[1.8] lg:asp
       )}
     >
       <style>{css}</style>
-      <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-8 lg:p-10">
+      <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
         <TrueCellSyncScene className="max-h-full" />
       </div>
     </div>

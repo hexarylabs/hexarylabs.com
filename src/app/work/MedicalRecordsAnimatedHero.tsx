@@ -109,7 +109,7 @@ export function MedicalRecordsAnimatedHero({
       )}
     >
       <style>{css}</style>
-      <div className="mr-canvas mr-el absolute inset-0 flex items-center justify-center p-6 sm:p-10 lg:p-12">
+      <div className="mr-canvas mr-el absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
         <MedicalRecordsSchematicElevated className="max-h-full" />
       </div>
     </div>

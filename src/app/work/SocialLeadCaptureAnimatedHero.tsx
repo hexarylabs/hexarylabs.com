@@ -126,7 +126,7 @@ export function SocialLeadCaptureAnimatedHero({
       )}
     >
       <style>{css}</style>
-      <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-10 lg:p-12">
+      <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
         <SocialLeadCaptureSchematic className="max-h-full" />
       </div>
     </div>

@@ -1,27 +1,36 @@
 import Link from "next/link";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import { CaseCover } from "@/app/work/CaseCover";
+import { AnimatedCaseHero, hasAnimatedHero } from "@/app/work/animatedHeroes";
 import type { CaseStudy } from "@/content/work";
 
+/** Wide ratio while stacked; on desktop the visual fills the column height beside the copy. */
+const COVER_ASPECT = "aspect-[4/3] sm:aspect-[1.9] lg:aspect-auto lg:h-full";
+
 export function CaseStudyCard({ study }: { study: CaseStudy }) {
-  const strip = (study.scope ?? []).map((s) => ({ lead: null as string | null, label: s }));
+  const scope = (study.scope ?? []).slice(0, 3);
 
   return (
     <article data-tone="dark" className="group relative bg-contrast-2 text-white">
-      <div className="grid lg:grid-cols-[640fr_560fr]">
-        <CaseCover
-          cover={study.cover}
-          title={study.title}
-          aspect={
-            study.cover.kind === "schematic"
-              ? "aspect-[4/3] sm:aspect-[1.5] lg:aspect-[1.28]"
-              : "aspect-[1.28]"
-          }
-          sizes="(min-width: 1024px) 640px, 100vw"
-          className="border-[0.8px] border-grey-700"
-        />
+      <div className="grid lg:grid-cols-[740fr_460fr]">
+        {hasAnimatedHero(study.slug) ? (
+          <AnimatedCaseHero
+            slug={study.slug}
+            aspect={COVER_ASPECT}
+            sizes="(min-width: 1024px) 740px, 100vw"
+            className="border-b-[0.8px] border-grey-700 lg:border-b-0 lg:border-r-[0.8px]"
+          />
+        ) : (
+          <CaseCover
+            cover={study.cover}
+            title={study.title}
+            aspect={COVER_ASPECT}
+            sizes="(min-width: 1024px) 740px, 100vw"
+            className="border-b-[0.8px] border-grey-700 lg:border-b-0 lg:border-r-[0.8px]"
+          />
+        )}
 
-        <div className="flex flex-col justify-center gap-6 p-8 lg:p-12">
+        <div className="flex flex-col justify-center gap-5 p-8 lg:p-12">
           {study.client && (
             <p className="text-small uppercase tracking-widest text-grey-500">
               {study.client}
@@ -36,29 +45,22 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
 
           <p className="text-body-lg text-grey-300">{study.summary}</p>
 
-          <span className="mt-2 inline-flex w-fit items-center gap-4 bg-white px-3 py-2 font-display text-body-lg font-medium text-contrast-2 transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
+          <span className="inline-flex w-fit items-center gap-4 bg-white px-3 py-2 font-display text-body-lg font-medium text-contrast-2 transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
             Read Case Study
             <ArrowIcon />
           </span>
+
+          {scope.length > 0 && (
+            <ul className="mt-1 flex flex-col gap-px border-[0.8px] border-grey-700 bg-grey-700">
+              {scope.map((item) => (
+                <li key={item} className="bg-contrast-2 px-5 py-3">
+                  <p className="text-body text-grey-300">{item}</p>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
-
-      {strip.length > 0 && (
-        <ul className="grid border-t-[0.8px] border-grey-700 sm:grid-cols-3">
-          {strip.slice(0, 3).map((item, i) => (
-            <li
-              key={item.label}
-              className={
-                i > 0
-                  ? "border-grey-700 p-6 max-sm:border-t-[0.8px] sm:border-l-[0.8px]"
-                  : "p-6"
-              }
-            >
-              <p className="text-body text-grey-300">{item.label}</p>
-            </li>
-          ))}
-        </ul>
-      )}
     </article>
   );
 }
