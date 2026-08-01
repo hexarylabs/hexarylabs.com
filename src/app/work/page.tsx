@@ -54,56 +54,58 @@ export default function WorkPage() {
         staggerReveal
       />
 
-      {eden && (
-        <section className="border-b-[0.8px] border-grey-100 bg-base">
-          <Reveal variant="fade-up">
-            <EdenAnimatedHero
-              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.6]"
-              sizes="100vw"
-              className="border-b-[0.8px] border-grey-100"
-            />
-            <Container>
-              <div className="flex flex-col gap-4 py-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-                <div>
-                  <span className="inline-flex w-fit items-center border-[0.8px] border-grey-200 px-3 py-1 text-small uppercase tracking-widest text-grey-600">
-                    {CLIENT_TAGS[eden.slug] ?? eden.client}
-                  </span>
-                  <h2 className="mt-4 text-[1.3125rem] leading-[1.2] md:text-[1.625rem]">
-                    <Link
-                      href="/work/eden"
-                      className="transition-colors duration-300 hover:text-accent"
-                    >
-                      {eden.title}
-                    </Link>
-                  </h2>
-                  <p className="mt-3 max-w-[60ch] text-body-lg text-grey-600">
-                    {eden.summary}
-                  </p>
-                </div>
-                <Link
-                  href="/work/eden"
-                  className="inline-flex w-fit items-center gap-3 font-display text-body font-medium text-contrast-2 transition-colors duration-300 hover:text-accent"
-                >
-                  Read Case Study
-                  <ArrowIcon className="size-3.5" />
-                </Link>
-              </div>
-            </Container>
-          </Reveal>
-        </section>
-      )}
-
       <Section tone="light">
         <Container>
           <h2 className="sr-only">All case studies</h2>
 
           <div className="grid gap-8 lg:grid-cols-2">
+            {eden && (
+              <Reveal variant="fade-up" className="h-full lg:col-span-2">
+                <article className="flex h-full flex-col border-[0.8px] border-grey-200 bg-base">
+                  <EdenAnimatedHero
+                    aspect="aspect-[4/3] sm:aspect-[1.9] lg:aspect-[2.4]"
+                    sizes="(min-width: 1200px) 1200px, 100vw"
+                    className="border-b-[0.8px] border-grey-200"
+                  />
+
+                  <div className="flex flex-col gap-4 p-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+                    <div>
+                      <span className="inline-flex w-fit items-center border-[0.8px] border-grey-200 px-3 py-1 text-small uppercase tracking-widest text-grey-600">
+                        {CLIENT_TAGS[eden.slug] ?? eden.client}
+                      </span>
+
+                      <h3 className="mt-4 text-[1.3125rem] leading-[1.2] md:text-[1.625rem]">
+                        <Link
+                          href="/work/eden"
+                          className="transition-colors duration-300 hover:text-accent"
+                        >
+                          {eden.title}
+                        </Link>
+                      </h3>
+
+                      <p className="mt-3 max-w-[60ch] text-body-lg text-grey-600">
+                        {eden.summary}
+                      </p>
+                    </div>
+
+                    <Link
+                      href="/work/eden"
+                      className="inline-flex w-fit shrink-0 items-center gap-3 font-display text-body font-medium text-contrast-2 transition-colors duration-300 hover:text-accent"
+                    >
+                      Read Case Study
+                      <ArrowIcon className="size-3.5" />
+                    </Link>
+                  </div>
+                </article>
+              </Reveal>
+            )}
+
             {gridWork.map((study, i) => {
               return (
                 <Reveal
                   key={study.slug}
                   variant="fade-up"
-                  delay={i * REVEAL_STAGGER_MS}
+                  delay={(i + 1) * REVEAL_STAGGER_MS}
                   className="h-full"
                 >
                   <article className="group relative flex h-full flex-col border-[0.8px] border-grey-200 bg-base">
