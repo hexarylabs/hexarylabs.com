@@ -10,6 +10,7 @@ import { CaseCover, gradients } from "../CaseCover";
 import { EdenAnimatedHero } from "../EdenAnimatedHero";
 import { KeepComingAnimatedHero } from "../KeepComingAnimatedHero";
 import { MedicalRecordsAnimatedHero } from "../MedicalRecordsAnimatedHero";
+import { SocialLeadCaptureAnimatedHero } from "../SocialLeadCaptureAnimatedHero";
 import { WorkImagesGrid } from "../WorkImagesGrid";
 import { work } from "@/content/work";
 import type { CaseStudy, Metric, CaseSection } from "@/content/work";
@@ -279,6 +280,11 @@ function CaseHero({ study }: { study: CaseStudy }) {
             />
           ) : study.slug === "medical-records-platform" ? (
             <MedicalRecordsAnimatedHero
+              aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
+              className="border-[0.8px] border-grey-200"
+            />
+          ) : study.slug === "social-lead-capture-automation" ? (
+            <SocialLeadCaptureAnimatedHero
               aspect="aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]"
               className="border-[0.8px] border-grey-200"
             />

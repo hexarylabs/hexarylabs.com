@@ -22,6 +22,14 @@ export function heroLoopBaseCss(scope: string, cycleMs: number): string {
 .${scope}-loop svg .${scope}-el { transform-box: fill-box; transform-origin: center; }`;
 }
 
+/** Reduced-motion users never enter the running state, so no cycle is ever scheduled. */
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 export function useHeroLoop(idleMs: number, endAnimationName: string) {
   const { ref, inView } = useInView<HTMLDivElement>(HERO_LOOP_THRESHOLD, {
     once: false,
@@ -29,12 +37,15 @@ export function useHeroLoop(idleMs: number, endAnimationName: string) {
   const [running, setRunning] = useState(false);
 
   useEffect(() => {
-    if (!inView || running) return;
+    if (!inView || running || prefersReducedMotion()) return;
     const timer = window.setTimeout(() => setRunning(true), idleMs);
     return () => window.clearTimeout(timer);
   }, [inView, running, idleMs]);
 
-  const onMouseEnter = useCallback(() => setRunning(true), []);
+  const onMouseEnter = useCallback(() => {
+    if (prefersReducedMotion()) return;
+    setRunning(true);
+  }, []);
 
   const onAnimationEnd = useCallback(
     (event: React.AnimationEvent) => {

@@ -10,6 +10,7 @@ import { CaseCover } from "./CaseCover";
 import { EdenAnimatedHero } from "./EdenAnimatedHero";
 import { KeepComingAnimatedHero } from "./KeepComingAnimatedHero";
 import { MedicalRecordsAnimatedHero } from "./MedicalRecordsAnimatedHero";
+import { SocialLeadCaptureAnimatedHero } from "./SocialLeadCaptureAnimatedHero";
 import { work, WORK_INTRO } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 import { REVEAL_STAGGER_MS } from "@/lib/motion";
@@ -118,6 +119,11 @@ export default function WorkPage() {
                       />
                     ) : study.slug === "medical-records-platform" ? (
                       <MedicalRecordsAnimatedHero
+                        aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
+                        className="border-b-[0.8px] border-grey-200"
+                      />
+                    ) : study.slug === "social-lead-capture-automation" ? (
+                      <SocialLeadCaptureAnimatedHero
                         aspect="aspect-[4/3] sm:aspect-[1.6] lg:aspect-[1.9]"
                         className="border-b-[0.8px] border-grey-200"
                       />
