@@ -5,7 +5,7 @@ import { useFormStatus } from "react-dom";
 import { submitContactForm, type ContactFormState } from "@/app/contact/actions";
 import { Button } from "@/components/ui/Button";
 import { ChevronDownIcon } from "@/components/ui/ChevronDownIcon";
-import { dialCodes, DEFAULT_DIAL_COUNTRY } from "@/lib/dialCodes";
+import { dialCodes, DEFAULT_DIAL_ISO } from "@/lib/dialCodes";
 import { cn } from "@/lib/cn";
 
 const fieldBase = cn(
@@ -50,6 +50,7 @@ const initialState: ContactFormState = { success: false };
 export function ContactForm() {
   const [state, formAction] = useActionState(submitContactForm, initialState);
   const fieldErrors = state.fieldErrors ?? {};
+  const values = state.values;
 
   if (state.success) {
     return (
@@ -74,6 +75,7 @@ export function ContactForm() {
             name="firstName"
             type="text"
             autoComplete="given-name"
+            defaultValue={values?.firstName}
             required
             aria-invalid={!!fieldErrors.firstName}
             aria-describedby={fieldErrors.firstName ? "firstName-error" : undefined}
@@ -90,6 +92,7 @@ export function ContactForm() {
             name="lastName"
             type="text"
             autoComplete="family-name"
+            defaultValue={values?.lastName}
             required
             aria-invalid={!!fieldErrors.lastName}
             aria-describedby={fieldErrors.lastName ? "lastName-error" : undefined}
@@ -109,6 +112,7 @@ export function ContactForm() {
             name="companyEmail"
             type="email"
             autoComplete="email"
+            defaultValue={values?.companyEmail}
             required
             aria-invalid={!!fieldErrors.companyEmail}
             aria-describedby={fieldErrors.companyEmail ? "companyEmail-error" : undefined}
@@ -125,6 +129,7 @@ export function ContactForm() {
             name="companyName"
             type="text"
             autoComplete="organization"
+            defaultValue={values?.companyName}
             required
             aria-invalid={!!fieldErrors.companyName}
             aria-describedby={fieldErrors.companyName ? "companyName-error" : undefined}
@@ -142,13 +147,15 @@ export function ContactForm() {
           className={cn(
             "flex border-[0.8px] border-grey-200 bg-base",
             "transition-colors duration-300 ease-in-out focus-within:border-accent",
+            fieldErrors.phone && "border-accent",
           )}
         >
           <div className="relative shrink-0">
             <select
+              key={values?.phoneCountry || DEFAULT_DIAL_ISO}
               id="phoneCountry"
               name="phoneCountry"
-              defaultValue={DEFAULT_DIAL_COUNTRY}
+              defaultValue={values?.phoneCountry || DEFAULT_DIAL_ISO}
               aria-label="Country dial code"
               className={cn(
                 fieldBase,
@@ -157,7 +164,7 @@ export function ContactForm() {
               )}
             >
               {dialCodes.map((country) => (
-                <option key={country.name} value={country.name}>
+                <option key={country.iso} value={country.iso}>
                   {`${country.name} ${country.dial}`}
                 </option>
               ))}
@@ -169,9 +176,13 @@ export function ContactForm() {
             name="phone"
             type="tel"
             autoComplete="tel-national"
+            defaultValue={values?.phone}
+            aria-invalid={!!fieldErrors.phone}
+            aria-describedby={fieldErrors.phone ? "phone-error" : undefined}
             className={cn(fieldBase, "w-full min-w-0 flex-1")}
           />
         </div>
+        <FieldError id="phone-error" message={fieldErrors.phone} />
       </div>
 
       <div className="mt-6">
@@ -182,6 +193,7 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={5}
+          defaultValue={values?.message}
           required
           placeholder="What you're building, the core problem, any key constraints, and how did you hear about us?"
           aria-invalid={!!fieldErrors.message}
