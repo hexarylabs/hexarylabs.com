@@ -3,12 +3,20 @@
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { submitContactForm, type ContactFormState } from "@/app/contact/actions";
+import { Button } from "@/components/ui/Button";
+import { ChevronDownIcon } from "@/components/ui/ChevronDownIcon";
+import { dialCodes, DEFAULT_DIAL_COUNTRY } from "@/lib/dialCodes";
 import { cn } from "@/lib/cn";
 
-const fieldClass = cn(
-  "w-full border-[0.8px] border-grey-200 bg-base px-4 py-3 text-body",
+const fieldBase = cn(
+  "bg-base px-4 py-3 text-body",
   "placeholder:text-grey-500 transition-colors duration-300 ease-in-out",
-  "focus:border-accent focus:outline-none",
+  "focus:outline-none",
+);
+
+const fieldClass = cn(
+  fieldBase,
+  "w-full border-[0.8px] border-grey-200 focus:border-accent",
 );
 
 function FieldError({ id, message }: { id: string; message?: string }) {
@@ -23,17 +31,17 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <button
+    <Button
       type="submit"
+      size="lg"
       disabled={pending}
       className={cn(
-        "inline-flex w-full items-center justify-center gap-4 bg-contrast-2 px-6 py-4",
-        "font-display font-medium text-white transition-colors duration-300 ease-in-out",
-        "hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto",
+        "w-full justify-center sm:w-auto",
+        "disabled:cursor-not-allowed disabled:opacity-60",
       )}
     >
       {pending ? "Sending…" : "Send message"}
-    </button>
+    </Button>
   );
 }
 
@@ -58,53 +66,124 @@ export function ContactForm() {
     <form action={formAction} className="border-[0.8px] border-grey-200 bg-base p-6 sm:p-8">
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="mb-2 block text-small text-grey-600">
-            Name
+          <label htmlFor="firstName" className="mb-2 block text-small text-grey-600">
+            First Name
           </label>
           <input
-            id="name"
-            name="name"
+            id="firstName"
+            name="firstName"
             type="text"
+            autoComplete="given-name"
             required
-            aria-invalid={!!fieldErrors.name}
-            aria-describedby={fieldErrors.name ? "name-error" : undefined}
-            className={cn(fieldClass, fieldErrors.name && "border-accent")}
+            aria-invalid={!!fieldErrors.firstName}
+            aria-describedby={fieldErrors.firstName ? "firstName-error" : undefined}
+            className={cn(fieldClass, fieldErrors.firstName && "border-accent")}
           />
-          <FieldError id="name-error" message={fieldErrors.name} />
+          <FieldError id="firstName-error" message={fieldErrors.firstName} />
         </div>
         <div>
-          <label htmlFor="email" className="mb-2 block text-small text-grey-600">
-            Email
+          <label htmlFor="lastName" className="mb-2 block text-small text-grey-600">
+            Last Name
           </label>
           <input
-            id="email"
-            name="email"
-            type="email"
+            id="lastName"
+            name="lastName"
+            type="text"
+            autoComplete="family-name"
             required
-            aria-invalid={!!fieldErrors.email}
-            aria-describedby={fieldErrors.email ? "email-error" : undefined}
-            className={cn(fieldClass, fieldErrors.email && "border-accent")}
+            aria-invalid={!!fieldErrors.lastName}
+            aria-describedby={fieldErrors.lastName ? "lastName-error" : undefined}
+            className={cn(fieldClass, fieldErrors.lastName && "border-accent")}
           />
-          <FieldError id="email-error" message={fieldErrors.email} />
+          <FieldError id="lastName-error" message={fieldErrors.lastName} />
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="companyEmail" className="mb-2 block text-small text-grey-600">
+            Company Email
+          </label>
+          <input
+            id="companyEmail"
+            name="companyEmail"
+            type="email"
+            autoComplete="email"
+            required
+            aria-invalid={!!fieldErrors.companyEmail}
+            aria-describedby={fieldErrors.companyEmail ? "companyEmail-error" : undefined}
+            className={cn(fieldClass, fieldErrors.companyEmail && "border-accent")}
+          />
+          <FieldError id="companyEmail-error" message={fieldErrors.companyEmail} />
+        </div>
+        <div>
+          <label htmlFor="companyName" className="mb-2 block text-small text-grey-600">
+            Company Name
+          </label>
+          <input
+            id="companyName"
+            name="companyName"
+            type="text"
+            autoComplete="organization"
+            required
+            aria-invalid={!!fieldErrors.companyName}
+            aria-describedby={fieldErrors.companyName ? "companyName-error" : undefined}
+            className={cn(fieldClass, fieldErrors.companyName && "border-accent")}
+          />
+          <FieldError id="companyName-error" message={fieldErrors.companyName} />
         </div>
       </div>
 
       <div className="mt-6">
-        <label htmlFor="company" className="mb-2 block text-small text-grey-600">
-          Company <span className="text-grey-500">(optional)</span>
+        <label htmlFor="phone" className="mb-2 block text-small text-grey-600">
+          Phone Number <span className="text-grey-500">(optional)</span>
         </label>
-        <input id="company" name="company" type="text" className={fieldClass} />
+        <div
+          className={cn(
+            "flex border-[0.8px] border-grey-200 bg-base",
+            "transition-colors duration-300 ease-in-out focus-within:border-accent",
+          )}
+        >
+          <div className="relative shrink-0">
+            <select
+              id="phoneCountry"
+              name="phoneCountry"
+              defaultValue={DEFAULT_DIAL_COUNTRY}
+              aria-label="Country dial code"
+              className={cn(
+                fieldBase,
+                "w-[9.5rem] cursor-pointer appearance-none truncate pr-10 sm:w-[13.5rem]",
+                "border-r-[0.8px] border-grey-200",
+              )}
+            >
+              {dialCodes.map((country) => (
+                <option key={country.name} value={country.name}>
+                  {`${country.name} ${country.dial}`}
+                </option>
+              ))}
+            </select>
+            <ChevronDownIcon className="pointer-events-none absolute top-1/2 right-4 size-3.5 -translate-y-1/2 text-grey-500" />
+          </div>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel-national"
+            className={cn(fieldBase, "w-full min-w-0 flex-1")}
+          />
+        </div>
       </div>
 
       <div className="mt-6">
         <label htmlFor="message" className="mb-2 block text-small text-grey-600">
-          What are you building?
+          Tell us about your project
         </label>
         <textarea
           id="message"
           name="message"
           rows={5}
           required
+          placeholder="What you're building, the core problem, any key constraints, and how did you hear about us?"
           aria-invalid={!!fieldErrors.message}
           aria-describedby={fieldErrors.message ? "message-error" : undefined}
           className={cn(fieldClass, "resize-y", fieldErrors.message && "border-accent")}

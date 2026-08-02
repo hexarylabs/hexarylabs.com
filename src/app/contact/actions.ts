@@ -3,25 +3,38 @@
 import { z } from "zod";
 import { Resend } from "resend";
 import { site } from "@/content/site";
+import { dialCodes } from "@/lib/dialCodes";
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, "Name is required."),
-  email: z.string().trim().min(1, "Email is required.").email("Enter a valid email address."),
-  company: z.string().trim(),
-  message: z.string().trim().min(1, "Message is required."),
+  firstName: z.string().trim().min(1, "First name is required."),
+  lastName: z.string().trim().min(1, "Last name is required."),
+  companyEmail: z
+    .string()
+    .trim()
+    .min(1, "Company email is required.")
+    .email("Enter a valid email address."),
+  companyName: z.string().trim().min(1, "Company name is required."),
+  phoneCountry: z.string().trim(),
+  phone: z.string().trim(),
+  message: z.string().trim().min(1, "Project details are required."),
 });
 
 export type ContactFormState = {
   success: boolean;
   error?: string;
-  fieldErrors?: Partial<Record<"name" | "email" | "message", string>>;
+  fieldErrors?: Partial<
+    Record<"firstName" | "lastName" | "companyEmail" | "companyName" | "message", string>
+  >;
 };
 
 function fromFormData(formData: FormData) {
   return {
-    name: String(formData.get("name") ?? ""),
-    email: String(formData.get("email") ?? ""),
-    company: String(formData.get("company") ?? ""),
+    firstName: String(formData.get("firstName") ?? ""),
+    lastName: String(formData.get("lastName") ?? ""),
+    companyEmail: String(formData.get("companyEmail") ?? ""),
+    companyName: String(formData.get("companyName") ?? ""),
+    phoneCountry: String(formData.get("phoneCountry") ?? ""),
+    phone: String(formData.get("phone") ?? ""),
     message: String(formData.get("message") ?? ""),
   };
 }
@@ -37,25 +50,42 @@ export async function submitContactForm(
     return {
       success: false,
       fieldErrors: {
-        name: fieldErrors.name?.[0],
-        email: fieldErrors.email?.[0],
+        firstName: fieldErrors.firstName?.[0],
+        lastName: fieldErrors.lastName?.[0],
+        companyEmail: fieldErrors.companyEmail?.[0],
+        companyName: fieldErrors.companyName?.[0],
         message: fieldErrors.message?.[0],
       },
     };
   }
 
-  const { name, email, company, message } = parsed.data;
+  const { firstName, lastName, companyEmail, companyName, phoneCountry, phone, message } =
+    parsed.data;
+
+  const fullName = `${firstName} ${lastName}`;
+  const dial = dialCodes.find((c) => c.name === phoneCountry)?.dial;
+  const phoneLine = phone
+    ? `Phone: ${dial ? `${dial} ` : ""}${phone}${dial ? ` (${phoneCountry})` : ""}`
+    : "";
+
+  const subject = `New project inquiry from ${fullName} at ${companyName}`;
+  const details = [
+    `First name: ${firstName}`,
+    `Last name: ${lastName}`,
+    `Company email: ${companyEmail}`,
+    `Company name: ${companyName}`,
+    phoneLine,
+  ].filter(Boolean);
+  const text = `${details.join("\n")}\n\n${message}`;
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
       from: process.env.CONTACT_FROM_EMAIL ?? "Hexary Labs <onboarding@resend.dev>",
       to: process.env.CONTACT_TO_EMAIL ?? site.email,
-      replyTo: email,
-      subject: `New project inquiry from ${name}`,
-      text: [`Name: ${name}`, `Email: ${email}`, company && `Company: ${company}`, "", message]
-        .filter(Boolean)
-        .join("\n"),
+      replyTo: companyEmail,
+      subject,
+      text,
     });
     if (error) throw error;
   } catch {

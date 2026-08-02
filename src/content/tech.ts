@@ -12,8 +12,12 @@ export type TechGroup = { heading: string; items: string[] };
 
 export const tech: TechGroup[] = [
   {
+    heading: "Language",
+    items: ["TypeScript", "Python", "Go", "Java", "C#", "PHP"],
+  },
+  {
     heading: "Product",
-    items: ["TypeScript", "React", "Next.js", "React Native", "Swift", "Kotlin"],
+    items: ["React", "Next.js", "React Native", "Swift", "Kotlin", "Tailwind CSS"],
   },
   {
     heading: "Platform",
