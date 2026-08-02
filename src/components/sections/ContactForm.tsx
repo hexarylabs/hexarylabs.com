@@ -4,8 +4,7 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { submitContactForm, type ContactFormState } from "@/app/contact/actions";
 import { Button } from "@/components/ui/Button";
-import { ChevronDownIcon } from "@/components/ui/ChevronDownIcon";
-import { dialCodes, DEFAULT_DIAL_ISO } from "@/lib/dialCodes";
+import { CountrySelect } from "@/components/ui/CountrySelect";
 import { cn } from "@/lib/cn";
 
 const fieldBase = cn(
@@ -150,27 +149,7 @@ export function ContactForm() {
             fieldErrors.phone && "border-accent",
           )}
         >
-          <div className="relative shrink-0">
-            <select
-              key={values?.phoneCountry || DEFAULT_DIAL_ISO}
-              id="phoneCountry"
-              name="phoneCountry"
-              defaultValue={values?.phoneCountry || DEFAULT_DIAL_ISO}
-              aria-label="Country dial code"
-              className={cn(
-                fieldBase,
-                "w-[9.5rem] cursor-pointer appearance-none truncate pr-10 sm:w-[13.5rem]",
-                "border-r-[0.8px] border-grey-200",
-              )}
-            >
-              {dialCodes.map((country) => (
-                <option key={country.iso} value={country.iso}>
-                  {`${country.name} ${country.dial}`}
-                </option>
-              ))}
-            </select>
-            <ChevronDownIcon className="pointer-events-none absolute top-1/2 right-4 size-3.5 -translate-y-1/2 text-grey-500" />
-          </div>
+          <CountrySelect name="phoneCountry" defaultIso={values?.phoneCountry} />
           <input
             id="phone"
             name="phone"
