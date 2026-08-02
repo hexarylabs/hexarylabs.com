@@ -38,7 +38,6 @@ export function KeepComingWalletScene({ className }: { className?: string }) {
       aria-label="Product demo: a customer scans the shop's QR code and the KeepComing loyalty card in their wallet updates from three of five stamps to four in real time."
       className={cn("h-auto w-full", className)}
     >
-      <rect x="98" y="123" width="430" height="290" rx="18" className="fill-none stroke-grey-200" strokeWidth="1.6" />
       <rect x="90" y="115" width="430" height="290" rx="18" fill={KC_ORANGE} />
 
       <g fill="white">
@@ -122,7 +121,6 @@ export function KeepComingWalletScene({ className }: { className?: string }) {
         FREE COFFEE AFTER 5 STAMPS
       </text>
 
-      <rect x="648" y="123" width="230" height="290" rx="10" className="fill-none stroke-grey-200" strokeWidth="1.6" />
       <rect x="640" y="115" width="230" height="290" rx="10" fill="white" className="stroke-grey-200" strokeWidth="1.6" />
 
       <g transform="translate(670, 145)">

@@ -21,7 +21,15 @@ export const TC_OTHERS = CHANNELS.map((_, i) => i).filter((i) => i !== TC_SELLER
 export const TC_RING_RX = RX;
 export const TC_RING_RY = RY;
 
-export function TrueCellSyncScene({ className }: { className?: string }) {
+export function TrueCellSyncScene({
+  className,
+  unitsSynced,
+}: {
+  className?: string;
+  /** Counts the sales this animation has actually shown, so the loop reads as ongoing.
+   *  Deliberately a tally of the demo itself, not a figure from the case study. */
+  unitsSynced: number;
+}) {
   return (
     <svg
       viewBox="0 0 1200 520"
@@ -37,6 +45,18 @@ export function TrueCellSyncScene({ className }: { className?: string }) {
         letterSpacing="0.08em"
       >
         MULTI-CHANNEL SYNC
+      </text>
+      <text x="60" y="66" className="fill-grey-500 font-sans" fontSize="11.5">
+        units synced in this demo
+      </text>
+      <text
+        x="60"
+        y="98"
+        className="tc-el tc-tally fill-contrast font-display"
+        fontSize="26"
+        fontWeight="500"
+      >
+        {unitsSynced}
       </text>
 
       <g className="stroke-grey-300" strokeWidth="1.4">

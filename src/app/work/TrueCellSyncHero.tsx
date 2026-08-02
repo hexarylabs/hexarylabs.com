@@ -1,10 +1,14 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import { cn } from "@/lib/cn";
 import { heroLoopBaseCss, pctOf, useHeroLoop } from "@/lib/heroLoop";
 import { TrueCellSyncScene, TC_SELLER, TC_OTHERS } from "./TrueCellSyncScene";
 
-const REST_IDLE_MS = 800;
+/** Short, so consecutive cycles blend instead of reading as separate replays. */
+const REST_IDLE_MS = 220;
+const END_ANIMATION = "tc-count-before";
+const TALLY_PULSE_MS = 300;
 
 const SALE_AT = 260;
 const SALE_MS = 200;
@@ -24,7 +28,8 @@ const CHIPS_AT = 1520;
 const CHIPS_STAGGER = 110;
 const CHIPS_MS = 250;
 const HOLD_END = 2900;
-const FADE_BACK_MS = 400;
+/** Long enough that nodes dim back gently rather than snapping to the start state. */
+const FADE_BACK_MS = 700;
 const CYCLE_MS = HOLD_END + FADE_BACK_MS;
 
 const pct = pctOf(CYCLE_MS);
@@ -84,6 +89,12 @@ ${TC_OTHERS.map(
 .tc-loop.is-running .tc-caption { animation-name: tc-caption; }
 .tc-loop.is-running .tc-chip-0 { animation-name: tc-chip-0; }
 .tc-loop.is-running .tc-chip-1 { animation-name: tc-chip-1; }
+.tc-loop.is-running .tc-tally { animation-name: tc-tally; }
+
+@keyframes tc-tally {
+  0% { transform: scale(1.16); }
+  ${pct(TALLY_PULSE_MS)}, 100% { transform: none; }
+}
 
 ${flash("tc-spoke", SPOKE_AT, SPOKE_MS)}
 ${ripple("tc-ring-0", RIPPLE_AT, 0.9)}
@@ -123,17 +134,29 @@ interface TrueCellSyncHeroProps {
   className?: string;
 }
 
-export function TrueCellSyncHero({ aspect = "aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]", className }: TrueCellSyncHeroProps) {
+export function TrueCellSyncHero({
+  aspect = "aspect-[4/3] sm:aspect-[1.8] lg:aspect-[2.4]",
+  className,
+}: TrueCellSyncHeroProps) {
   const { ref, inView, running, onMouseEnter, onAnimationEnd } = useHeroLoop(
     REST_IDLE_MS,
-    "tc-count-before",
+    END_ANIMATION,
+  );
+  const [unitsSynced, setUnitsSynced] = useState(0);
+
+  const handleAnimationEnd = useCallback(
+    (event: React.AnimationEvent) => {
+      if (event.animationName === END_ANIMATION) setUnitsSynced((n) => n + 1);
+      onAnimationEnd(event);
+    },
+    [onAnimationEnd],
   );
 
   return (
     <div
       ref={ref}
       onMouseEnter={onMouseEnter}
-      onAnimationEnd={onAnimationEnd}
+      onAnimationEnd={handleAnimationEnd}
       className={cn(
         "tc-loop relative overflow-hidden bg-base-2",
         aspect,
@@ -144,7 +167,7 @@ export function TrueCellSyncHero({ aspect = "aspect-[4/3] sm:aspect-[1.8] lg:asp
     >
       <style>{css}</style>
       <div className="absolute inset-0 flex items-center justify-center">
-        <TrueCellSyncScene className="max-h-full" />
+        <TrueCellSyncScene className="max-h-full" unitsSynced={unitsSynced} />
       </div>
     </div>
   );
