@@ -111,7 +111,7 @@ export function KeepComingAnimatedHero({
       onMouseEnter={onMouseEnter}
       onAnimationEnd={onAnimationEnd}
       className={cn(
-        "kc-loop relative overflow-hidden bg-[#FBF6EE]",
+        "kc-loop relative overflow-hidden bg-base-2",
         aspect,
         inView && "is-playing",
         running && "is-running",
@@ -119,7 +119,7 @@ export function KeepComingAnimatedHero({
       )}
     >
       <style>{css}</style>
-      <div className="kc-scene kc-el absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
+      <div className="kc-scene kc-el absolute inset-0 flex items-center justify-center">
         <KeepComingWalletScene className="max-h-full" />
       </div>
       <div className="kc-img kc-el absolute inset-0">

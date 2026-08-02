@@ -106,7 +106,7 @@ export function EdenAnimatedHero({
       )}
     >
       <style>{css}</style>
-      <div className="eden-diagram eden-el absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
+      <div className="eden-diagram eden-el absolute inset-0 flex items-center justify-center">
         <EdenSchematicElevated className="max-h-full" />
       </div>
       <div className="eden-img eden-el absolute inset-0">

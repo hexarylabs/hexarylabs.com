@@ -160,7 +160,7 @@ export function B2BAccessUnlockHero({
       )}
     >
       <style>{css}</style>
-      <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-5 lg:p-6">
+      <div className="absolute inset-0 flex items-center justify-center">
         <B2BAccessCatalogScene className="max-h-full" />
       </div>
     </div>
