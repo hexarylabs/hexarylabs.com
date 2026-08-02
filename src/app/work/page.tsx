@@ -8,7 +8,6 @@ import { CaseStudyCard } from "@/components/cards/CaseStudyCard";
 import { work, WORK_INTRO } from "@/content/work";
 import { JsonLd, breadcrumbList } from "@/lib/jsonld";
 import { REVEAL_STAGGER_MS } from "@/lib/motion";
-import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -22,7 +21,12 @@ const breadcrumbJsonLd = breadcrumbList([
   { name: "Work", path: "/work" },
 ]);
 
+/** Reachable at its own URL and still in the sitemap — just not surfaced in this grid. */
+const UNLISTED_SLUGS = new Set(["social-lead-capture-automation"]);
+
 export default function WorkPage() {
+  const listed = work.filter((study) => !UNLISTED_SLUGS.has(study.slug));
+
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
@@ -43,27 +47,19 @@ export default function WorkPage() {
           <h2 className="sr-only">All case studies</h2>
 
           <div className="grid gap-8 lg:grid-cols-2">
-            {work.map((study, i) => {
-              const wide = study.slug === "eden";
-
-              return (
-                <Reveal
-                  key={study.slug}
-                  variant="fade-up"
-                  delay={i * REVEAL_STAGGER_MS}
-                  className={cn("h-full", wide && "lg:col-span-2")}
-                >
-                  <CaseStudyCard
-                    study={study}
-                    sizes={
-                      wide
-                        ? "(min-width: 1200px) 1200px, 100vw"
-                        : "(min-width: 1024px) 620px, 100vw"
-                    }
-                  />
-                </Reveal>
-              );
-            })}
+            {listed.map((study, i) => (
+              <Reveal
+                key={study.slug}
+                variant="fade-up"
+                delay={i * REVEAL_STAGGER_MS}
+                className="h-full"
+              >
+                <CaseStudyCard
+                  study={study}
+                  sizes="(min-width: 1024px) 620px, 100vw"
+                />
+              </Reveal>
+            ))}
           </div>
         </Container>
       </Section>

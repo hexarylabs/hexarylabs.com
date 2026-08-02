@@ -1,5 +1,5 @@
 export const WORK_INTRO =
-  "Seven engagements that show what we build: AI-native products, SaaS running in production, PHI-safe enterprise platforms, and the integration and automation work that connects the tools our clients already depend on. Different scales, different stacks, one team behind all of them.";
+  "Six engagements that show what we build: AI-native products, SaaS running in production, PHI-safe enterprise platforms, and the integration and automation work that connects the tools our clients already depend on. Different scales, different stacks, one team behind all of them.";
 
 export type HeroVariant =
   | "image-contained"
