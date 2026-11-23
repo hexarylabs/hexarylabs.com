@@ -65,6 +65,7 @@ const organizationJsonLd = {
   url: site.url,
   logo: `${site.url}/icon-512.png`,
   description: site.description,
+  sameAs: [site.linkedin],
   contactPoint: {
     "@type": "ContactPoint",
     telephone: site.phone,

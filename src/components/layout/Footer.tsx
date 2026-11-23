@@ -74,6 +74,14 @@ export function Footer() {
             >
               {site.phone}
             </a>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
+            >
+              LinkedIn
+            </a>
             <span>
               © {new Date().getFullYear()} {site.name}
             </span>

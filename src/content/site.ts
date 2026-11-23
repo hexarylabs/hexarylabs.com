@@ -8,4 +8,5 @@ export const site = {
 
   email: "hello@hexarylabs.com",
   phone: "+1 (407) 735-6142",
+  linkedin: "https://www.linkedin.com/company/hexary-labs/",
 } as const;
