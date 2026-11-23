@@ -3,6 +3,7 @@ import { Logo } from "./Logo";
 import { Container } from "@/components/ui/Container";
 import { Divider } from "@/components/ui/Divider";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
+import { LinkedInIcon, MailIcon, PhoneIcon } from "@/components/ui/ContactIcons";
 import { footerNav } from "@/content/nav";
 import { site } from "@/content/site";
 
@@ -63,24 +64,27 @@ export function Footer() {
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-body text-grey-300">
             <a
-              href={`mailto:${site.email}`}
-              className="underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
             >
+              <LinkedInIcon />
+              LinkedIn
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-flex items-center gap-2 underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
+            >
+              <MailIcon />
               {site.email}
             </a>
             <a
               href={`tel:+${site.phone.replace(/\D/g, "")}`}
-              className="underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
+              className="inline-flex items-center gap-2 underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
             >
+              <PhoneIcon />
               {site.phone}
-            </a>
-            <a
-              href={site.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline-offset-4 transition-colors duration-300 hover:text-accent-hi hover:underline"
-            >
-              LinkedIn
             </a>
             <span>
               © {new Date().getFullYear()} {site.name}
